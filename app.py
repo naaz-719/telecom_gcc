@@ -4,9 +4,11 @@ import numpy as np
 import joblib
 from PIL import Image
 import plotly.express as px
-from openai import OpenAI
+import google.generativeai as genai
 
-client= OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+genai.configure(
+    api_key=st.secrets["GEMINI_API_KEY"]
+)
 
 # -------------------------------------------------
 # PAGE CONFIG
@@ -1629,6 +1631,7 @@ if selected == "AI Recommendations":
                 Payment Delay: {customer['payment_delay_days']}
                 App Logins: {customer['app_logins']}
                 Network Quality: {customer['network_quality_score']}
+                Average Data Usage: {customer['avg_monthly_data_usage_gb']}
                 
                 Churn Probability: {churn_probability:.1f}%
                 
@@ -1636,29 +1639,30 @@ if selected == "AI Recommendations":
                 {question}
                 
                 Provide:
+                
                 1. Executive Summary
                 2. Key Risk Drivers
                 3. Retention Strategy
                 4. Revenue Protection Actions
                 5. Next Best Action
-                """
+                
+                Use professional telecom business language.
+            """
 
-            with st.spinner("🤖 AI is analyzing customer..."):
+            with st.spinner("🤖 Gemini AI is analyzing customer..."):
 
-                response = client.chat.completions.create(
-                    model="gpt-4.1-mini",
-                    messages=[
-                        {
-                            "role": "user",
-                            "content": prompt
-                        }
-                    ]
+                model = genai.GenerativeModel(
+                    "gemini-1.5-flash"
+                )
+
+                response = model.generate_content(
+                    prompt
                 )
 
             st.markdown("### 🤖 AI Analysis")
 
             st.markdown(
-                response.choices[0].message.content
+                response.text
             )
 
         except Exception as e:
