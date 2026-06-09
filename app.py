@@ -200,46 +200,50 @@ high_risk = (df["risk_segment"]=="High Risk").sum()
 # KPI CARDS
 # -------------------------------------------------
 
-c1,c2,c3,c4 = st.columns(4)
-
-def card(title,value,color="#1E293B"):
-    st.markdown(f"""
-    <div style="
-    background:white;
-    padding:25px;
-    border-radius:20px;
-    box-shadow:0px 4px 15px rgba(0,0,0,0.08);
-    min-height:140px;
-    ">
-        <div style="
-        color:#64748B;
-        font-size:16px;
-        margin-bottom:15px;
-        ">
-        {title}
-        </div>
-
-        <div style="
-        color:{color};
-        font-size:42px;
-        font-weight:700;
-        ">
-        {value}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+c1, c2, c3, c4 = st.columns(4)
 
 with c1:
-    card("Total Customers", f"{total_customers:,}")
+    st.metric(
+        "Total Customers",
+        f"{total_customers:,}"
+    )
 
 with c2:
-    card("Average CLTV", f"${avg_cltv:,.0f}")
+    st.metric(
+        "Average CLTV",
+        f"${avg_cltv:,.0f}"
+    )
 
 with c3:
-    card("Health Score", f"{avg_health:.1f}")
+    st.metric(
+        "Health Score",
+        f"{avg_health:.1f}"
+    )
 
 with c4:
-    card("High Risk Customers", f"{high_risk:,}", "#EF4444")
+    st.metric(
+        "High Risk Customers",
+        f"{high_risk:,}"
+    )
+
+st.markdown("""
+<style>
+
+div[data-testid="metric-container"]{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    border:1px solid #E2E8F0;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.06);
+}
+
+div[data-testid="metric-container"] label{
+    color:#64748B;
+}
+
+</style>
+""",
+unsafe_allow_html=True)
 
 # -------------------------------------------------
 # CUSTOMER SELECTOR
