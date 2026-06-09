@@ -243,7 +243,7 @@ with c2:
     Average CLTV
     </div>
 
-    <h2>{avg_cltv:,}</h2>
+    <h2>f"${avg_cltv:,.0f}"</h2>
 
     </div>
     """,
@@ -267,7 +267,7 @@ with c3:
     Avg Health Score
     </div>
 
-    <h2>{avg_health:,}</h2>
+    <h2>f"{avg_health:.1f}"</h2>
 
     </div>
     """,
