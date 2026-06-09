@@ -147,6 +147,15 @@ elif selected == "Risk Segmentation":
 elif selected == "Revenue Protection":
     st.success("Revenue Protection Page")
 
+elif selected == "AI Recommendations":
+    st.success("AI Recommendations Page")
+    
+elif selected == "Model Performance":
+    st.success("Model Performance Page")
+    
+elif selected == "About":
+    st.success("About Page")
+
 
 # -------------------------------------------------
 # HEADER
