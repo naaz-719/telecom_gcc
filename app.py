@@ -1607,63 +1607,87 @@ if selected == "AI Recommendations":
             "Generate retention strategy",
             "How can we reduce churn?",
             "How much revenue is at risk?",
-            "Summarize this customer"
+            "Summarize this customer",
+            "What is the next best action?",
+            "How should the retention team handle this customer?"
         ]
     )
 
-    
     if st.button("🚀 Generate AI Analysis"):
 
         try:
 
             prompt = f"""
-                You are a senior telecom retention consultant.
-                
-                Customer Information:
-                
-                Customer ID: {customer['customer_id']}
-                Country: {customer['country']}
-                Customer Type: {customer['customer_type']}
-                Tenure: {customer['tenure_months']}
-                Contract: {customer['contract']}
-                CLTV: {customer['cltv']}
-                Health Score: {customer['customer_health_score']}
-                Risk Segment: {customer['risk_segment']}
-                Complaints: {customer['complaint_count']}
-                Payment Delay: {customer['payment_delay_days']}
-                App Logins: {customer['app_logins']}
-                Network Quality: {customer['network_quality_score']}
-                Average Data Usage: {customer['avg_monthly_data_usage_gb']}
-                
-                Churn Probability: {churn_probability:.1f}%
-                
-                Question:
-                {question}
-                
-                Provide:
-                
-                1. Executive Summary
-                2. Key Risk Drivers
-                3. Retention Strategy
-                4. Revenue Protection Actions
-                5. Next Best Action
-                
-                Use professional telecom business language.
-            """
+You are a Senior Telecom Retention Consultant.
 
-            with st.spinner("🤖 Gemini AI is analyzing customer..."):
+Analyze the customer and provide a business-focused response.
 
-                model = genai.GenerativeModel(
-                    "gemini-2.0-flash")
+CUSTOMER INFORMATION
 
-                response = model.generate_content(
-                    prompt
+Customer ID: {customer['customer_id']}
+Country: {customer['country']}
+Customer Type: {customer['customer_type']}
+Contract: {customer['contract']}
+Tenure: {customer['tenure_months']} months
+
+CLTV: {customer['cltv']}
+Risk Segment: {customer['risk_segment']}
+Health Score: {customer['customer_health_score']}
+Network Quality Score: {customer['network_quality_score']}
+
+Complaint Count: {customer['complaint_count']}
+Payment Delay Days: {customer['payment_delay_days']}
+App Logins: {customer['app_logins']}
+Roaming Usage: {customer['roaming_usage']}
+Monthly Charge: {customer['monthly_charge']}
+Data Usage: {customer['avg_monthly_data_usage_gb']}
+
+Predicted Churn Probability:
+{churn_probability:.1f}%
+
+USER QUESTION:
+{question}
+
+Provide:
+
+1. Executive Summary
+2. Key Risk Drivers
+3. Retention Strategy
+4. Revenue Protection Actions
+5. Next Best Action
+
+Keep the answer concise and suitable for telecom executives.
+"""
+
+            with st.spinner(
+                "🤖 AI Copilot is analyzing customer..."
+            ):
+
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[
+                        {
+                            "role": "system",
+                            "content":
+                            "You are an expert telecom churn and revenue retention consultant."
+                        },
+                        {
+                            "role": "user",
+                            "content": prompt
+                        }
+                    ],
+                    temperature=0.3,
+                    max_tokens=1000
                 )
 
-            st.markdown("### 🤖 AI Analysis")
+            st.markdown("---")
 
             st.markdown(
-                response.text
+                "## 🤖 AI Copilot Analysis"
+            )
+
+            st.markdown(
+                response.choices[0].message.content
             )
 
         except Exception as e:
@@ -1671,7 +1695,6 @@ if selected == "AI Recommendations":
             st.error(
                 f"AI Service Error: {str(e)}"
             )
-
 
 
 if selected == "Model Performance":
