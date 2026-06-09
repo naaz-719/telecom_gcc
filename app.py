@@ -146,7 +146,7 @@ elif selected == "Risk Segmentation":
 
 elif selected == "Revenue Protection":
     st.success("Revenue Protection Page")
-    
+
 
 # -------------------------------------------------
 # HEADER
@@ -175,6 +175,11 @@ with col1:
 
 with col2:
     st.image("assets/business.png", width=220)
+
+
+
+
+
 
 
 # -------------------------------------------------
@@ -241,187 +246,187 @@ unsafe_allow_html=True)
 
 
 if selected == "Prediction":
-
+    
     # -------------------------------------------------
     # CUSTOMER SELECTOR
     # -------------------------------------------------
-
+    
     st.markdown("---")
-
+        
     customer_id = st.selectbox(
-    "Select Customer ID",
-    sorted(df["customer_id"].unique())
+        "Select Customer ID",
+        sorted(df["customer_id"].unique())
     )
 
     customer = df[
-    df["customer_id"] == customer_id
+        df["customer_id"] == customer_id
     ].iloc[0]
-
+    
     st.success(
-    f"Selected Customer: {customer_id}"
+        f"Selected Customer: {customer_id}"
     )
-
+    
     # -------------------------------------------------
     # CUSTOMER PROFILE
     # -------------------------------------------------
-
+    
     st.markdown("## 👤 Customer Profile")
-
+    
     p1,p2,p3,p4 = st.columns(4)
-
+    
     with p1:
         st.markdown(f"""
-            <div style="
-            background:white;
-            padding:20px;
-            border-radius:16px;
-            border:1px solid #E5E7EB;
-            ">
-            <div style="color:#64748B;">Country</div>
-            <h4>{customer['country']}</h4>
-            </div>
-    """,
-    unsafe_allow_html=True)
-
+        <div style="
+        background:white;
+        padding:20px;
+        border-radius:16px;
+        border:1px solid #E5E7EB;
+        ">
+        <div style="color:#64748B;">Country</div>
+        <h4>{customer['country']}</h4>
+        </div>
+        """,
+        unsafe_allow_html=True)
+    
     with p2:
         st.markdown(f"""
-            <div style="
-            background:white;
-            padding:20px;
-            border-radius:16px;
-            border:1px solid #E5E7EB;
-            ">
-            <div style="color:#64748B;">City</div>
-            <h4>{customer['city']}</h4>
-            </div>
-    """,
-    unsafe_allow_html=True)
-
+        <div style="
+        background:white;
+        padding:20px;
+        border-radius:16px;
+        border:1px solid #E5E7EB;
+        ">
+        <div style="color:#64748B;">City</div>
+        <h4>{customer['city']}</h4>
+        </div>
+        """,
+        unsafe_allow_html=True)
+    
     with p3:
         st.markdown(f"""
-            <div style="
-            background:white;
-            padding:20px;
-            border-radius:16px;
-            border:1px solid #E5E7EB;
-            ">
-            <div style="color:#64748B;">Customer Type</div>
-            <h4>{customer['customer_type']}</h4>
-            </div>
-    """,
-    unsafe_allow_html=True)
-
+        <div style="
+        background:white;
+        padding:20px;
+        border-radius:16px;
+        border:1px solid #E5E7EB;
+        ">
+        <div style="color:#64748B;">Customer Type</div>
+        <h4>{customer['customer_type']}</h4>
+        </div>
+        """,
+        unsafe_allow_html=True)
+    
     with p4:
         st.markdown(f"""
-            <div style="
-            background:white;
-            padding:20px;
-            border-radius:16px;
-            border:1px solid #E5E7EB;
-            ">
-            <div style="color:#64748B;">Contract</div>
-            <h4>{customer['contract']}</h4>
-            </div>
-    """,
-    unsafe_allow_html=True)
-
+        <div style="
+        background:white;
+        padding:20px;
+        border-radius:16px;
+        border:1px solid #E5E7EB;
+        ">
+        <div style="color:#64748B;">Contract</div>
+        <h4>{customer['contract']}</h4>
+        </div>
+        """,
+        unsafe_allow_html=True)
+    
     # -------------------------------------------------
     # CHURN PREDICTION
     # -------------------------------------------------
-
+    
     feature_columns = [
-    "tenure_months",
-    "monthly_charge",
-    "total_charges",
-    "roaming_usage",
-    "app_logins",
-    "avg_monthly_data_usage_gb"
+        "tenure_months",
+        "monthly_charge",
+        "total_charges",
+        "roaming_usage",
+        "app_logins",
+        "avg_monthly_data_usage_gb"
     ]
-
+    
     prediction_input = pd.DataFrame([{
-    "tenure_months": customer["tenure_months"],
-    "monthly_charge": customer["monthly_charge"],
-    "total_charges": customer["total_charges"],
-    "roaming_usage": customer["roaming_usage"],
-    "app_logins": customer["app_logins"],
-    "avg_monthly_data_usage_gb":
-    customer["avg_monthly_data_usage_gb"]
+        "tenure_months": customer["tenure_months"],
+        "monthly_charge": customer["monthly_charge"],
+        "total_charges": customer["total_charges"],
+        "roaming_usage": customer["roaming_usage"],
+        "app_logins": customer["app_logins"],
+        "avg_monthly_data_usage_gb":
+            customer["avg_monthly_data_usage_gb"]
     }])
-
+    
     prediction_input = prediction_input.fillna(0)
-
+    
     prediction = model.predict(
-    prediction_input
+        prediction_input
     )
-
+    
     probability = model.predict_proba(
-    prediction_input
+        prediction_input
     )
-
+    
     churn_probability = round(
-    probability[0][1] * 100,
-    2
+        probability[0][1] * 100,
+        2
     )
-
+    
     # -------------------------------------------------
     # RISK LEVEL
     # -------------------------------------------------
-
+    
     if churn_probability >= 70:
-
+    
         predicted_risk = "High Risk"
-
+    
     elif churn_probability >= 40:
-
+    
         predicted_risk = "Medium Risk"
-
+    
     else:
-
+    
         predicted_risk = "Low Risk"
-
+    
     # -------------------------------------------------
     # TENURE SEGMENT
     # -------------------------------------------------
-
+    
     tenure = customer["tenure_months"]
-
+    
     if tenure <= 12:
-
+    
         tenure_segment = "New Customer"
-
+    
     elif tenure <= 36:
-
+    
         tenure_segment = "Established Customer"
-
+    
     else:
-
+    
         tenure_segment = "Loyal Customer"
-
+    
     # -------------------------------------------------
     # REVENUE AT RISK
     # -------------------------------------------------
-
+    
     cltv = float(customer["cltv"])
-
+    
     revenue_at_risk = round(
-    cltv * (churn_probability / 100),
-    2
+        cltv * (churn_probability / 100),
+        2
     )
-
+    
     # -------------------------------------------------
     # PREDICTION INTELLIGENCE
     # -------------------------------------------------
-
+    
     st.markdown("## 🎯 Prediction Intelligence")
-
+    
     pred1, pred2, pred3 = st.columns(3)
-
+    
     # -----------------------------
     # CHURN PROBABILITY
     # -----------------------------
-
+    
     with pred1:
-
+    
         st.markdown(f"""
         <div style="
         background:white;
@@ -430,118 +435,118 @@ if selected == "Prediction":
         border:1px solid #E5E7EB;
         text-align:center;
         ">
-
+        
         <div style="
         color:#64748B;
         font-size:15px;
         ">
         Churn Probability
         </div>
-
+    
         <h1 style="
         color:#2563EB;
         font-size:42px;
         ">
         {churn_probability:.1f}%
         </h1>
-
+    
         </div>
-    """,
-    unsafe_allow_html=True)
-
+        """,
+        unsafe_allow_html=True)
+    
     # -----------------------------
     # RISK LEVEL
     # -----------------------------
-
+    
     with pred2:
-
+    
         risk_color = "#22C55E"
-
+    
         if predicted_risk == "High Risk":
             risk_color = "#EF4444"
-
+    
         elif predicted_risk == "Medium Risk":
             risk_color = "#F59E0B"
-
+    
         st.markdown(f"""
-            <div style="
-            background:white;
-            padding:25px;
-            border-radius:18px;
-            border:1px solid #E5E7EB;
-            text-align:center;
-            ">
+        <div style="
+        background:white;
+        padding:25px;
+        border-radius:18px;
+        border:1px solid #E5E7EB;
+        text-align:center;
+        ">
+        
+        <div style="
+        color:#64748B;
+        font-size:15px;
+        ">
+        Risk Level
+        </div>
     
-            <div style="
-            color:#64748B;
-            font-size:15px;
-            ">
-            Risk Level
-            </div>
+        <h1 style="
+        color:{risk_color};
+        font-size:36px;
+        ">
+        {predicted_risk}
+        </h1>
     
-            <h1 style="
-            color:{risk_color};
-            font-size:36px;
-            ">
-            {predicted_risk}
-            </h1>
+        </div>
+        """,
+        unsafe_allow_html=True)
     
-            </div>
-    """,
-    unsafe_allow_html=True)
-
     # -----------------------------
     # REVENUE AT RISK
     # -----------------------------
-
+    
     with pred3:
-
+    
         st.markdown(f"""
-            <div style="
-            background:white;
-            padding:25px;
-            border-radius:18px;
-            border:1px solid #E5E7EB;
-            text-align:center;
-            ">
-
-            <div style="
-            color:#64748B;
-            font-size:15px;
-            ">
-            Revenue At Risk
-            </div>
-
-            <h1 style="
-            color:#DC2626;
-            font-size:42px;
-            ">
-            ${revenue_at_risk:,.0f}
-            </h1>
-
-            </div>
-    """,
-    unsafe_allow_html=True)
-
+        <div style="
+        background:white;
+        padding:25px;
+        border-radius:18px;
+        border:1px solid #E5E7EB;
+        text-align:center;
+        ">
+        
+        <div style="
+        color:#64748B;
+        font-size:15px;
+        ">
+        Revenue At Risk
+        </div>
+    
+        <h1 style="
+        color:#DC2626;
+        font-size:42px;
+        ">
+        ${revenue_at_risk:,.0f}
+        </h1>
+    
+        </div>
+        """,
+        unsafe_allow_html=True)
+    
     # -----------------------------
     # RISK SCORE
     # -----------------------------
-
+    
     st.markdown("### Risk Score")
-
+    
     st.progress(
-    min(
-    int(churn_probability),
-    100
+        min(
+            int(churn_probability),
+            100
+        )
     )
-    )
-
+    
     # -----------------------------
     # EXECUTIVE SUMMARY
     # -----------------------------
-
+    
     if predicted_risk == "High Risk":
-
+    
         st.error(
             f"""
             Customer has a high probability of churn.
@@ -550,181 +555,193 @@ if selected == "Prediction":
             Immediate retention action is recommended.
             """
         )
-
+    
     elif predicted_risk == "Medium Risk":
+    
         st.warning(
             """
             Customer requires monitoring and targeted engagement.
             """
-    )
-
-    else:
-
-        st.success(
-        """
-        Customer currently appears stable and suitable for upsell opportunities.
-        """
         )
-
+    
+    else:
+    
+        st.success(
+            """
+            Customer currently appears stable and suitable for upsell opportunities.
+            """
+        )
+    
     # -------------------------------------------------
-# DECISION INTELLIGENCE
-# -------------------------------------------------
-
-st.markdown("---")
-
-col1, col2 = st.columns(2)
-
-# ===================================
-# AI RECOMMENDATIONS
-# ===================================
-
-with col1:
-
-    st.markdown("""
-    <div style="
-    background:white;
-    padding:25px;
-    border-radius:18px;
-    border:1px solid #E5E7EB;
-    min-height:350px;
-    ">
-    <h3>🤖 AI Recommendation Engine</h3>
-    <p style="color:#64748B;">
-    Recommended retention actions
-    </p>
-    """,
-    unsafe_allow_html=True)
-
-    for item in recommendations:
-        st.success(item)
-
-    st.markdown(
-        "</div>",
-        unsafe_allow_html=True
-    )
-
-# ===================================
-# RISK DRIVERS
-# ===================================
-
-with col2:
-
-    st.markdown("""
-    <div style="
-    background:white;
-    padding:25px;
-    border-radius:18px;
-    border:1px solid #E5E7EB;
-    min-height:350px;
-    ">
-    <h3>⚠ Key Risk Drivers</h3>
-    <p style="color:#64748B;">
-    Factors contributing to churn risk
-    </p>
-    """,
-    unsafe_allow_html=True)
-
-    for item in drivers:
-        st.warning(item)
-
-    st.markdown(
-        "</div>",
-        unsafe_allow_html=True
-    )
-
+    # DECISION INTELLIGENCE
+    # -------------------------------------------------
+    
+    st.markdown("---")
+    
+    recommendations = []
+    
+    if customer["complaint_count"] >= 3:
+        recommendations.append(
+            "Assign dedicated relationship manager"
+        )
+    
+    if customer["payment_delay_days"] >= 10:
+        recommendations.append(
+            "Offer flexible billing plan"
+        )
+    
+    if customer["customer_health_score"] < 85:
+        recommendations.append(
+            "Launch customer retention campaign"
+        )
+    
+    if customer["app_logins"] < 10:
+        recommendations.append(
+            "Increase digital engagement"
+        )
+    
+    if customer["tenure_months"] < 12:
+        recommendations.append(
+            "Offer loyalty welcome package"
+        )
+    
+    if customer["network_quality_score"] < 7:
+        recommendations.append(
+            "Provide network quality support"
+        )
+    
+    if len(recommendations) == 0:
+        recommendations.append(
+            "Customer currently appears stable"
+        )
+    
+    # -------------------------------------------------
+    # RISK DRIVERS
+    # -------------------------------------------------
+    
+    drivers = []
+    
+    if customer["complaint_count"] >= 3:
+        drivers.append(
+            "High Complaint Count"
+        )
+    
+    if customer["payment_delay_days"] >= 10:
+        drivers.append(
+            "Payment Delays"
+        )
+    
+    if customer["contract"] == "Month-to-month":
+        drivers.append(
+            "Month-to-month Contract"
+        )
+    
+    if customer["customer_health_score"] < 85:
+        drivers.append(
+            "Low Health Score"
+        )
+    
+    if customer["tenure_months"] < 12:
+        drivers.append(
+            "Short Customer Tenure"
+        )
+    
+    col1, col2 = st.columns(2)
+    
     # -------------------------------------------------
     # AI RECOMMENDATIONS CARD
     # -------------------------------------------------
-
+    
     with col1:
-
+    
         st.markdown("""
-            <div style="
-            background:white;
-            padding:25px;
-            border-radius:18px;
-            border:1px solid #E5E7EB;
-            ">
-            <h3>🤖 AI Recommendation Engine</h3>
-            <p style="color:#64748B;">
-            Recommended retention actions
-            </p>
+        <div style="
+        background:white;
+        padding:25px;
+        border-radius:18px;
+        border:1px solid #E5E7EB;
+        ">
+        <h3>🤖 AI Recommendation Engine</h3>
+        <p style="color:#64748B;">
+        Recommended retention actions
+        </p>
         """,
         unsafe_allow_html=True)
-
-    for item in recommendations:
-        st.success(item)
-
+    
+        for item in recommendations:
+            st.success(item)
+    
         st.markdown("</div>", unsafe_allow_html=True)
-
-
-
+    
+    
+    
+    
     # -------------------------------------------------
     # RISK DRIVERS CARD
     # -------------------------------------------------
-
+    
     with col2:
-
+    
         st.markdown("""
-            <div style="
-            background:white;
-            padding:25px;
-            border-radius:18px;
-            border:1px solid #E5E7EB;
-            ">
-            <h3>⚠ Key Risk Drivers</h3>
-            <p style="color:#64748B;">
-            Factors contributing to churn risk
-            </p>
+        <div style="
+        background:white;
+        padding:25px;
+        border-radius:18px;
+        border:1px solid #E5E7EB;
+        ">
+        <h3>⚠ Key Risk Drivers</h3>
+        <p style="color:#64748B;">
+        Factors contributing to churn risk
+        </p>
         """,
         unsafe_allow_html=True)
-
-    for item in drivers:
-        st.warning(item)
-
+    
+        for item in drivers:
+            st.warning(item)
+    
         st.markdown("</div>", unsafe_allow_html=True)
-
-
-
-
-
+    
+    
+    
+    
+    
     # -------------------------------------------------
     # REVENUE PROTECTION
     # -------------------------------------------------
-
+    
     st.markdown("---")
-
+    
     st.subheader(
-    "Revenue Protection"
+        "Revenue Protection"
     )
-
+    
     r1, r2, r3 = st.columns(3)
-
+    
     with r1:
-
+    
         st.markdown(f"""
-            <div style="
-            background:white;
-            padding:25px;
-            border-radius:18px;
-            border-left:6px solid #2563EB;
-            box-shadow:0px 4px 12px rgba(0,0,0,0.05);
-            ">
-
-            <p style="color:#64748B;">
-            Customer CLTV
-            </p>
-
-            <h2>
-            ${cltv:,.0f}
-            </h2>
-
-            </div>
-    """,
-    unsafe_allow_html=True)
-
+        <div style="
+        background:white;
+        padding:25px;
+        border-radius:18px;
+        border-left:6px solid #2563EB;
+        box-shadow:0px 4px 12px rgba(0,0,0,0.05);
+        ">
+        
+        <p style="color:#64748B;">
+        Customer CLTV
+        </p>
+    
+        <h2>
+        ${cltv:,.0f}
+        </h2>
+    
+        </div>
+        """,
+        unsafe_allow_html=True)
+    
     with r2:
-
+    
         st.markdown(f"""
         <div style="
         background:white;
@@ -733,26 +750,26 @@ with col2:
         border-left:6px solid #EF4444;
         box-shadow:0px 4px 12px rgba(0,0,0,0.05);
         ">
-
+        
         <p style="color:#64748B;">
         Revenue At Risk
         </p>
-
+    
         <h2>
         ${revenue_at_risk:,.0f}
         </h2>
-
+    
         </div>
-    """,
-    unsafe_allow_html=True)
-
+        """,
+        unsafe_allow_html=True)
+    
     with r3:
-
+    
         retention_gain = round(
-        revenue_at_risk * 0.60,
-        2
-    )
-
+            revenue_at_risk * 0.60,
+            2
+        )
+    
         st.markdown(f"""
         <div style="
         background:white;
@@ -761,42 +778,19 @@ with col2:
         border-left:6px solid #22C55E;
         box-shadow:0px 4px 12px rgba(0,0,0,0.05);
         ">
-
+        
         <p style="color:#64748B;">
         Potential Revenue Saved
         </p>
-
+    
         <h2>
         ${retention_gain:,.0f}
         </h2>
-
+    
         </div>
-    """,
-    unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True)
 
-    if selected == "Customer Insights":
-    
-        st.title("👥 Customer Insights")
-    
-        st.info(
-            "Customer Insights page coming next."
-        )
-    
-    if selected == "Risk Segmentation":
-    
-        st.title("⚠ Risk Segmentation")
-    
-        st.info(
-            "Risk Segmentation page coming next."
-        )
-    
-    if selected == "Revenue Protection":
-    
-        st.title("💰 Revenue Protection")
-    
-        st.info(
-            "Revenue Protection page coming next."
-        )
 
 
 # -------------------------------------------------
@@ -804,6 +798,7 @@ with col2:
 # -------------------------------------------------
 
 if predicted_risk == "High Risk":
+
     st.error(
         f"""
         This customer represents approximately
@@ -1193,5 +1188,3 @@ End-to-End Data Engineering + Analytics +
 Machine Learning + Business Intelligence Project
 """
 )
-    
-
