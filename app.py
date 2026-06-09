@@ -146,7 +146,7 @@ border-radius:18px;
 box-shadow:0 4px 12px rgba(0,0,0,0.08);
 text-align:center;
 ">
-<img src="data:image/png;base64,{dashboard_icon_b64}"
+<img src="data:assets/dashboard.png;base64,{dashboard_icon_b64}"
 width="40">
 <h5>Total Customers</h5>
 <h1>{total_customers:,}</h1>
