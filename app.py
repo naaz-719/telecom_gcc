@@ -4,10 +4,10 @@ import numpy as np
 import joblib
 from PIL import Image
 import plotly.express as px
-import google.generativeai as genai
+from groq import Groq
 
-genai.configure(
-    api_key=st.secrets["GEMINI_API_KEY"]
+client = Groq(
+    api_key=st.secrets["GROQ_API_KEY"]
 )
 
 # -------------------------------------------------
@@ -1570,6 +1570,8 @@ if selected == "Revenue Protection":
         """
     )
 
+
+
 # ============================================
 # AI RECOMMENDATIONS
 # ============================================
@@ -1669,6 +1671,8 @@ if selected == "AI Recommendations":
             st.error(
                 f"AI Service Error: {str(e)}"
             )
+
+
 
 if selected == "Model Performance":
 
