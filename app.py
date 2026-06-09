@@ -202,58 +202,101 @@ high_risk = (df["risk_segment"]=="High Risk").sum()
 c1,c2,c3,c4 = st.columns(4)
 
 with c1:
-    
-    icon_col, text_col = st.columns([1,4])
 
-    with icon_col:
-        st.image(
-            "assets/dashboard.png",
-            width=35
-        )
+    st.image(
+        "assets/dashboard.png",
+        width=40
+    )
 
-    with text_col:
-        st.markdown(f"""
-        <div style="
-        background:white;
-        padding:18px;
-        border-radius:18px;
-        box-shadow:0 4px 12px rgba(0,0,0,0.08);
-        ">
-        <div style="
-        color:#64748B;
-        font-size:14px;
-        ">
-        Total Customers
-        </div>
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:18px;
+    border-radius:18px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.08);
+    ">
+    <div style="color:#64748B;">
+    Total Customers
+    </div>
 
-        <div style="
-        font-size:30px;
-        font-weight:700;
-        color:#0F172A;
-        ">
-        {total_customers:,}
-        </div>
-        </div>
-        """,
-        unsafe_allow_html=True)
+    <h2>{total_customers:,}</h2>
+
+    </div>
+    """,
+    unsafe_allow_html=True)
 
 with c2:
-    st.metric(
-        "Average CLTV",
-        f"${avg_cltv:,.0f}"
+
+    st.image(
+        "assets/coins.png",
+        width=40
     )
+
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:18px;
+    border-radius:18px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.08);
+    ">
+    <div style="color:#64748B;">
+    Average CLTV
+    </div>
+
+    <h2>{avg_cltv:,}</h2>
+
+    </div>
+    """,
+    unsafe_allow_html=True)
 
 with c3:
-    st.metric(
-        "Avg Health Score",
-        f"{avg_health:.1f}"
+
+    st.image(
+        "assets/heart-rate.png",
+        width=40
     )
 
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:18px;
+    border-radius:18px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.08);
+    ">
+    <div style="color:#64748B;">
+    Avg Health Score
+    </div>
+
+    <h2>{avg_health:,}</h2>
+
+    </div>
+    """,
+    unsafe_allow_html=True)
+
 with c4:
-    st.metric(
-        "High Risk Customers",
-        f"{high_risk:,}"
+
+    st.image(
+        "assets/warning.png",
+        width=40
     )
+
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:18px;
+    border-radius:18px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.08);
+    ">
+    <div style="color:#64748B;">
+    High Risk Customers
+    </div>
+
+    <h2>{high_risk:,}</h2>
+
+    </div>
+    """,
+    unsafe_allow_html=True)
+
 
 # -------------------------------------------------
 # CUSTOMER SELECTOR
