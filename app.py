@@ -1312,13 +1312,261 @@ if selected == "Risk Segmentation":
         Retention campaigns should prioritize High Risk customers with low health scores and payment delays.
         """
     )
+
+
+# -------------------------------------------------
+# REVENUE PROTECTION PAGE
+# -------------------------------------------------
+
 if selected == "Revenue Protection":
 
-    st.title("💰 Revenue Protection")
+    st.title("💰 Revenue Protection Intelligence")
+
+    st.caption(
+        "Revenue exposure monitoring and retention opportunity analytics"
+    )
+
+    st.markdown("---")
+
+    # ============================================
+    # KPI CALCULATIONS
+    # ============================================
+
+    total_cltv = df["cltv"].astype(float).sum()
+
+    high_risk_df = df[
+        df["risk_segment"] == "High Risk"
+    ]
+
+    high_risk_cltv = (
+        high_risk_df["cltv"]
+        .astype(float)
+        .sum()
+    )
+
+    medium_risk_df = df[
+        df["risk_segment"] == "Medium Risk"
+    ]
+
+    medium_risk_cltv = (
+        medium_risk_df["cltv"]
+        .astype(float)
+        .sum()
+    )
+
+    low_risk_df = df[
+        df["risk_segment"] == "Low Risk"
+    ]
+
+    low_risk_cltv = (
+        low_risk_df["cltv"]
+        .astype(float)
+        .sum()
+    )
+
+    total_revenue_exposure = (
+        high_risk_cltv * 0.70
+    )
+
+    potential_revenue_saved = (
+        total_revenue_exposure * 0.60
+    )
+
+    # ============================================
+    # KPI CARDS
+    # ============================================
+
+    k1,k2,k3,k4 = st.columns(4)
+
+    with k1:
+        st.metric(
+            "Revenue At Risk",
+            f"${total_revenue_exposure:,.0f}"
+        )
+
+    with k2:
+        st.metric(
+            "Portfolio CLTV",
+            f"${total_cltv:,.0f}"
+        )
+
+    with k3:
+        st.metric(
+            "Potential Revenue Saved",
+            f"${potential_revenue_saved:,.0f}"
+        )
+
+    with k4:
+        st.metric(
+            "High Risk Exposure",
+            f"${high_risk_cltv:,.0f}"
+        )
+
+    st.markdown("---")
+
+    # ============================================
+    # REVENUE BY RISK SEGMENT
+    # ============================================
+
+    st.subheader(
+        "Revenue Exposure by Risk Segment"
+    )
+
+    revenue_risk = pd.DataFrame({
+        "Risk Segment":[
+            "High Risk",
+            "Medium Risk",
+            "Low Risk"
+        ],
+        "Revenue":[
+            high_risk_cltv,
+            medium_risk_cltv,
+            low_risk_cltv
+        ]
+    })
+
+    fig_risk_revenue = px.bar(
+        revenue_risk,
+        x="Risk Segment",
+        y="Revenue",
+        color="Risk Segment",
+        color_discrete_map={
+            "High Risk":"#EF4444",
+            "Medium Risk":"#F59E0B",
+            "Low Risk":"#22C55E"
+        }
+    )
+
+    st.plotly_chart(
+        fig_risk_revenue,
+        use_container_width=True
+    )
+
+    st.markdown("---")
+
+    # ============================================
+    # COUNTRY + CUSTOMER TYPE
+    # ============================================
+
+    left,right = st.columns(2)
+
+    with left:
+
+        st.subheader(
+            "Revenue Exposure by Country"
+        )
+
+        country_revenue = (
+            df.groupby("country")["cltv"]
+            .sum()
+            .reset_index()
+        )
+
+        fig_country = px.bar(
+            country_revenue,
+            x="country",
+            y="cltv",
+            color="country"
+        )
+
+        st.plotly_chart(
+            fig_country,
+            use_container_width=True
+        )
+
+    with right:
+
+        st.subheader(
+            "Revenue Exposure by Customer Type"
+        )
+
+        customer_type_revenue = (
+            df.groupby("customer_type")["cltv"]
+            .sum()
+            .reset_index()
+        )
+
+        fig_customer_type = px.bar(
+            customer_type_revenue,
+            x="customer_type",
+            y="cltv",
+            color="customer_type"
+        )
+
+        st.plotly_chart(
+            fig_customer_type,
+            use_container_width=True
+        )
+
+    st.markdown("---")
+
+    # ============================================
+    # TOP 10 HIGH VALUE AT-RISK CUSTOMERS
+    # ============================================
+
+    st.subheader(
+        "Top 10 Revenue At-Risk Customers"
+    )
+
+    top_risk_customers = (
+        df[df["risk_segment"] == "High Risk"]
+        .sort_values(
+            "cltv",
+            ascending=False
+        )
+        [
+            [
+                "customer_id",
+                "country",
+                "customer_type",
+                "cltv",
+                "customer_health_score"
+            ]
+        ]
+        .head(10)
+    )
+
+    st.dataframe(
+        top_risk_customers,
+        use_container_width=True
+    )
+
+    st.markdown("---")
+
+    # ============================================
+    # AI REVENUE INTELLIGENCE
+    # ============================================
+
+    st.subheader(
+        "🤖 Revenue Protection Intelligence"
+    )
+
+    top_country = (
+        df.groupby("country")["cltv"]
+        .sum()
+        .idxmax()
+    )
+
+    top_customer_type = (
+        df.groupby("customer_type")["cltv"]
+        .sum()
+        .idxmax()
+    )
 
     st.info(
-        "Revenue Protection page coming next."
+        f"""
+        Portfolio CLTV currently stands at ${total_cltv:,.0f}.
+
+        Estimated revenue exposure is ${total_revenue_exposure:,.0f}.
+
+        {top_customer_type} customers represent the highest revenue concentration.
+
+        {top_country} contributes the largest share of portfolio value.
+
+        A focused retention campaign targeting High Risk customers could potentially recover approximately ${potential_revenue_saved:,.0f} in future revenue.
+        """
     )
+
 
 if selected == "AI Recommendations":
 
