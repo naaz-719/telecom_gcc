@@ -252,6 +252,12 @@ div[data-testid="metric-container"] label{
 """,
 unsafe_allow_html=True)
 
+
+
+# -------------------------------------------------
+# CUSTOMER SELECTOR
+# -------------------------------------------------
+
 selected_customer_id = st.selectbox(
     "Select Customer",
     sorted(df["customer_id"].unique())
@@ -266,24 +272,11 @@ customer = df[
 
 if selected == "Prediction":
     
-    # -------------------------------------------------
-    # CUSTOMER SELECTOR
-    # -------------------------------------------------
-    
-    st.markdown("---")
-
-    customer_id = st.selectbox(
-        "Select Customer ID",
-        sorted(df["customer_id"].unique())
-    )
-
-    customer = df[
-        df["customer_id"] == customer_id
-    ].iloc[0]
-
+    #CUSTOMER SELECTOR
     st.success(
-        f"Selected Customer: {customer_id}"
+    f"Selected Customer: {selected_customer_id}"
     )
+
   
     # -------------------------------------------------
     # CUSTOMER PROFILE
