@@ -245,71 +245,46 @@ st.success(
 # CUSTOMER PROFILE
 # -------------------------------------------------
 
-st.subheader("Customer Profile")
+st.markdown("## 👤 Customer Profile")
 
-p1,p2,p3,p4 = st.columns(4)
-
-with p1:
-    
-    st.markdown(f"""
+st.markdown(f"""
 <div style="
 background:white;
-padding:18px;
-border-radius:15px;
-box-shadow:0px 4px 10px rgba(0,0,0,0.05);
-text-align:center;
+padding:25px;
+border-radius:20px;
+border:1px solid #E2E8F0;
+box-shadow:0px 4px 12px rgba(0,0,0,0.05);
 ">
-<h4>Country</h4>
-<h3>{customer['country']}</h3>
-</div>
-""",
-unsafe_allow_html=True)
 
-with p2:
-    
-    st.markdown(f"""
 <div style="
-background:white;
-padding:18px;
-border-radius:15px;
-box-shadow:0px 4px 10px rgba(0,0,0,0.05);
-text-align:center;
+display:flex;
+justify-content:space-between;
 ">
-<h4>City</h4>
-<h3>{customer['city']}</h3>
-</div>
-""",
-unsafe_allow_html=True)
 
-with p3:
-    st.markdown(f"""
-<div style="
-background:white;
-padding:18px;
-border-radius:15px;
-box-shadow:0px 4px 10px rgba(0,0,0,0.05);
-text-align:center;
-">
-<h4>Customer Type</h4>
-<h3>{customer['customer_type']}</h3>
+<div>
+<p style="color:#64748B;">Country</p>
+<h4>{customer['country']}</h4>
 </div>
-""",
-unsafe_allow_html=True)
 
-with p4:  
-    st.markdown(f"""
-<div style="
-background:white;
-padding:18px;
-border-radius:15px;
-box-shadow:0px 4px 10px rgba(0,0,0,0.05);
-text-align:center;
-">
-<h4>Contract</h4>
-<h3>{customer['contract']}</h3>
+<div>
+<p style="color:#64748B;">City</p>
+<h4>{customer['city']}</h4>
 </div>
-""",
-unsafe_allow_html=True)
+
+<div>
+<p style="color:#64748B;">Customer Type</p>
+<h4>{customer['customer_type']}</h4>
+</div>
+
+<div>
+<p style="color:#64748B;">Contract</p>
+<h4>{customer['contract']}</h4>
+</div>
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
 
 # -------------------------------------------------
 # CHURN PREDICTION
