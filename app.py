@@ -559,40 +559,46 @@ col1, col2 = st.columns(2)
 
 with col1:
 
-    st.markdown(f"""
+    st.markdown("""
     <div style="
     background:white;
     padding:25px;
-    border-radius:20px;
-    border:1px solid #E2E8F0;
-    box-shadow:0px 4px 12px rgba(0,0,0,0.05);
-    min-height:380px;
+    border-radius:18px;
+    border:1px solid #E5E7EB;
     ">
-    
-    <h3 style="
-    color:#0F172A;
-    ">
-    🤖 AI Recommendation Engine
-    </h3>
-
-    <p style="
-    color:#64748B;
-    ">
+    <h3>🤖 AI Recommendation Engine</h3>
+    <p style="color:#64748B;">
     Recommended retention actions
     </p>
-
-    </div>
     """,
     unsafe_allow_html=True)
 
-    st.image(
-        "assets/recommendation.png",
-        width=60
-    )
-
     for item in recommendations:
-
         st.success(item)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+with col2:
+
+    st.markdown("""
+    <div style="
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    border:1px solid #E5E7EB;
+    ">
+    <h3>⚠ Key Risk Drivers</h3>
+    <p style="color:#64748B;">
+    Factors contributing to churn risk
+    </p>
+    """,
+    unsafe_allow_html=True)
+
+    for item in drivers:
+        st.warning(item)
+
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # -------------------------------------------------
 # RISK DRIVERS CARD
@@ -637,45 +643,7 @@ with col2:
 
 
 
-# -------------------------------------------------
-# CUSTOMER VALUE INTELLIGENCE
-# -------------------------------------------------
 
-st.markdown("---")
-
-st.subheader(
-    "Customer Value Intelligence"
-)
-
-v1,v2,v3,v4 = st.columns(4)
-
-with v1:
-
-    st.metric(
-        "Customer Value Segment",
-        customer["customer_value_segment"]
-    )
-
-with v2:
-
-    st.metric(
-        "CLTV Segment",
-        customer["cltv_segment"]
-    )
-
-with v3:
-
-    st.metric(
-        "Risk Segment",
-        customer["risk_segment"]
-    )
-
-with v4:
-
-    st.metric(
-        "Tenure Segment",
-        tenure_segment
-    )
 
 # -------------------------------------------------
 # REVENUE PROTECTION
