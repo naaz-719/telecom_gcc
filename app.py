@@ -1211,3 +1211,81 @@ End-to-End Data Engineering + Analytics +
 Machine Learning + Business Intelligence Project
 """
 )
+
+
+# -------------------------------------------------
+# CUSTOMER INSIGHTS PAGE
+# -------------------------------------------------
+
+if selected == "Customer Insights":
+
+    st.title("👥 Customer Insights")
+
+    st.info(
+        "Customer Insights Page"
+    )
+
+
+# -------------------------------------------------
+# RISK SEGMENTATION PAGE
+# -------------------------------------------------
+
+if selected == "Risk Segmentation":
+
+    st.title("⚠ Risk Segmentation")
+
+    st.info(
+        "Risk Segmentation Page"
+    )
+
+
+# -------------------------------------------------
+# REVENUE PROTECTION PAGE
+# -------------------------------------------------
+
+if selected == "Revenue Protection":
+
+    st.title("💰 Revenue Protection")
+
+    st.info(
+        "Revenue Protection Page"
+    )
+
+
+# -------------------------------------------------
+# AI RECOMMENDATIONS PAGE
+# -------------------------------------------------
+
+if selected == "AI Recommendations":
+
+    st.title("🤖 AI Recommendations")
+
+    st.info(
+        "AI Recommendations Page"
+    )
+
+
+# -------------------------------------------------
+# MODEL PERFORMANCE PAGE
+# -------------------------------------------------
+
+if selected == "Model Performance":
+
+    st.title("📈 Model Performance")
+
+    st.info(
+        "Model Performance Page"
+    )
+
+
+# -------------------------------------------------
+# ABOUT PAGE
+# -------------------------------------------------
+
+if selected == "About":
+
+    st.title("ℹ About")
+
+    st.info(
+        "About Page"
+    )
