@@ -136,40 +136,45 @@ with st.sidebar:
 # HEADER
 # -------------------------------------------------
 
-col1, col2 = st.columns([8,1])
+st.markdown("""
+<div style="
+background:#EAF2FF;
+padding:30px;
+border-radius:25px;
+margin-bottom:20px;
+">
+""", unsafe_allow_html=True)
+
+col1, col2 = st.columns([5,1])
 
 with col1:
 
     st.markdown("""
-<div style="
-background:#EAF2FF;
-padding:20px;
-border-radius:20px;
-">
+    <h1 style="
+    color:#1E293B;
+    font-size:52px;
+    font-weight:800;
+    ">
+    GCC Telecom Customer Intelligence Platform
+    </h1>
 
-<h1 style="
-margin-bottom:0px;
-color:#1E293B;
-">
-GCC Telecom Customer Intelligence Platform
-</h1>
-
-<p style="
-color:#64748B;
-font-size:18px;
-">
-Predict customer churn probability and
-identify revenue risk using machine learning
-</p>
-
-</div>
-""",
-unsafe_allow_html=True)
-
-    
+    <p style="
+    color:#64748B;
+    font-size:18px;
+    ">
+    Predict customer churn probability and identify revenue risk using machine learning
+    </p>
+    """,
+    unsafe_allow_html=True)
 
 with col2:
-    st.image(tower_icon,width=70)
+
+    st.image(
+        "assets/business.png",
+        width=180
+    )
+
+st.markdown("</div>", unsafe_allow_html=True)
 
 # -------------------------------------------------
 # KPI VALUES
@@ -303,7 +308,6 @@ text-align:center;
 unsafe_allow_html=True)
 
 with p3:
-    st.write("Customer Type")
     st.markdown(f"""
 <div style="
 background:white;
@@ -318,8 +322,7 @@ text-align:center;
 """,
 unsafe_allow_html=True)
 
-with p4:
-    st.write("Contract")
+with p4:  
     st.markdown(f"""
 <div style="
 background:white;
