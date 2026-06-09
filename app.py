@@ -1072,11 +1072,76 @@ if selected == "Customer Insights":
 
 
 
-st.title("⚠ Risk Segmentation")
+# -------------------------------------------------
+# RISK SEGMENTATION PAGE
+# -------------------------------------------------
 
-left,right = st.columns(2)
+if selected == "Risk Segmentation":
 
-with left:
+    st.title("⚠ Risk Segmentation Intelligence")
+
+    st.caption(
+        "Portfolio-wide customer risk analytics and churn exposure monitoring"
+    )
+
+    st.markdown("---")
+
+    # ============================================
+    # RISK KPI CARDS
+    # ============================================
+
+    high_risk_count = (
+        df["risk_segment"] == "High Risk"
+    ).sum()
+
+    medium_risk_count = (
+        df["risk_segment"] == "Medium Risk"
+    ).sum()
+
+    low_risk_count = (
+        df["risk_segment"] == "Low Risk"
+    ).sum()
+
+    high_risk_pct = round(
+        (high_risk_count / len(df)) * 100,
+        1
+    )
+
+    k1,k2,k3,k4 = st.columns(4)
+
+    with k1:
+        st.metric(
+            "High Risk Customers",
+            f"{high_risk_count:,}"
+        )
+
+    with k2:
+        st.metric(
+            "Medium Risk Customers",
+            f"{medium_risk_count:,}"
+        )
+
+    with k3:
+        st.metric(
+            "Low Risk Customers",
+            f"{low_risk_count:,}"
+        )
+
+    with k4:
+        st.metric(
+            "High Risk %",
+            f"{high_risk_pct}%"
+        )
+
+    st.markdown("---")
+
+    # ============================================
+    # RISK DISTRIBUTION DONUT
+    # ============================================
+
+    st.subheader(
+        "Risk Distribution"
+    )
 
     risk_counts = (
         df["risk_segment"]
@@ -1107,6 +1172,146 @@ with left:
         use_container_width=True
     )
 
+    st.markdown("---")
+
+    # ============================================
+    # COUNTRY + CUSTOMER TYPE
+    # ============================================
+
+    left,right = st.columns(2)
+
+    with left:
+
+        st.subheader(
+            "High Risk Customers by Country"
+        )
+
+        high_country = df[
+            df["risk_segment"] == "High Risk"
+        ]
+
+        high_country = (
+            high_country["country"]
+            .value_counts()
+            .reset_index()
+        )
+
+        high_country.columns = [
+            "Country",
+            "Customers"
+        ]
+
+        fig_country = px.bar(
+            high_country,
+            x="Country",
+            y="Customers",
+            color="Country"
+        )
+
+        st.plotly_chart(
+            fig_country,
+            use_container_width=True
+        )
+
+    with right:
+
+        st.subheader(
+            "Risk by Customer Type"
+        )
+
+        risk_type = (
+            df.groupby(
+                "customer_type"
+            )["risk_segment"]
+            .count()
+            .reset_index()
+        )
+
+        risk_type.columns = [
+            "Customer Type",
+            "Customers"
+        ]
+
+        fig_type = px.bar(
+            risk_type,
+            x="Customer Type",
+            y="Customers",
+            color="Customer Type"
+        )
+
+        st.plotly_chart(
+            fig_type,
+            use_container_width=True
+        )
+
+    st.markdown("---")
+
+    # ============================================
+    # REVENUE EXPOSURE
+    # ============================================
+
+    st.subheader(
+        "Revenue Exposure by Risk Segment"
+    )
+
+    revenue_risk = (
+        df.groupby(
+            "risk_segment"
+        )["cltv"]
+        .sum()
+        .reset_index()
+    )
+
+    fig_revenue = px.bar(
+        revenue_risk,
+        x="risk_segment",
+        y="cltv",
+        color="risk_segment",
+        color_discrete_map={
+            "High Risk":"#EF4444",
+            "Medium Risk":"#F59E0B",
+            "Low Risk":"#22C55E"
+        }
+    )
+
+    st.plotly_chart(
+        fig_revenue,
+        use_container_width=True
+    )
+
+    st.markdown("---")
+
+    # ============================================
+    # AI RISK INTELLIGENCE
+    # ============================================
+
+    st.subheader(
+        "🤖 AI Risk Intelligence"
+    )
+
+    top_country = (
+        df[df["risk_segment"] == "High Risk"]
+        ["country"]
+        .mode()[0]
+    )
+
+    top_customer_type = (
+        df[df["risk_segment"] == "High Risk"]
+        ["customer_type"]
+        .mode()[0]
+    )
+
+    st.info(
+        f"""
+        High Risk customers account for {high_risk_pct}% of the customer base.
+
+        The largest concentration of High Risk customers is in {top_country}.
+
+        {top_customer_type} customers contribute the highest volume of churn exposure.
+
+        Retention campaigns should prioritize High Risk customers with low health scores and payment delays.
+        """
+    )
 if selected == "Revenue Protection":
 
     st.title("💰 Revenue Protection")
