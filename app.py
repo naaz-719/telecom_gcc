@@ -1899,14 +1899,170 @@ This model can be used to:
     )
 
 
+# ============================================
+# ABOUT
+# ============================================
+
 if selected == "About":
 
-    st.title("ℹ About")
+    st.title("ℹ️ About GCC Telecom AI")
 
-    st.info(
-        "About Page"
+    st.caption(
+        "AI-Powered Customer Churn Prediction and Revenue Protection Platform"
     )
-    
+
+    st.markdown("---")
+
+    st.markdown("""
+    ### Platform Overview
+
+    GCC Telecom AI is an end-to-end customer intelligence platform designed to help telecom providers proactively identify churn risk, protect revenue, and improve customer retention.
+
+    The platform combines Data Engineering, Machine Learning, Business Intelligence, and Generative AI to deliver actionable insights for business stakeholders.
+    """)
+
+    st.markdown("---")
+
+    st.subheader("🚀 Core Capabilities")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+
+        st.success("""
+        🎯 Customer Churn Prediction
+
+        Predict churn probability using a machine learning model trained on telecom customer behavior.
+        """)
+
+        st.success("""
+        📊 Customer Insights
+
+        Analyze customer profiles, health scores, engagement levels, and service usage.
+        """)
+
+        st.success("""
+        🛡️ Risk Segmentation
+
+        Categorize customers into Low, Medium, and High Risk groups for targeted interventions.
+        """)
+
+    with col2:
+
+        st.success("""
+        💰 Revenue Protection
+
+        Estimate revenue at risk and identify retention opportunities.
+        """)
+
+        st.success("""
+        🤖 AI Copilot
+
+        Generate AI-powered retention recommendations and executive summaries.
+        """)
+
+        st.success("""
+        📈 Model Performance
+
+        Monitor predictive model effectiveness and business impact.
+        """)
+
+    st.markdown("---")
+
+    st.subheader("🏗️ Solution Architecture")
+
+    st.markdown("""
+    **Data Source**
+    - Telecom Customer Dataset
+
+    **Data Engineering**
+    - Bronze Layer
+    - Silver Layer
+    - Gold Layer
+
+    **Machine Learning**
+    - Logistic Regression
+    - Churn Prediction Engine
+
+    **Business Intelligence**
+    - Customer Segmentation
+    - Revenue Risk Analysis
+
+    **Generative AI**
+    - Telecom AI Copilot
+    """)
+
+    st.markdown("---")
+
+    st.subheader("🛠 Technology Stack")
+
+    tech1, tech2, tech3 = st.columns(3)
+
+    with tech1:
+
+        st.info("""
+        Data Engineering
+
+        • Microsoft Fabric
+        • OneLake
+        • Lakehouse
+        • Data Pipelines
+        """)
+
+    with tech2:
+
+        st.info("""
+        Analytics
+
+        • Python
+        • Pandas
+        • Scikit-Learn
+        • Plotly
+        """)
+
+    with tech3:
+
+        st.info("""
+        Application Layer
+
+        • Streamlit
+        • AI Copilot
+        • SaaS Dashboard
+        • Cloud Deployment
+        """)
+
+    st.markdown("---")
+
+    st.subheader("📊 Business Impact")
+
+    st.markdown("""
+    The platform enables telecom operators to:
+
+    - Reduce customer churn
+    - Improve customer retention
+    - Increase customer lifetime value (CLTV)
+    - Prioritize high-risk customers
+    - Protect recurring revenue streams
+    - Support data-driven decision making
+    """)
+
+    st.markdown("---")
+
+    st.subheader("👨‍💻 Project Information")
+
+    st.info("""
+    GCC Telecom Customer Intelligence Platform
+
+    End-to-End Data Engineering, Machine Learning,
+    Business Intelligence and AI Solution.
+
+    Developed as a telecom analytics and customer retention platform.
+    """)
+
+    st.success(
+        "Platform Status: Production Ready ✅"
+    )
+
 
 # -------------------------------------------------
 # EXECUTIVE ANALYTICS DASHBOARD
