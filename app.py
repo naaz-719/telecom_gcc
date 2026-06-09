@@ -195,107 +195,76 @@ avg_health = df["customer_health_score"].astype(float).mean()
 
 high_risk = (df["risk_segment"]=="High Risk").sum()
 
+
 # -------------------------------------------------
 # KPI CARDS
 # -------------------------------------------------
 
-c1,c2,c3,c4 = st.columns(4)
+c1, c2, c3, c4 = st.columns(4)
+
+card_style = """
+background:white;
+padding:20px;
+border-radius:20px;
+box-shadow:0px 4px 15px rgba(0,0,0,0.08);
+height:150px;
+"""
 
 with c1:
 
-    st.image(
-        "assets/dashboard.png",
-        width=40
-    )
-
     st.markdown(f"""
-    <div style="
-    background:white;
-    padding:18px;
-    border-radius:18px;
-    box-shadow:0px 4px 12px rgba(0,0,0,0.08);
-    ">
-    <div style="color:#64748B;">
-    Total Customers
+    <div style="{card_style}">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="40">
+        <p style="color:#64748B;font-size:16px;margin-top:10px;">
+        Total Customers
+        </p>
+        <h1 style="color:#1E293B;">
+        {total_customers:,}
+        </h1>
     </div>
-
-    <h2>{total_customers:,}</h2>
-
-    </div>
-    """,
-    unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
 with c2:
 
-    st.image(
-        "assets/coins.png",
-        width=40
-    )
-
     st.markdown(f"""
-    <div style="
-    background:white;
-    padding:18px;
-    border-radius:18px;
-    box-shadow:0px 4px 12px rgba(0,0,0,0.08);
-    ">
-    <div style="color:#64748B;">
-    Average CLTV
+    <div style="{card_style}">
+        <img src="https://cdn-icons-png.flaticon.com/512/2933/2933245.png" width="40">
+        <p style="color:#64748B;font-size:16px;margin-top:10px;">
+        Average CLTV
+        </p>
+        <h1 style="color:#1E293B;">
+        ${avg_cltv:,.0f}
+        </h1>
     </div>
-
-    <h2>f"${avg_cltv:,.0f}"</h2>
-
-    </div>
-    """,
-    unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
 with c3:
 
-    st.image(
-        "assets/heart-rate.png",
-        width=40
-    )
-
     st.markdown(f"""
-    <div style="
-    background:white;
-    padding:18px;
-    border-radius:18px;
-    box-shadow:0px 4px 12px rgba(0,0,0,0.08);
-    ">
-    <div style="color:#64748B;">
-    Avg Health Score
+    <div style="{card_style}">
+        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" width="40">
+        <p style="color:#64748B;font-size:16px;margin-top:10px;">
+        Avg Health Score
+        </p>
+        <h1 style="color:#1E293B;">
+        {avg_health:.1f}
+        </h1>
     </div>
-
-    <h2>f"{avg_health:.1f}"</h2>
-
-    </div>
-    """,
-    unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
 with c4:
 
-    st.image(
-        "assets/warning.png",
-        width=40
-    )
-
     st.markdown(f"""
-    <div style="
-    background:white;
-    padding:18px;
-    border-radius:18px;
-    box-shadow:0px 4px 12px rgba(0,0,0,0.08);
-    ">
-    <div style="color:#64748B;">
-    High Risk Customers
+    <div style="{card_style}">
+        <img src="https://cdn-icons-png.flaticon.com/512/564/564619.png" width="40">
+        <p style="color:#64748B;font-size:16px;margin-top:10px;">
+        High Risk Customers
+        </p>
+        <h1 style="color:#DC2626;">
+        {high_risk:,}
+        </h1>
     </div>
-
-    <h2>{high_risk:,}</h2>
-
-    </div>
-    """,
-    unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
 
 # -------------------------------------------------
