@@ -190,8 +190,6 @@ with col2:
 
 
 
-
-
 # -------------------------------------------------
 # KPI VALUES
 # -------------------------------------------------
@@ -253,6 +251,15 @@ div[data-testid="metric-container"] label{
 </style>
 """,
 unsafe_allow_html=True)
+
+selected_customer_id = st.selectbox(
+    "Select Customer",
+    sorted(df["customer_id"].unique())
+)
+
+customer = df[
+    df["customer_id"] == selected_customer_id
+].iloc[0]
 
 
 if selected == "Prediction":
