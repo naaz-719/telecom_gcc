@@ -134,7 +134,7 @@ with st.sidebar:
         default_index=0
     )
 
-st.write("Current Page:", selected)
+
 
 # -------------------------------------------------
 # HEADER
@@ -239,7 +239,6 @@ unsafe_allow_html=True)
 # -------------------------------------------------
 
 st.markdown("---")
-if selected == "Prediction":
     
 customer_id = st.selectbox(
     "Select Customer ID",
