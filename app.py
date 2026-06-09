@@ -247,44 +247,63 @@ st.success(
 
 st.markdown("## 👤 Customer Profile")
 
-st.markdown(f"""
-<div style="
-background:white;
-padding:25px;
-border-radius:20px;
-border:1px solid #E2E8F0;
-box-shadow:0px 4px 12px rgba(0,0,0,0.05);
-">
+p1,p2,p3,p4 = st.columns(4)
 
-<div style="
-display:flex;
-justify-content:space-between;
-">
+with p1:
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:20px;
+    border-radius:16px;
+    border:1px solid #E5E7EB;
+    ">
+    <div style="color:#64748B;">Country</div>
+    <h4>{customer['country']}</h4>
+    </div>
+    """,
+    unsafe_allow_html=True)
 
-<div>
-<p style="color:#64748B;">Country</p>
-<h4>{customer['country']}</h4>
-</div>
+with p2:
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:20px;
+    border-radius:16px;
+    border:1px solid #E5E7EB;
+    ">
+    <div style="color:#64748B;">Country</div>
+    <h4>{customer['city']}</h4>
+    </div>
+    """,
+    unsafe_allow_html=True)
 
-<div>
-<p style="color:#64748B;">City</p>
-<h4>{customer['city']}</h4>
-</div>
+with p3:
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:20px;
+    border-radius:16px;
+    border:1px solid #E5E7EB;
+    ">
+    <div style="color:#64748B;">Country</div>
+    <h4>{customer['customer_type']}</h4>
+    </div>
+    """,
+    unsafe_allow_html=True)
 
-<div>
-<p style="color:#64748B;">Customer Type</p>
-<h4>{customer['customer_type']}</h4>
-</div>
-
-<div>
-<p style="color:#64748B;">Contract</p>
-<h4>{customer['contract']}</h4>
-</div>
-
-</div>
-
-</div>
-""", unsafe_allow_html=True)
+with p4:
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:20px;
+    border-radius:16px;
+    border:1px solid #E5E7EB;
+    ">
+    <div style="color:#64748B;">Country</div>
+    <h4>{customer['contract']}</h4>
+    </div>
+    """,
+    unsafe_allow_html=True)
 
 # -------------------------------------------------
 # CHURN PREDICTION
@@ -373,108 +392,119 @@ revenue_at_risk = round(
 # PREDICTION SECTION
 # -------------------------------------------------
 
-st.markdown("---")
-
 st.markdown("## 🎯 Prediction Intelligence")
 
-c1,c2,c3 = st.columns(3)
+pred1,pred2,pred3 = st.columns(3)
 
-with c1:
+with pred1:
 
     st.markdown(f"""
     <div style="
     background:white;
     padding:25px;
-    border-radius:20px;
-    border:1px solid #E2E8F0;
-    text-align:center;
-    box-shadow:0px 4px 12px rgba(0,0,0,0.05);
+    border-radius:18px;
+    border:1px solid #E5E7EB;
     ">
-
-    <p style="
-    color:#64748B;
-    ">
+    
+    <div style="color:#64748B;">
     Churn Probability
-    </p>
+    </div>
 
     <h1 style="
-    color:#EF4444;
-    font-size:48px;
-    font-weight:800;
+    color:#2563EB;
     ">
     {churn_probability:.1f}%
     </h1>
 
     </div>
-    """, unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True)
 
-with c2:
+with pred2:
 
-    risk_color = (
-        "#EF4444"
-        if predicted_risk == "High Risk"
-        else "#F59E0B"
-        if predicted_risk == "Medium Risk"
-        else "#22C55E"
-    )
+    risk_color = "#22C55E"
+
+    if churn_probability >= 70:
+        risk_color = "#EF4444"
+
+    elif churn_probability >= 40:
+        risk_color = "#F59E0B"
 
     st.markdown(f"""
     <div style="
     background:white;
     padding:25px;
-    border-radius:20px;
-    border:1px solid #E2E8F0;
-    text-align:center;
-    box-shadow:0px 4px 12px rgba(0,0,0,0.05);
+    border-radius:18px;
+    border:1px solid #E5E7EB;
     ">
-
-    <p style="
-    color:#64748B;
-    ">
+    
+    <div style="color:#64748B;">
     Risk Level
-    </p>
+    </div>
 
     <h1 style="
     color:{risk_color};
-    font-size:42px;
-    font-weight:800;
     ">
-    {predicted_risk}
+    {risk_level}
     </h1>
 
     </div>
-    """, unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True)
 
-with c3:
+with pred3:
 
     st.markdown(f"""
     <div style="
     background:white;
     padding:25px;
-    border-radius:20px;
-    border:1px solid #E2E8F0;
-    text-align:center;
-    box-shadow:0px 4px 12px rgba(0,0,0,0.05);
+    border-radius:18px;
+    border:1px solid #E5E7EB;
     ">
-
-    <p style="
-    color:#64748B;
-    ">
+    
+    <div style="color:#64748B;">
     Revenue At Risk
-    </p>
+    </div>
 
     <h1 style="
-    color:#0F172A;
-    font-size:42px;
-    font-weight:800;
+    color:#DC2626;
     ">
     ${revenue_at_risk:,.0f}
     </h1>
 
     </div>
-    """, unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True)
 
+# -------------------------------------------------
+# PROGRESS BAR
+# -------------------------------------------------
 
+st.markdown("### Risk Score")
+st.progress(
+    min(
+        int(churn_probability),
+        100
+    )
+)
+
+if churn_probability >= 70:
+
+    st.error(
+        "Customer shows strong churn indicators and requires immediate retention action."
+    )
+
+elif churn_probability >= 40:
+
+    st.warning(
+        "Customer presents moderate churn risk and should be monitored."
+    )
+
+else:
+
+    st.success(
+        "Customer currently appears stable with low churn probability."
+    )
 
 
 # -------------------------------------------------
