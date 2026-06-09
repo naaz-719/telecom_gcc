@@ -389,14 +389,16 @@ revenue_at_risk = round(
 )
 
 # -------------------------------------------------
-# PREDICTION SECTION
+# PREDICTION INTELLIGENCE
 # -------------------------------------------------
-
-
 
 st.markdown("## 🎯 Prediction Intelligence")
 
-pred1,pred2,pred3 = st.columns(3)
+pred1, pred2, pred3 = st.columns(3)
+
+# -----------------------------
+# CHURN PROBABILITY
+# -----------------------------
 
 with pred1:
 
@@ -406,14 +408,19 @@ with pred1:
     padding:25px;
     border-radius:18px;
     border:1px solid #E5E7EB;
+    text-align:center;
     ">
     
-    <div style="color:#64748B;">
+    <div style="
+    color:#64748B;
+    font-size:15px;
+    ">
     Churn Probability
     </div>
 
     <h1 style="
     color:#2563EB;
+    font-size:42px;
     ">
     {churn_probability:.1f}%
     </h1>
@@ -422,14 +429,18 @@ with pred1:
     """,
     unsafe_allow_html=True)
 
+# -----------------------------
+# RISK LEVEL
+# -----------------------------
+
 with pred2:
 
     risk_color = "#22C55E"
 
-    if churn_probability >= 70:
+    if predicted_risk == "High Risk":
         risk_color = "#EF4444"
 
-    elif churn_probability >= 40:
+    elif predicted_risk == "Medium Risk":
         risk_color = "#F59E0B"
 
     st.markdown(f"""
@@ -438,21 +449,30 @@ with pred2:
     padding:25px;
     border-radius:18px;
     border:1px solid #E5E7EB;
+    text-align:center;
     ">
     
-    <div style="color:#64748B;">
+    <div style="
+    color:#64748B;
+    font-size:15px;
+    ">
     Risk Level
     </div>
 
     <h1 style="
     color:{risk_color};
+    font-size:36px;
     ">
-    {risk_level}
+    {predicted_risk}
     </h1>
 
     </div>
     """,
     unsafe_allow_html=True)
+
+# -----------------------------
+# REVENUE AT RISK
+# -----------------------------
 
 with pred3:
 
@@ -462,14 +482,19 @@ with pred3:
     padding:25px;
     border-radius:18px;
     border:1px solid #E5E7EB;
+    text-align:center;
     ">
     
-    <div style="color:#64748B;">
+    <div style="
+    color:#64748B;
+    font-size:15px;
+    ">
     Revenue At Risk
     </div>
 
     <h1 style="
     color:#DC2626;
+    font-size:42px;
     ">
     ${revenue_at_risk:,.0f}
     </h1>
@@ -478,11 +503,12 @@ with pred3:
     """,
     unsafe_allow_html=True)
 
-# -------------------------------------------------
-# PROGRESS BAR
-# -------------------------------------------------
+# -----------------------------
+# RISK SCORE
+# -----------------------------
 
 st.markdown("### Risk Score")
+
 st.progress(
     min(
         int(churn_probability),
@@ -490,24 +516,36 @@ st.progress(
     )
 )
 
-if churn_probability >= 70:
+# -----------------------------
+# EXECUTIVE SUMMARY
+# -----------------------------
+
+if predicted_risk == "High Risk":
 
     st.error(
-        "Customer shows strong churn indicators and requires immediate retention action."
+        f"""
+        Customer has a high probability of churn.
+        Potential revenue exposure is
+        ${revenue_at_risk:,.0f}.
+        Immediate retention action is recommended.
+        """
     )
 
-elif churn_probability >= 40:
+elif predicted_risk == "Medium Risk":
 
     st.warning(
-        "Customer presents moderate churn risk and should be monitored."
+        """
+        Customer requires monitoring and targeted engagement.
+        """
     )
 
 else:
 
     st.success(
-        "Customer currently appears stable with low churn probability."
+        """
+        Customer currently appears stable and suitable for upsell opportunities.
+        """
     )
-
 
 # -------------------------------------------------
 # DECISION INTELLIGENCE
