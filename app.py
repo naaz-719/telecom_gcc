@@ -1645,15 +1645,29 @@ Keep the response business-focused and concise.
 
         with st.spinner("🤖 AI is analyzing customer data..."):
 
-            response = client.chat.completions.create(
-                model="gpt-4.1-mini",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": prompt
-                    }
-                ]
-            )
+           try:
+
+    response = client.chat.completions.create(
+        model="gpt-4.1-mini",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+    )
+
+    st.markdown("### 🤖 AI Analysis")
+
+    st.markdown(
+        response.choices[0].message.content
+    )
+
+except Exception as e:
+
+    st.error(
+        f"AI service unavailable: {str(e)}"
+    )
 
         st.markdown("### 🤖 AI Analysis")
 
