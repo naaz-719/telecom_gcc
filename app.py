@@ -445,7 +445,7 @@ with pred2:
     <h1 style="
     color:{risk_color};
     ">
-    {risk_level}
+    {risk_segment}
     </h1>
 
     </div>
