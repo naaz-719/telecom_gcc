@@ -1607,54 +1607,53 @@ if selected == "AI Recommendations":
         ]
     )
 
+    
     if st.button("🚀 Generate AI Analysis"):
 
-        prompt = f"""
-You are a senior telecom retention consultant.
+        try:
 
-Customer Information:
+            prompt = f"""
+                You are a senior telecom retention consultant.
+                
+                Customer Information:
+                
+                Customer ID: {customer['customer_id']}
+                Country: {customer['country']}
+                Customer Type: {customer['customer_type']}
+                Tenure: {customer['tenure_months']}
+                Contract: {customer['contract']}
+                CLTV: {customer['cltv']}
+                Health Score: {customer['customer_health_score']}
+                Risk Segment: {customer['risk_segment']}
+                Complaints: {customer['complaint_count']}
+                Payment Delay: {customer['payment_delay_days']}
+                App Logins: {customer['app_logins']}
+                Network Quality: {customer['network_quality_score']}
+                
+                Churn Probability: {churn_probability:.1f}%
+                
+                Question:
+                {question}
+                
+                Provide:
+                1. Executive Summary
+                2. Key Risk Drivers
+                3. Retention Strategy
+                4. Revenue Protection Actions
+                5. Next Best Action
+                """
 
-Customer ID: {customer['customer_id']}
-Country: {customer['country']}
-Customer Type: {customer['customer_type']}
-Tenure: {customer['tenure_months']}
-Contract: {customer['contract']}
-CLTV: {customer['cltv']}
-Health Score: {customer['customer_health_score']}
-Risk Segment: {customer['risk_segment']}
-Complaints: {customer['complaint_count']}
-Payment Delay: {customer['payment_delay_days']}
-App Logins: {customer['app_logins']}
-Network Quality: {customer['network_quality_score']}
-Data Usage: {customer['avg_monthly_data_usage_gb']}
+            with st.spinner("🤖 AI is analyzing customer..."):
 
-Churn Probability: {churn_probability:.1f}%
-
-Question:
-{question}
-
-Provide:
-1. Executive Summary
-2. Key Risk Drivers
-3. Retention Strategy
-4. Revenue Protection Actions
-5. Next Best Action
-
-Keep the response business-focused and concise.
-"""
-
-        with st.spinner("🤖 AI is analyzing customer data..."):
-
-           try:
-            response = client.chat.completions.create(
-            model="gpt-4.1-mini",
-            messages=[
-                {
-                    "role": "user",
-                    "content": prompt
-                }
-            ]
-        )
+                response = client.chat.completions.create(
+                    model="gpt-4.1-mini",
+                    messages=[
+                        {
+                            "role": "user",
+                            "content": prompt
+                        }
+                    ]
+                )
 
             st.markdown("### 🤖 AI Analysis")
 
@@ -1662,17 +1661,11 @@ Keep the response business-focused and concise.
                 response.choices[0].message.content
             )
 
-    except Exception as e:
+        except Exception as e:
 
-        st.error(
-            f"AI service unavailable: {str(e)}"
-        )
-
-        st.markdown("### 🤖 AI Analysis")
-
-        st.markdown(
-            response.choices[0].message.content
-        )
+            st.error(
+                f"AI Service Error: {str(e)}"
+            )
 
 if selected == "Model Performance":
 
