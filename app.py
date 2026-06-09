@@ -835,71 +835,71 @@ if selected == "Prediction":
             """
         )
 
-
-st.info(
-    "Customer Insights Page"
-)
-st.title("👥 Customer Insights")
-
-left,right = st.columns(2)
-
-with left:
-
-    st.subheader(
-        "Customers by Country"
+if selected == "Customer Insights":
+    st.info(
+        "Customer Insights Page"
     )
-
-    country_counts = (
-        df["country"]
-        .value_counts()
-        .reset_index()
-    )
-
-    country_counts.columns = [
-        "Country",
-        "Customers"
-    ]
-
-    fig_customer_country = px.bar(
-        country_counts,
-        x="Country",
-        y="Customers",
-        color="Country"
-    )
-
-    st.plotly_chart(
-        fig_customer_country,
-        use_container_width=True
-    )
-
-with right:
-
-    st.subheader(
-        "Customer Type Distribution"
-    )
-
-    customer_type = (
-        df["customer_type"]
-        .value_counts()
-        .reset_index()
-    )
-
-    customer_type.columns = [
-        "Customer Type",
-        "Customers"
-    ]
-
-    fig_customer_type = px.pie(
-        customer_type,
-        names="Customer Type",
-        values="Customers",
-        hole=0.60
-    )
-
-    st.plotly_chart(
-        fig_customer_type,
-        use_container_width=True
-    )
+    st.title("👥 Customer Insights")
+    
+    left,right = st.columns(2)
+    
+    with left:
+    
+        st.subheader(
+            "Customers by Country"
+        )
+    
+        country_counts = (
+            df["country"]
+            .value_counts()
+            .reset_index()
+        )
+    
+        country_counts.columns = [
+            "Country",
+            "Customers"
+        ]
+    
+        fig_customer_country = px.bar(
+            country_counts,
+            x="Country",
+            y="Customers",
+            color="Country"
+        )
+    
+        st.plotly_chart(
+            fig_customer_country,
+            use_container_width=True
+        )
+    
+    with right:
+    
+        st.subheader(
+            "Customer Type Distribution"
+        )
+    
+        customer_type = (
+            df["customer_type"]
+            .value_counts()
+            .reset_index()
+        )
+    
+        customer_type.columns = [
+            "Customer Type",
+            "Customers"
+        ]
+    
+        fig_customer_type = px.pie(
+            customer_type,
+            names="Customer Type",
+            values="Customers",
+            hole=0.60
+        )
+    
+        st.plotly_chart(
+            fig_customer_type,
+            use_container_width=True
+        )
 
 st.title("⚠ Risk Segmentation")
 
@@ -1330,80 +1330,3 @@ Machine Learning + Business Intelligence Project
 """
 )
 
-
-# -------------------------------------------------
-# CUSTOMER INSIGHTS PAGE
-# -------------------------------------------------
-
-if selected == "Customer Insights":
-
-    st.title("👥 Customer Insights")
-
-    st.info(
-        "Customer Insights Page"
-    )
-
-
-# -------------------------------------------------
-# RISK SEGMENTATION PAGE
-# -------------------------------------------------
-
-if selected == "Risk Segmentation":
-
-    st.title("⚠ Risk Segmentation")
-
-    st.info(
-        "Risk Segmentation Page"
-    )
-
-
-# -------------------------------------------------
-# REVENUE PROTECTION PAGE
-# -------------------------------------------------
-
-if selected == "Revenue Protection":
-
-    st.title("💰 Revenue Protection")
-
-    st.info(
-        "Revenue Protection Page"
-    )
-
-
-# -------------------------------------------------
-# AI RECOMMENDATIONS PAGE
-# -------------------------------------------------
-
-if selected == "AI Recommendations":
-
-    st.title("🤖 AI Recommendations")
-
-    st.info(
-        "AI Recommendations Page"
-    )
-
-
-# -------------------------------------------------
-# MODEL PERFORMANCE PAGE
-# -------------------------------------------------
-
-if selected == "Model Performance":
-
-    st.title("📈 Model Performance")
-
-    st.info(
-        "Model Performance Page"
-    )
-
-
-# -------------------------------------------------
-# ABOUT PAGE
-# -------------------------------------------------
-
-if selected == "About":
-
-    st.title("ℹ About")
-
-    st.info(
-        "About Page"
-    )
