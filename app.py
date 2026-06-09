@@ -200,88 +200,46 @@ high_risk = (df["risk_segment"]=="High Risk").sum()
 # KPI CARDS
 # -------------------------------------------------
 
-c1, c2, c3, c4 = st.columns(4)
+c1,c2,c3,c4 = st.columns(4)
 
-card_style = """
-background:white;
-padding:20px;
-border-radius:20px;
-box-shadow:0px 4px 15px rgba(0,0,0,0.08);
-height:150px;
-"""
-
-with c1:
-
-    st.markdown(f"""
-    <div style="{card_style}">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="40">
-        <p style="color:#64748B;font-size:16px;margin-top:10px;">
-        Total Customers
-        </p>
-        <h1 style="color:#1E293B;">
-        {total_customers:,}
-        </h1>
-    </div>
-    """, unsafe_allow_html=True)
-
-with c1:
-
-    st.image("assets/customer.png", width=45)
-
+def card(title,value,color="#1E293B"):
     st.markdown(f"""
     <div style="
     background:white;
-    padding:20px;
+    padding:25px;
     border-radius:20px;
     box-shadow:0px 4px 15px rgba(0,0,0,0.08);
+    min-height:140px;
     ">
-        <h4>Total Customers</h4>
-        <h1>{total_customers:,}</h1>
+        <div style="
+        color:#64748B;
+        font-size:16px;
+        margin-bottom:15px;
+        ">
+        {title}
+        </div>
+
+        <div style="
+        color:{color};
+        font-size:42px;
+        font-weight:700;
+        ">
+        {value}
+        </div>
     </div>
     """, unsafe_allow_html=True)
+
+with c1:
+    card("Total Customers", f"{total_customers:,}")
 
 with c2:
-
-    st.markdown(f"""
-    <div style="{card_style}">
-        <img src="https://cdn-icons-png.flaticon.com/512/2933/2933245.png" width="40">
-        <p style="color:#64748B;font-size:16px;margin-top:10px;">
-        Average CLTV
-        </p>
-        <h1 style="color:#1E293B;">
-        ${avg_cltv:,.0f}
-        </h1>
-    </div>
-    """, unsafe_allow_html=True)
+    card("Average CLTV", f"${avg_cltv:,.0f}")
 
 with c3:
-
-    st.markdown(f"""
-    <div style="{card_style}">
-        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" width="40">
-        <p style="color:#64748B;font-size:16px;margin-top:10px;">
-        Avg Health Score
-        </p>
-        <h1 style="color:#1E293B;">
-        {avg_health:.1f}
-        </h1>
-    </div>
-    """, unsafe_allow_html=True)
+    card("Health Score", f"{avg_health:.1f}")
 
 with c4:
-
-    st.markdown(f"""
-    <div style="{card_style}">
-        <img src="https://cdn-icons-png.flaticon.com/512/564/564619.png" width="40">
-        <p style="color:#64748B;font-size:16px;margin-top:10px;">
-        High Risk Customers
-        </p>
-        <h1 style="color:#DC2626;">
-        {high_risk:,}
-        </h1>
-    </div>
-    """, unsafe_allow_html=True)
-
+    card("High Risk Customers", f"{high_risk:,}", "#EF4444")
 
 # -------------------------------------------------
 # CUSTOMER SELECTOR
