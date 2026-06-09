@@ -584,40 +584,40 @@ if selected == "Prediction":
 
     recommendations = []
 
-    if customer["complaint_count"] >= 3:
-        recommendations.append(
-    "Assign dedicated relationship manager"
-    )
-
-    if customer["payment_delay_days"] >= 10:
-        recommendations.append(
-    "Offer flexible billing plan"
-    )
-
-    if customer["customer_health_score"] < 85:
-        recommendations.append(
-    "Launch customer retention campaign"
-    )
-
-    if customer["app_logins"] < 10:
-        recommendations.append(
-    "Increase digital engagement"
-    )
-
-    if customer["tenure_months"] < 12:
-        recommendations.append(
-    "Offer loyalty welcome package"
-    )
-
-    if customer["network_quality_score"] < 7:
-        recommendations.append(
-    "Provide network quality support"
-    )
-
-    if len(recommendations) == 0:
-        recommendations.append(
-    "Customer currently appears stable"
-    )
+        if customer["complaint_count"] >= 3:
+            recommendations.append(
+        "Assign dedicated relationship manager"
+        )
+    
+        if customer["payment_delay_days"] >= 10:
+            recommendations.append(
+        "Offer flexible billing plan"
+        )
+    
+        if customer["customer_health_score"] < 85:
+            recommendations.append(
+        "Launch customer retention campaign"
+        )
+    
+        if customer["app_logins"] < 10:
+            recommendations.append(
+        "Increase digital engagement"
+        )
+    
+        if customer["tenure_months"] < 12:
+            recommendations.append(
+        "Offer loyalty welcome package"
+        )
+    
+        if customer["network_quality_score"] < 7:
+            recommendations.append(
+        "Provide network quality support"
+        )
+    
+        if len(recommendations) == 0:
+            recommendations.append(
+        "Customer currently appears stable"
+        )
 
     # -------------------------------------------------
     # RISK DRIVERS
@@ -827,7 +827,6 @@ if selected == "Revenue Protection":
 # -------------------------------------------------
 
 if predicted_risk == "High Risk":
-
     st.error(
         f"""
         This customer represents approximately
