@@ -224,6 +224,22 @@ with c1:
     </div>
     """, unsafe_allow_html=True)
 
+with c1:
+
+    st.image("assets/customer.png", width=45)
+
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0px 4px 15px rgba(0,0,0,0.08);
+    ">
+        <h4>Total Customers</h4>
+        <h1>{total_customers:,}</h1>
+    </div>
+    """, unsafe_allow_html=True)
+
 with c2:
 
     st.markdown(f"""
