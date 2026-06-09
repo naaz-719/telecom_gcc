@@ -245,7 +245,8 @@ div[data-testid="metric-container"] label{
 unsafe_allow_html=True)
 
 
-
+if selected == "Prediction":
+    
 # -------------------------------------------------
 # CUSTOMER SELECTOR
 # -------------------------------------------------
