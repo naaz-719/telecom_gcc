@@ -696,21 +696,53 @@ st.subheader(
     "Revenue Protection"
 )
 
-r1,r2,r3 = st.columns(3)
+r1, r2, r3 = st.columns(3)
 
 with r1:
 
-    st.metric(
-        "Customer CLTV",
-        f"${cltv:,.0f}"
-    )
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    border-left:6px solid #2563EB;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.05);
+    ">
+    
+    <p style="color:#64748B;">
+    Customer CLTV
+    </p>
+
+    <h2>
+    ${cltv:,.0f}
+    </h2>
+
+    </div>
+    """,
+    unsafe_allow_html=True)
 
 with r2:
 
-    st.metric(
-        "Revenue At Risk",
-        f"${revenue_at_risk:,.0f}"
-    )
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    border-left:6px solid #EF4444;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.05);
+    ">
+    
+    <p style="color:#64748B;">
+    Revenue At Risk
+    </p>
+
+    <h2>
+    ${revenue_at_risk:,.0f}
+    </h2>
+
+    </div>
+    """,
+    unsafe_allow_html=True)
 
 with r3:
 
@@ -719,11 +751,26 @@ with r3:
         2
     )
 
-    st.metric(
-        "Potential Revenue Saved",
-        f"${retention_gain:,.0f}"
-    )
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    border-left:6px solid #22C55E;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.05);
+    ">
+    
+    <p style="color:#64748B;">
+    Potential Revenue Saved
+    </p>
 
+    <h2>
+    ${retention_gain:,.0f}
+    </h2>
+
+    </div>
+    """,
+    unsafe_allow_html=True)
 
 
 
