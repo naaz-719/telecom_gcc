@@ -4,6 +4,9 @@ import numpy as np
 import joblib
 from PIL import Image
 import plotly.express as px
+from openai import OpenAI
+
+client= OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # -------------------------------------------------
 # PAGE CONFIG
@@ -1567,6 +1570,9 @@ if selected == "Revenue Protection":
         """
     )
 
+# ============================================
+# AI RECOMMENDATIONS
+# ============================================
 
 if selected == "AI Recommendations":
 
@@ -1575,6 +1581,73 @@ if selected == "AI Recommendations":
     st.info(
         "AI Recommendations Page"
     )
+    st.markdown("---")
+
+    st.subheader("Selected Customer")
+
+    st.write(
+        {
+            "Customer ID": customer["customer_id"],
+            "Country": customer["country"],
+            "Customer Type": customer["customer_type"],
+            "Risk Segment": customer["risk_segment"],
+            "Health Score": customer["customer_health_score"],
+            "CLTV": customer["cltv"]
+        }
+    )
+
+    question = st.selectbox(
+        "Ask AI Copilot",
+        [
+            "Why is this customer high risk?",
+            "Generate retention strategy",
+            "How can we reduce churn?",
+            "How much revenue is at risk?",
+            "Summarize this customer"
+        ]
+    )
+
+    if st.button("Generate AI Analysis"):
+        with st.spinner(
+            prompt = f"""
+        You are a senior telecom retention consultant.
+        
+        Customer Information:
+        
+        Customer ID: {customer['customer_id']}
+        Country: {customer['country']}
+        Customer Type: {customer['customer_type']}
+        Tenure: {customer['tenure_months']}
+        Contract: {customer['contract']}
+        CLTV: {customer['cltv']}
+        Health Score: {customer['customer_health_score']}
+        Risk Segment: {customer['risk_segment']}
+        Complaints: {customer['complaint_count']}
+        Payment Delay: {customer['payment_delay_days']}
+        App Logins: {customer['app_logins']}
+        Network Quality: {customer['network_quality_score']}
+        
+        Churn Probability: {churn_probability:.1f}%
+        
+        Question:
+        {question}
+        
+        Provide a business-focused answer.
+        """
+    ):
+        response = client.chat.completions.create(
+        model="gpt-4.1-mini",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+    )
+        st.markdown(
+        response.choices[0].message.content
+    )
+
 
 if selected == "Model Performance":
 
