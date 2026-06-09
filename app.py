@@ -171,7 +171,7 @@ with col2:
     sub1, sub2 = st.columns(2)
 
     with sub1:
-    st.image(
+        st.image(
         "assets/radio-tower.png",
         width=180
     )
