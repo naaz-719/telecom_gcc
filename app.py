@@ -8,31 +8,12 @@ from PIL import Image
 # PAGE CONFIG
 # -------------------------------------------------
 
-st.markdown("""
-<div style="
-background:#EAF2FF;
-padding:20px;
-border-radius:20px;
-">
+st.set_page_config(
+    page_title="GCC Telecom Intelligence",
+    page_icon="📡",
+    layout="wide"
+)
 
-<h1 style="
-margin-bottom:0px;
-color:#1E293B;
-">
-GCC Telecom Customer Intelligence Platform
-</h1>
-
-<p style="
-color:#64748B;
-font-size:18px;
-">
-Predict customer churn probability and
-identify revenue risk using machine learning
-</p>
-
-</div>
-""",
-unsafe_allow_html=True)
 # -------------------------------------------------
 # LOAD DATA
 # -------------------------------------------------
@@ -159,11 +140,33 @@ col1, col2 = st.columns([8,1])
 
 with col1:
 
-    st.title("GCC Telecom Customer Intelligence Platform")
+    st.markdown("""
+<div style="
+background:#EAF2FF;
+padding:20px;
+border-radius:20px;
+">
 
-    st.caption(
-        "Predict churn probability and identify revenue risk using machine learning"
-    )
+<h1 style="
+margin-bottom:0px;
+color:#1E293B;
+">
+GCC Telecom Customer Intelligence Platform
+</h1>
+
+<p style="
+color:#64748B;
+font-size:18px;
+">
+Predict customer churn probability and
+identify revenue risk using machine learning
+</p>
+
+</div>
+""",
+unsafe_allow_html=True)
+
+    
 
 with col2:
     st.image(tower_icon,width=70)
