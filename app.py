@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import joblib
 from PIL import Image
+import plotly.express as px
 
 # -------------------------------------------------
 # PAGE CONFIG
