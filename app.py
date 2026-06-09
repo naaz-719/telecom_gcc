@@ -1635,15 +1635,15 @@ if selected == "AI Recommendations":
         Provide a business-focused answer.
         """
     ):
-        response = client.chat.completions.create(
-        model="gpt-4.1-mini",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    )
+            response = client.chat.completions.create(
+            model="gpt-4.1-mini",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
         st.markdown(
         response.choices[0].message.content
     )
