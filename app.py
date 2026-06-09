@@ -669,8 +669,8 @@ if selected == "Prediction":
             <p style="color:#64748B;">
             Recommended retention actions
             </p>
-    """,
-    unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True)
 
     for item in recommendations:
         st.success(item)
@@ -697,8 +697,8 @@ if selected == "Prediction":
             <p style="color:#64748B;">
             Factors contributing to churn risk
             </p>
-    """,
-    unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True)
 
     for item in drivers:
         st.warning(item)
