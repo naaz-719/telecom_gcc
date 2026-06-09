@@ -579,6 +579,12 @@ with col1:
     st.markdown("</div>", unsafe_allow_html=True)
 
 
+
+
+# -------------------------------------------------
+# RISK DRIVERS CARD
+# -------------------------------------------------
+
 with col2:
 
     st.markdown("""
@@ -599,47 +605,6 @@ with col2:
         st.warning(item)
 
     st.markdown("</div>", unsafe_allow_html=True)
-
-# -------------------------------------------------
-# RISK DRIVERS CARD
-# -------------------------------------------------
-
-with col2:
-
-    st.markdown(f"""
-    <div style="
-    background:white;
-    padding:25px;
-    border-radius:20px;
-    border:1px solid #E2E8F0;
-    box-shadow:0px 4px 12px rgba(0,0,0,0.05);
-    min-height:380px;
-    ">
-    
-    <h3 style="
-    color:#0F172A;
-    ">
-    ⚠ Key Risk Drivers
-    </h3>
-
-    <p style="
-    color:#64748B;
-    ">
-    Factors contributing to churn risk
-    </p>
-
-    </div>
-    """,
-    unsafe_allow_html=True)
-
-    st.image(
-        "assets/warning.png",
-        width=60
-    )
-
-    for item in drivers:
-
-        st.warning(item)
 
 
 
