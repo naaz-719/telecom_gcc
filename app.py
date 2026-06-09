@@ -467,11 +467,11 @@ if selected == "Prediction":
 
         risk_color = "#22C55E"
 
-    if predicted_risk == "High Risk":
-        risk_color = "#EF4444"
+        if predicted_risk == "High Risk":
+            risk_color = "#EF4444"
 
-    elif predicted_risk == "Medium Risk":
-        risk_color = "#F59E0B"
+        elif predicted_risk == "Medium Risk":
+            risk_color = "#F59E0B"
 
     st.markdown(f"""
         <div style="
