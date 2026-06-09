@@ -138,20 +138,40 @@ high_risk = (df["risk_segment"]=="High Risk").sum()
 c1,c2,c3,c4 = st.columns(4)
 
 with c1:
-    st.markdown(f"""
-<div style="
-background:white;
-padding:20px;
-border-radius:18px;
-box-shadow:0 4px 12px rgba(0,0,0,0.08);
-text-align:center;
-">
-<img src="data:assets/dashboard.png;base64,{dashboard_icon_b64}"
-width="40">
-<h5>Total Customers</h5>
-<h1>{total_customers:,}</h1>
-</div>
-""",unsafe_allow_html=True)
+    
+    icon_col, text_col = st.columns([1,4])
+
+    with icon_col:
+        st.image(
+            "assets/dashboard.png",
+            width=35
+        )
+
+    with text_col:
+        st.markdown(f"""
+        <div style="
+        background:white;
+        padding:18px;
+        border-radius:18px;
+        box-shadow:0 4px 12px rgba(0,0,0,0.08);
+        ">
+        <div style="
+        color:#64748B;
+        font-size:14px;
+        ">
+        Total Customers
+        </div>
+
+        <div style="
+        font-size:30px;
+        font-weight:700;
+        color:#0F172A;
+        ">
+        {total_customers:,}
+        </div>
+        </div>
+        """,
+        unsafe_allow_html=True)
 
 with c2:
     st.metric(
