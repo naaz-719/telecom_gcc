@@ -147,11 +147,6 @@ elif selected == "Risk Segmentation":
 elif selected == "Revenue Protection":
     st.success("Revenue Protection Page")
     
-  
- 
-
-    
-
 
 # -------------------------------------------------
 # HEADER
@@ -180,11 +175,6 @@ with col1:
 
 with col2:
     st.image("assets/business.png", width=220)
-
-
-
-
-
 
 
 # -------------------------------------------------
@@ -577,80 +567,70 @@ if selected == "Prediction":
         )
 
     # -------------------------------------------------
-    # DECISION INTELLIGENCE
-    # -------------------------------------------------
+# DECISION INTELLIGENCE
+# -------------------------------------------------
 
-    st.markdown("---")
+st.markdown("---")
 
-    recommendations = []
+col1, col2 = st.columns(2)
 
-    if customer["complaint_count"] >= 3:
-         recommendations.append(
-    "Assign dedicated relationship manager"
-    )
-    
-    if customer["payment_delay_days"] >= 10:
-        recommendations.append(
-    "Offer flexible billing plan"
-    )
-    
-    if customer["customer_health_score"] < 85:
-        recommendations.append(
-        "Launch customer retention campaign"
-        )
-    
-    if customer["app_logins"] < 10:
-        recommendations.append(
-        "Increase digital engagement"
-        )
-    
-    if customer["tenure_months"] < 12:
-        recommendations.append(
-        "Offer loyalty welcome package"
-        )
-    
-    if customer["network_quality_score"] < 7:
-        recommendations.append(
-        "Provide network quality support"
-        )
-    
-    if len(recommendations) == 0:
-        recommendations.append(
-    "Customer currently appears stable"
+# ===================================
+# AI RECOMMENDATIONS
+# ===================================
+
+with col1:
+
+    st.markdown("""
+    <div style="
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    border:1px solid #E5E7EB;
+    min-height:350px;
+    ">
+    <h3>🤖 AI Recommendation Engine</h3>
+    <p style="color:#64748B;">
+    Recommended retention actions
+    </p>
+    """,
+    unsafe_allow_html=True)
+
+    for item in recommendations:
+        st.success(item)
+
+    st.markdown(
+        "</div>",
+        unsafe_allow_html=True
     )
 
-    # -------------------------------------------------
-    # RISK DRIVERS
-    # -------------------------------------------------
+# ===================================
+# RISK DRIVERS
+# ===================================
 
-    drivers = []
+with col2:
 
-    if customer["complaint_count"] >= 3:
-        drivers.append(
-    "High Complaint Count"
+    st.markdown("""
+    <div style="
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    border:1px solid #E5E7EB;
+    min-height:350px;
+    ">
+    <h3>⚠ Key Risk Drivers</h3>
+    <p style="color:#64748B;">
+    Factors contributing to churn risk
+    </p>
+    """,
+    unsafe_allow_html=True)
+
+    for item in drivers:
+        st.warning(item)
+
+    st.markdown(
+        "</div>",
+        unsafe_allow_html=True
     )
-
-    if customer["payment_delay_days"] >= 10:
-        drivers.append(
-    "Payment Delays"
-    )
-
-    if customer["contract"] == "Month-to-month":
-        drivers.append(
-    "Month-to-month Contract"
-    )
-
-    if customer["customer_health_score"] < 85:
-        drivers.append(
-    "Low Health Score"
-    )
-
-    if customer["tenure_months"] < 12:
-        drivers.append(
-    "Short Customer Tenure"
-    )
-
-    col1, col2 = st.columns(2)
 
     # -------------------------------------------------
     # AI RECOMMENDATIONS CARD
@@ -676,7 +656,6 @@ if selected == "Prediction":
         st.success(item)
 
         st.markdown("</div>", unsafe_allow_html=True)
-
 
 
 
@@ -818,8 +797,6 @@ if selected == "Prediction":
         st.info(
             "Revenue Protection page coming next."
         )
-
-
 
 
 # -------------------------------------------------
