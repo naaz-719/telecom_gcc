@@ -4,7 +4,10 @@ import numpy as np
 import joblib
 from PIL import Image
 import plotly.express as px
+import plotly.express as px
+import plotly.graph_objects as go
 from groq import Groq
+
 
 client = Groq(
     api_key=st.secrets["GROQ_API_KEY"]
@@ -1697,13 +1700,204 @@ Keep the answer concise and suitable for telecom executives.
             )
 
 
+# ============================================
+# MODEL PERFORMANCE
+# ============================================
+
 if selected == "Model Performance":
 
-    st.title("📈 Model Performance")
+    st.title("📊 Model Performance")
 
-    st.info(
-        "Model Performance Page"
+    st.caption(
+        "Evaluate churn prediction model accuracy and business effectiveness"
     )
+
+    st.markdown("---")
+
+    # ============================================
+    # LOAD METRICS
+    # ============================================
+
+    metrics_df = pd.read_csv(
+        "model_metrics.csv"
+    )
+
+    accuracy = metrics_df["accuracy"][0]
+    precision = metrics_df["precision"][0]
+    recall = metrics_df["recall"][0]
+    f1 = metrics_df["f1"][0]
+
+    # ============================================
+    # KPI CARDS
+    # ============================================
+
+    c1,c2,c3,c4 = st.columns(4)
+
+    with c1:
+        st.metric(
+            "Accuracy",
+            f"{accuracy*100:.1f}%"
+        )
+
+    with c2:
+        st.metric(
+            "Precision",
+            f"{precision*100:.1f}%"
+        )
+
+    with c3:
+        st.metric(
+            "Recall",
+            f"{recall*100:.1f}%"
+        )
+
+    with c4:
+        st.metric(
+            "F1 Score",
+            f"{f1*100:.1f}%"
+        )
+
+    st.markdown("---")
+
+    # ============================================
+    # MODEL OVERVIEW
+    # ============================================
+
+    st.subheader(
+        "Model Overview"
+    )
+
+    ov1,ov2,ov3,ov4 = st.columns(4)
+
+    ov1.info("Model\n\nLogistic Regression")
+    ov2.info("Training Samples\n\n5,634")
+    ov3.info("Testing Samples\n\n1,409")
+    ov4.info("Features\n\n6")
+
+    st.markdown("---")
+
+    # ============================================
+    # MODEL COMPARISON
+    # ============================================
+
+    st.subheader(
+        "Model Comparison"
+    )
+
+    comparison_df = pd.DataFrame({
+        "Model":[
+            "Logistic Regression",
+            "Random Forest",
+            "Gradient Boosting"
+        ],
+        "Accuracy":[
+            79.91,
+            79.77,
+            79.06
+        ]
+    })
+
+    fig_compare = px.bar(
+        comparison_df,
+        x="Model",
+        y="Accuracy",
+        text="Accuracy",
+        title="Accuracy Comparison Across Models"
+    )
+
+    fig_compare.update_layout(
+        height=450,
+        showlegend=False
+    )
+
+    st.plotly_chart(
+        fig_compare,
+        use_container_width=True
+    )
+
+    st.markdown("---")
+
+    # ============================================
+    # FEATURE IMPORTANCE
+    # ============================================
+
+    st.subheader(
+        "Feature Importance"
+    )
+
+    try:
+
+        feature_df = pd.read_csv(
+            "feature_importance.csv"
+        )
+
+        fig_features = px.bar(
+            feature_df,
+            x="Importance",
+            y="Feature",
+            orientation="h",
+            title="Feature Importance Ranking"
+        )
+
+        fig_features.update_layout(
+            height=500
+        )
+
+        st.plotly_chart(
+            fig_features,
+            use_container_width=True
+        )
+
+    except:
+
+        st.warning(
+            "feature_importance.csv not found"
+        )
+
+    st.markdown("---")
+
+    # ============================================
+    # BUSINESS INTERPRETATION
+    # ============================================
+
+    st.subheader(
+        "Business Interpretation"
+    )
+
+    st.markdown(
+        f"""
+### Key Findings
+
+✅ Model Accuracy: **{accuracy*100:.1f}%**
+
+✅ Precision: **{precision*100:.1f}%**
+
+✅ Recall: **{recall*100:.1f}%**
+
+✅ F1 Score: **{f1*100:.1f}%**
+
+### Executive Summary
+
+The Logistic Regression model was selected as the production model after evaluating multiple algorithms.
+
+The model achieves approximately **80% accuracy** on unseen customer data and provides reliable churn risk predictions.
+
+Customer tenure, monthly charges, service usage patterns and engagement metrics are the strongest drivers of churn behaviour.
+
+This model can be used to:
+
+- Identify high-risk customers
+- Prioritize retention campaigns
+- Protect recurring revenue
+- Support customer success teams
+- Improve customer lifetime value (CLTV)
+"""
+    )
+
+    st.success(
+        "Production Model Status: Active ✅"
+    )
+
 
 if selected == "About":
 
