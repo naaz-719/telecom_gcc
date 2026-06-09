@@ -268,7 +268,14 @@ if selected == "Prediction":
     # CUSTOMER SELECTOR
     # -------------------------------------------------
     
-    
+    selected_customer_id = st.selectbox(
+    "Select Customer",
+    sorted(df["customer_id"].unique())
+    )
+
+    customer = df[
+        df["customer_id"] == selected_customer_id
+    ].iloc[0]
     
     st.success(
         f"Selected Customer: {customer_id}"
