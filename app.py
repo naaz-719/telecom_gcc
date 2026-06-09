@@ -89,6 +89,8 @@ div[data-testid="metric-container"]{
 """,
 unsafe_allow_html=True)
 
+
+
 # -------------------------------------------------
 # SIDEBAR
 # -------------------------------------------------
@@ -131,6 +133,8 @@ with st.sidebar:
         ],
         default_index=0
     )
+
+st.write("Current Page:", selected)
 
 # -------------------------------------------------
 # HEADER
