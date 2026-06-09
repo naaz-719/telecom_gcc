@@ -473,30 +473,30 @@ if selected == "Prediction":
         elif predicted_risk == "Medium Risk":
             risk_color = "#F59E0B"
 
-    st.markdown(f"""
-        <div style="
-        background:white;
-        padding:25px;
-        border-radius:18px;
-        border:1px solid #E5E7EB;
-        text-align:center;
-        ">
-
-        <div style="
-        color:#64748B;
-        font-size:15px;
-        ">
-        Risk Level
-        </div>
-
-        <h1 style="
-        color:{risk_color};
-        font-size:36px;
-        ">
-        {predicted_risk}
-        </h1>
-
-        </div>
+        st.markdown(f"""
+            <div style="
+            background:white;
+            padding:25px;
+            border-radius:18px;
+            border:1px solid #E5E7EB;
+            text-align:center;
+            ">
+    
+            <div style="
+            color:#64748B;
+            font-size:15px;
+            ">
+            Risk Level
+            </div>
+    
+            <h1 style="
+            color:{risk_color};
+            font-size:36px;
+            ">
+            {predicted_risk}
+            </h1>
+    
+            </div>
     """,
     unsafe_allow_html=True)
 
