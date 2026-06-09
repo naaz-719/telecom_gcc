@@ -8,12 +8,31 @@ from PIL import Image
 # PAGE CONFIG
 # -------------------------------------------------
 
-st.set_page_config(
-    page_title="GCC Telecom Intelligence",
-    page_icon="📡",
-    layout="wide"
-)
+st.markdown("""
+<div style="
+background:#EAF2FF;
+padding:20px;
+border-radius:20px;
+">
 
+<h1 style="
+margin-bottom:0px;
+color:#1E293B;
+">
+GCC Telecom Customer Intelligence Platform
+</h1>
+
+<p style="
+color:#64748B;
+font-size:18px;
+">
+Predict customer churn probability and
+identify revenue risk using machine learning
+</p>
+
+</div>
+""",
+unsafe_allow_html=True)
 # -------------------------------------------------
 # LOAD DATA
 # -------------------------------------------------
@@ -40,24 +59,54 @@ robot_icon = Image.open("assets/robot.png")
 st.markdown("""
 <style>
 
-.main {
-    background-color: #F5F7FA;
+.stApp{
+    background-color:#F4F8FC;
 }
 
-.metric-card {
-    background-color:white;
+[data-testid="stSidebar"]{
+    background:linear-gradient(
+        180deg,
+        #071A52 0%,
+        #0A2B75 100%
+    );
+}
+
+[data-testid="stSidebar"] *{
+    color:white;
+}
+
+h1{
+    color:#1E293B;
+    font-weight:800;
+}
+
+h2{
+    color:#1E293B;
+}
+
+div[data-testid="metric-container"]{
+    background:white;
+    border-radius:18px;
     padding:15px;
-    border-radius:15px;
-    box-shadow:0px 2px 10px rgba(0,0,0,0.05);
+    box-shadow:
+    0px 4px 14px rgba(0,0,0,0.08);
 }
 
-.sidebar-title{
-    font-size:22px;
+.stButton button{
+    background:#2563EB;
+    color:white;
+    border-radius:12px;
+    border:none;
     font-weight:bold;
 }
 
+.stButton button:hover{
+    background:#1D4ED8;
+}
+
 </style>
-""", unsafe_allow_html=True)
+""",
+unsafe_allow_html=True)
 
 # -------------------------------------------------
 # SIDEBAR
