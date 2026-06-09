@@ -553,13 +553,13 @@ if selected == "Prediction":
     if predicted_risk == "High Risk":
 
         st.error(
-        f"""
-        Customer has a high probability of churn.
-        Potential revenue exposure is
-        ${revenue_at_risk:,.0f}.
-        Immediate retention action is recommended.
-        """
-    )
+            f"""
+            Customer has a high probability of churn.
+            Potential revenue exposure is
+            ${revenue_at_risk:,.0f}.
+            Immediate retention action is recommended.
+            """
+        )
 
     elif predicted_risk == "Medium Risk":
         st.warning(
@@ -571,10 +571,10 @@ if selected == "Prediction":
     else:
 
         st.success(
-    """
-    Customer currently appears stable and suitable for upsell opportunities.
-    """
-    )
+        """
+        Customer currently appears stable and suitable for upsell opportunities.
+        """
+        )
 
     # -------------------------------------------------
     # DECISION INTELLIGENCE
@@ -659,16 +659,16 @@ if selected == "Prediction":
     with col1:
 
         st.markdown("""
-        <div style="
-        background:white;
-        padding:25px;
-        border-radius:18px;
-        border:1px solid #E5E7EB;
-        ">
-        <h3>🤖 AI Recommendation Engine</h3>
-        <p style="color:#64748B;">
-        Recommended retention actions
-        </p>
+            <div style="
+            background:white;
+            padding:25px;
+            border-radius:18px;
+            border:1px solid #E5E7EB;
+            ">
+            <h3>🤖 AI Recommendation Engine</h3>
+            <p style="color:#64748B;">
+            Recommended retention actions
+            </p>
     """,
     unsafe_allow_html=True)
 
