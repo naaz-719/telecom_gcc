@@ -63,22 +63,44 @@ st.markdown("""
 # SIDEBAR
 # -------------------------------------------------
 
+from streamlit_option_menu import option_menu
+
 with st.sidebar:
 
-    st.image(tower_icon, width=80)
+    st.image(tower_icon, width=90)
 
-    st.markdown("## GCC Telecom AI")
+    st.markdown(
+        """
+        <h2 style='color:white;
+        text-align:center;'>
+        GCC Telecom AI
+        </h2>
+        """,
+        unsafe_allow_html=True
+    )
 
-    st.markdown("---")
-
-    st.markdown("### Navigation")
-
-    st.markdown("📊 Dashboard")
-    st.markdown("👤 Customer Insights")
-    st.markdown("⚠ Risk Intelligence")
-    st.markdown("💰 Revenue Protection")
-    st.markdown("🤖 AI Recommendations")
-    st.markdown("📈 Model Performance")
+    selected = option_menu(
+        menu_title="Navigation",
+        options=[
+            "Prediction",
+            "Customer Insights",
+            "Risk Segmentation",
+            "Revenue Protection",
+            "AI Recommendations",
+            "Model Performance",
+            "About"
+        ],
+        icons=[
+            "house-fill",
+            "people-fill",
+            "shield-fill-check",
+            "cash-stack",
+            "robot",
+            "graph-up-arrow",
+            "info-circle-fill"
+        ],
+        default_index=0
+    )
 
 # -------------------------------------------------
 # HEADER
@@ -116,10 +138,20 @@ high_risk = (df["risk_segment"]=="High Risk").sum()
 c1,c2,c3,c4 = st.columns(4)
 
 with c1:
-    st.metric(
-        "Total Customers",
-        f"{total_customers:,}"
-    )
+    st.markdown(f"""
+<div style="
+background:white;
+padding:20px;
+border-radius:18px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+text-align:center;
+">
+<img src="data:image/png;base64,{dashboard_icon_b64}"
+width="40">
+<h5>Total Customers</h5>
+<h1>{total_customers:,}</h1>
+</div>
+""",unsafe_allow_html=True)
 
 with c2:
     st.metric(
