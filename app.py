@@ -392,6 +392,17 @@ revenue_at_risk = round(
 # PREDICTION SECTION
 # -------------------------------------------------
 
+churn_probability = model.predict_proba(X)[0][1] * 100
+
+risk_level = customer["risk_segment"]
+
+cltv = float(customer["cltv"])
+
+revenue_at_risk = (
+    churn_probability / 100
+) * cltv
+
+
 st.markdown("## 🎯 Prediction Intelligence")
 
 pred1,pred2,pred3 = st.columns(3)
@@ -445,7 +456,7 @@ with pred2:
     <h1 style="
     color:{risk_color};
     ">
-    {risk_segment}
+    {risk_level}
     </h1>
 
     </div>
