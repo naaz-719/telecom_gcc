@@ -136,52 +136,29 @@ with st.sidebar:
 # HEADER
 # -------------------------------------------------
 
-st.markdown("""
-<div style="
-background:#EAF2FF;
-padding:30px;
-border-radius:25px;
-margin-bottom:20px;
-">
-""", unsafe_allow_html=True)
 
-col1, col2 = st.columns([5,1])
+col1,col2 = st.columns([8,2])
 
 with col1:
-
     st.markdown("""
     <h1 style="
-    color:#1E293B;
-    font-size:52px;
+    font-size:48px;
     font-weight:800;
+    color:#0F172A;
     ">
-    GCC Telecom Customer Intelligence Platform
+    GCC Telecom Customer Intelligence
     </h1>
 
     <p style="
     color:#64748B;
     font-size:18px;
     ">
-    Predict customer churn probability and identify revenue risk using machine learning
+    AI-powered churn prediction and revenue protection platform
     </p>
-    """,
-    unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
 with col2:
-    sub1, sub2 = st.columns(2)
-
-    with sub1:
-        st.image(
-        "assets/radio-tower.png",
-        width=180
-    )
-    with sub2:
-        st.image(
-        "assets/business.png",
-        width=180
-    )
-        
-st.markdown("</div>", unsafe_allow_html=True)
+    st.image("assets/business.png", width=220)
 
 # -------------------------------------------------
 # KPI VALUES
