@@ -100,7 +100,7 @@ from streamlit_option_menu import option_menu
 
 with st.sidebar:
 
-    st.image(tower_icon, width=90)
+    st.image(tower_icon, width=90, align:'center')
 
     st.markdown(
         """
