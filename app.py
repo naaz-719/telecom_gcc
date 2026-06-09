@@ -160,6 +160,20 @@ with col1:
 with col2:
     st.image("assets/business.png", width=220)
 
+
+
+st.info(
+    f"""
+    Selected Customer: {customer_id}
+
+    Risk Level: {predicted_risk}
+
+    Revenue Exposure: ${revenue_at_risk:,.0f}
+    """
+)
+
+
+
 # -------------------------------------------------
 # KPI VALUES
 # -------------------------------------------------
