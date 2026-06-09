@@ -313,7 +313,7 @@ box-shadow:0px 4px 10px rgba(0,0,0,0.05);
 text-align:center;
 ">
 <h4>Customer Type</h4>
-<h3>{customer type['customer type']}</h3>
+<h3>{customer_type['customer_type']}</h3>
 </div>
 """,
 unsafe_allow_html=True)
