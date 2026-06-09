@@ -173,6 +173,10 @@ with col2:
         "assets/business.png",
         width=180
     )
+    st.image(
+        "assets/radio-tower.png",
+        width=150
+    )
 
 st.markdown("</div>", unsafe_allow_html=True)
 
