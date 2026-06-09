@@ -834,6 +834,21 @@ if selected == "Customer Insights":
         "Customer Insights page coming next."
     )
 
+if selected == "Risk Segmentation":
+
+    st.title("⚠ Risk Segmentation")
+
+    st.info(
+        "Risk Segmentation page coming next."
+    )
+
+if selected == "Revenue Protection":
+
+    st.title("💰 Revenue Protection")
+
+    st.info(
+        "Revenue Protection page coming next."
+    )
 
 
 # -------------------------------------------------
