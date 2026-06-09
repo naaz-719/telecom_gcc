@@ -162,15 +162,7 @@ with col2:
 
 
 
-st.info(
-    f"""
-    Selected Customer: {customer_id}
 
-    Risk Level: {predicted_risk}
-
-    Revenue Exposure: ${revenue_at_risk:,.0f}
-    """
-)
 
 
 
