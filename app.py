@@ -277,7 +277,7 @@ with p2:
     border-radius:16px;
     border:1px solid #E5E7EB;
     ">
-    <div style="color:#64748B;">Country</div>
+    <div style="color:#64748B;">City</div>
     <h4>{customer['city']}</h4>
     </div>
     """,
@@ -291,7 +291,7 @@ with p3:
     border-radius:16px;
     border:1px solid #E5E7EB;
     ">
-    <div style="color:#64748B;">Country</div>
+    <div style="color:#64748B;">Customer Type</div>
     <h4>{customer['customer_type']}</h4>
     </div>
     """,
@@ -305,7 +305,7 @@ with p4:
     border-radius:16px;
     border:1px solid #E5E7EB;
     ">
-    <div style="color:#64748B;">Country</div>
+    <div style="color:#64748B;">Contract</div>
     <h4>{customer['contract']}</h4>
     </div>
     """,
