@@ -168,13 +168,19 @@ with col1:
     unsafe_allow_html=True)
 
 with col2:
+    sub1, sub2 = st.columns(2)
 
+    with sub1:
     st.image(
-        "assets/business.png","assets/radio-tower.png",
+        "assets/radio-tower.png",
         width=180
     )
-    
-
+    with sub2:
+        st.image(
+        "assets/business.png",
+        width=180
+    )
+        
 st.markdown("</div>", unsafe_allow_html=True)
 
 # -------------------------------------------------
