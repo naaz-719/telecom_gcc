@@ -540,6 +540,227 @@ with r3:
         f"${retention_gain:,.0f}"
     )
 
+
+# -------------------------------------------------
+# AI RECOMMENDATIONS
+# -------------------------------------------------
+
+st.markdown("---")
+
+col1,col2 = st.columns(2)
+
+recommendations = []
+
+if customer["complaint_count"] >= 3:
+
+    recommendations.append(
+        "Assign dedicated relationship manager"
+    )
+
+if customer["payment_delay_days"] >= 10:
+
+    recommendations.append(
+        "Offer flexible billing plan"
+    )
+
+if customer["customer_health_score"] < 85:
+
+    recommendations.append(
+        "Launch customer retention campaign"
+    )
+
+if customer["app_logins"] < 10:
+
+    recommendations.append(
+        "Increase digital engagement through app promotions"
+    )
+
+if customer["tenure_months"] < 12:
+
+    recommendations.append(
+        "Offer loyalty welcome package"
+    )
+
+if customer["network_quality_score"] < 7:
+
+    recommendations.append(
+        "Provide network quality support"
+    )
+
+if len(recommendations) == 0:
+
+    recommendations.append(
+        "Customer currently appears stable"
+    )
+
+with col1:
+
+    st.subheader(
+        "🤖 AI Recommendation Engine"
+    )
+
+    st.success(
+        "Recommended Action Plan"
+    )
+
+    for item in recommendations:
+
+        st.write(
+            "• " + item
+        )
+
+# -------------------------------------------------
+# RISK DRIVERS
+# -------------------------------------------------
+
+with col2:
+
+    st.subheader(
+        "⚠ Key Factors Driving Churn"
+    )
+
+    if customer["complaint_count"] >= 3:
+
+        st.error(
+            "High Complaint Count"
+        )
+
+    if customer["payment_delay_days"] >= 10:
+
+        st.error(
+            "Payment Delays"
+        )
+
+    if customer["contract"] == "Month-to-month":
+
+        st.warning(
+            "Month-to-month Contract"
+        )
+
+    if customer["customer_health_score"] < 85:
+
+        st.warning(
+            "Low Health Score"
+        )
+
+    if customer["tenure_months"] < 12:
+
+        st.info(
+            "Short Customer Tenure"
+        )
+
+# -------------------------------------------------
+# CUSTOMER VALUE INTELLIGENCE
+# -------------------------------------------------
+
+st.markdown("---")
+
+st.subheader(
+    "Customer Value Intelligence"
+)
+
+v1,v2,v3,v4 = st.columns(4)
+
+with v1:
+
+    st.metric(
+        "Customer Value Segment",
+        customer["customer_value_segment"]
+    )
+
+with v2:
+
+    st.metric(
+        "CLTV Segment",
+        customer["cltv_segment"]
+    )
+
+with v3:
+
+    st.metric(
+        "Risk Segment",
+        customer["risk_segment"]
+    )
+
+with v4:
+
+    st.metric(
+        "Tenure Segment",
+        tenure_segment
+    )
+
+# -------------------------------------------------
+# REVENUE PROTECTION
+# -------------------------------------------------
+
+st.markdown("---")
+
+st.subheader(
+    "Revenue Protection"
+)
+
+r1,r2,r3 = st.columns(3)
+
+with r1:
+
+    st.metric(
+        "Customer CLTV",
+        f"${cltv:,.0f}"
+    )
+
+with r2:
+
+    st.metric(
+        "Revenue At Risk",
+        f"${revenue_at_risk:,.0f}"
+    )
+
+with r3:
+
+    retention_gain = round(
+        revenue_at_risk * 0.60,
+        2
+    )
+
+    st.metric(
+        "Potential Revenue Saved",
+        f"${retention_gain:,.0f}"
+    )
+
+# -------------------------------------------------
+# BUSINESS INSIGHT
+# -------------------------------------------------
+
+if predicted_risk == "High Risk":
+
+    st.error(
+        f"""
+        This customer represents approximately
+        ${revenue_at_risk:,.0f}
+        of revenue exposure and should be prioritized
+        for retention efforts.
+        """
+    )
+
+elif predicted_risk == "Medium Risk":
+
+    st.warning(
+        """
+        Customer should be monitored closely
+        and targeted with engagement campaigns.
+        """
+    )
+
+else:
+
+    st.success(
+        """
+        Customer currently appears stable
+        and suitable for upsell opportunities.
+        """
+    )
+    
+
 # -------------------------------------------------
 # BUSINESS INSIGHT
 # -------------------------------------------------
