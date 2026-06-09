@@ -836,12 +836,17 @@ if selected == "Prediction":
             """
         )
 
+
+# -------------------------------------------------
+# CUSTOMER INSIGHTS PAGE
+# -------------------------------------------------
+
 if selected == "Customer Insights":
 
-    st.title("👤 Customer Insights")
+    st.title("👤 Customer 360 Insights")
 
-    st.markdown(
-        f"### Customer ID: {customer['customer_id']}"
+    st.caption(
+        "Comprehensive customer profile, value, health and risk intelligence"
     )
 
     st.markdown("---")
@@ -850,7 +855,9 @@ if selected == "Customer Insights":
     # CUSTOMER PROFILE
     # =====================================
 
-    c1,c2,c3,c4 = st.columns(4)
+    st.subheader("Customer Profile")
+
+    c1, c2, c3, c4 = st.columns(4)
 
     with c1:
         st.metric(
@@ -879,34 +886,32 @@ if selected == "Customer Insights":
     st.markdown("---")
 
     # =====================================
-    # CUSTOMER ATTRIBUTES
+    # CUSTOMER DEMOGRAPHICS
     # =====================================
 
-    st.subheader(
-        "Customer Attributes"
-    )
+    st.subheader("Customer Demographics")
 
-    a1,a2,a3,a4 = st.columns(4)
+    d1, d2, d3, d4 = st.columns(4)
 
-    with a1:
+    with d1:
         st.metric(
             "Gender",
             customer["gender"]
         )
 
-    with a2:
+    with d2:
         st.metric(
             "Partner",
             customer["partner"]
         )
 
-    with a3:
+    with d3:
         st.metric(
             "Dependents",
             customer["dependents"]
         )
 
-    with a4:
+    with d4:
         st.metric(
             "Senior Citizen",
             customer["senior_citizen"]
@@ -915,50 +920,27 @@ if selected == "Customer Insights":
     st.markdown("---")
 
     # =====================================
-    # CUSTOMER HEALTH
+    # TENURE SEGMENT
     # =====================================
 
-    st.subheader(
-        "Customer Health"
-    )
+    tenure = customer["tenure_months"]
 
-    h1,h2,h3,h4 = st.columns(4)
+    if tenure <= 12:
+        tenure_segment = "New Customer"
 
-    with h1:
-        st.metric(
-            "Health Score",
-            customer["customer_health_score"]
-        )
+    elif tenure <= 36:
+        tenure_segment = "Established Customer"
 
-    with h2:
-        st.metric(
-            "Network Score",
-            customer["network_quality_score"]
-        )
-
-    with h3:
-        st.metric(
-            "App Logins",
-            customer["app_logins"]
-        )
-
-    with h4:
-        st.metric(
-            "Roaming Usage",
-            customer["roaming_usage"]
-        )
-
-    st.markdown("---")
+    else:
+        tenure_segment = "Loyal Customer"
 
     # =====================================
-    # CUSTOMER VALUE
+    # CUSTOMER VALUE INTELLIGENCE
     # =====================================
 
-    st.subheader(
-        "Customer Value Intelligence"
-    )
+    st.subheader("Customer Value Intelligence")
 
-    v1,v2,v3,v4 = st.columns(4)
+    v1, v2, v3, v4 = st.columns(4)
 
     with v1:
         st.metric(
@@ -987,38 +969,106 @@ if selected == "Customer Insights":
     st.markdown("---")
 
     # =====================================
-    # TENURE & BILLING
+    # CUSTOMER HEALTH
     # =====================================
 
-    st.subheader(
-        "Tenure & Billing"
-    )
+    st.subheader("Customer Health Intelligence")
 
-    t1,t2,t3,t4 = st.columns(4)
+    h1, h2, h3, h4 = st.columns(4)
 
-    with t1:
+    with h1:
+        st.metric(
+            "Health Score",
+            customer["customer_health_score"]
+        )
+
+    with h2:
+        st.metric(
+            "Network Score",
+            customer["network_quality_score"]
+        )
+
+    with h3:
+        st.metric(
+            "App Logins",
+            customer["app_logins"]
+        )
+
+    with h4:
+        st.metric(
+            "Data Usage (GB)",
+            customer["avg_monthly_data_usage_gb"]
+        )
+
+    st.markdown("---")
+
+    # =====================================
+    # BILLING & TENURE
+    # =====================================
+
+    st.subheader("Billing & Tenure")
+
+    b1, b2, b3, b4 = st.columns(4)
+
+    with b1:
         st.metric(
             "Tenure (Months)",
             customer["tenure_months"]
         )
 
-    with t2:
+    with b2:
+        st.metric(
+            "Tenure Segment",
+            tenure_segment
+        )
+
+    with b3:
         st.metric(
             "Monthly Charge",
-            f"${customer['monthly_charge']}"
+            f"${float(customer['monthly_charge']):,.2f}"
         )
 
-    with t3:
+    with b4:
         st.metric(
             "Total Charges",
-            f"${customer['total_charges']}"
+            f"${float(customer['total_charges']):,.2f}"
         )
 
-    with t4:
+    st.markdown("---")
+
+    # =====================================
+    # CUSTOMER RISK SIGNALS
+    # =====================================
+
+    st.subheader("Customer Risk Signals")
+
+    r1, r2, r3, r4 = st.columns(4)
+
+    with r1:
         st.metric(
-            "Payment Delay",
+            "Complaint Count",
+            customer["complaint_count"]
+        )
+
+    with r2:
+        st.metric(
+            "Payment Delay Days",
             customer["payment_delay_days"]
         )
+
+    with r3:
+        st.metric(
+            "Churn Label",
+            customer["churn_label"]
+        )
+
+    with r4:
+        st.metric(
+            "Roaming Usage",
+            customer["roaming_usage"]
+        )
+
+
 
 st.title("⚠ Risk Segmentation")
 
