@@ -1652,7 +1652,7 @@ if selected == "AI Recommendations":
             with st.spinner("🤖 Gemini AI is analyzing customer..."):
 
                 model = genai.GenerativeModel(
-                    "gemini-2.0-flash"
+                    "gemini-2.0-flash")
 
                 response = model.generate_content(
                     prompt
