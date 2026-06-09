@@ -774,7 +774,7 @@ if selected == "Prediction":
         2
     )
 
-    st.markdown(f"""
+        st.markdown(f"""
         <div style="
         background:white;
         padding:25px;
