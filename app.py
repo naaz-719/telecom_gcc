@@ -392,15 +392,6 @@ revenue_at_risk = round(
 # PREDICTION SECTION
 # -------------------------------------------------
 
-churn_probability = model.predict_proba(X)[0][1] * 100
-
-risk_level = customer["risk_segment"]
-
-cltv = float(customer["cltv"])
-
-revenue_at_risk = (
-    churn_probability / 100
-) * cltv
 
 
 st.markdown("## 🎯 Prediction Intelligence")
