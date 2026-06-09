@@ -474,113 +474,122 @@ with c3:
     </div>
     """, unsafe_allow_html=True)
 
-# -------------------------------------------------
-# CUSTOMER SUMMARY
-# -------------------------------------------------
 
-st.markdown("---")
 
-st.subheader(
-    "Customer Summary"
-)
-
-s1,s2,s3,s4 = st.columns(4)
-
-with s1:
-
-    st.metric(
-        "Tenure",
-        f"{int(customer['tenure_months'])} Months"
-    )
-
-with s2:
-
-    st.metric(
-        "Monthly Charge",
-        f"${customer['monthly_charge']}"
-    )
-
-with s3:
-
-    st.metric(
-        "CLTV",
-        f"${cltv:,.0f}"
-    )
-
-with s4:
-
-    st.metric(
-        "Health Score",
-        customer["customer_health_score"]
-    )
 
 # -------------------------------------------------
 # AI RECOMMENDATIONS
 # -------------------------------------------------
 
-st.markdown("---")
+st.markdown("## 🤖 Decision Intelligence")
 
 col1,col2 = st.columns(2)
 
-recommendations = []
-
-if customer["complaint_count"] >= 3:
-
-    recommendations.append(
-        "Assign dedicated relationship manager"
-    )
-
-if customer["payment_delay_days"] >= 10:
-
-    recommendations.append(
-        "Offer flexible billing plan"
-    )
-
-if customer["customer_health_score"] < 85:
-
-    recommendations.append(
-        "Launch customer retention campaign"
-    )
-
-if customer["app_logins"] < 10:
-
-    recommendations.append(
-        "Increase digital engagement through app promotions"
-    )
-
-if customer["tenure_months"] < 12:
-
-    recommendations.append(
-        "Offer loyalty welcome package"
-    )
-
-if customer["network_quality_score"] < 7:
-
-    recommendations.append(
-        "Provide network quality support"
-    )
-
-if len(recommendations) == 0:
-
-    recommendations.append(
-        "Customer currently appears stable"
-    )
-
 with col1:
 
-    st.subheader(
-        "🤖 AI Recommendation Engine"
-    )
-
-    st.success(
-        "Recommended Action Plan"
-    )
+    recommendations_html = ""
 
     for item in recommendations:
 
-        st.write(
-            "• " + item
-        )
+        recommendations_html += f"""
+        <li style="
+        margin-bottom:10px;
+        ">
+        {item}
+        </li>
+        """
+
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    border:1px solid #E2E8F0;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.05);
+    min-height:350px;
+    ">
+
+    <h3>
+    🤖 AI Recommendation Engine
+    </h3>
+
+    <p style="
+    color:#64748B;
+    ">
+    Recommended retention actions
+    </p>
+
+    <ul>
+    {recommendations_html}
+    </ul>
+
+    </div>
+    """,
+    unsafe_allow_html=True)
+
+
+with col2:
+
+    drivers = []
+
+    if customer["complaint_count"] >= 3:
+        drivers.append("High Complaint Count")
+
+    if customer["payment_delay_days"] >= 10:
+        drivers.append("Payment Delays")
+
+    if customer["contract"] == "Month-to-month":
+        drivers.append("Month-to-month Contract")
+
+    if customer["customer_health_score"] < 85:
+        drivers.append("Low Health Score")
+
+    if customer["tenure_months"] < 12:
+        drivers.append("Short Customer Tenure")
+
+    driver_html = ""
+
+    for item in drivers:
+
+        driver_html += f"""
+        <li style="
+        margin-bottom:10px;
+        color:#EF4444;
+        ">
+        {item}
+        </li>
+        """
+
+
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    border:1px solid #E2E8F0;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.05);
+    min-height:350px;
+    ">
+
+    <h3>
+    ⚠ Key Risk Drivers
+    </h3>
+
+    <p style="
+    color:#64748B;
+    ">
+    Factors contributing to churn risk
+    </p>
+
+    <ul>
+    {driver_html}
+    </ul>
+
+    </div>
+    """,
+    unsafe_allow_html=True)
+
+
 
 # -------------------------------------------------
 # RISK DRIVERS
