@@ -835,20 +835,105 @@ if selected == "Prediction":
             """
         )
 
-if selected == "Customer Insights":
 
-    st.title("👥 Customer Insights")
+st.info(
+    "Customer Insights Page"
+)
+st.title("👥 Customer Insights")
 
-    st.info(
-        "Customer Insights page coming next."
+left,right = st.columns(2)
+
+with left:
+
+    st.subheader(
+        "Customers by Country"
     )
 
-if selected == "Risk Segmentation":
+    country_counts = (
+        df["country"]
+        .value_counts()
+        .reset_index()
+    )
 
-    st.title("⚠ Risk Segmentation")
+    country_counts.columns = [
+        "Country",
+        "Customers"
+    ]
 
-    st.info(
-        "Risk Segmentation page coming next."
+    fig_customer_country = px.bar(
+        country_counts,
+        x="Country",
+        y="Customers",
+        color="Country"
+    )
+
+    st.plotly_chart(
+        fig_customer_country,
+        use_container_width=True
+    )
+
+with right:
+
+    st.subheader(
+        "Customer Type Distribution"
+    )
+
+    customer_type = (
+        df["customer_type"]
+        .value_counts()
+        .reset_index()
+    )
+
+    customer_type.columns = [
+        "Customer Type",
+        "Customers"
+    ]
+
+    fig_customer_type = px.pie(
+        customer_type,
+        names="Customer Type",
+        values="Customers",
+        hole=0.60
+    )
+
+    st.plotly_chart(
+        fig_customer_type,
+        use_container_width=True
+    )
+
+st.title("⚠ Risk Segmentation")
+
+left,right = st.columns(2)
+
+with left:
+
+    risk_counts = (
+        df["risk_segment"]
+        .value_counts()
+        .reset_index()
+    )
+
+    risk_counts.columns = [
+        "Risk Segment",
+        "Customers"
+    ]
+
+    fig_risk = px.pie(
+        risk_counts,
+        names="Risk Segment",
+        values="Customers",
+        hole=0.60,
+        color="Risk Segment",
+        color_discrete_map={
+            "High Risk":"#EF4444",
+            "Medium Risk":"#F59E0B",
+            "Low Risk":"#22C55E"
+        }
+    )
+
+    st.plotly_chart(
+        fig_risk,
+        use_container_width=True
     )
 
 if selected == "Revenue Protection":
