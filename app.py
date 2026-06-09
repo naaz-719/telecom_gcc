@@ -375,48 +375,104 @@ revenue_at_risk = round(
 
 st.markdown("---")
 
-st.subheader(
-    "Prediction Result"
-)
+st.markdown("## 🎯 Prediction Intelligence")
 
-left,right = st.columns(2)
+c1,c2,c3 = st.columns(3)
 
-with left:
+with c1:
 
-    st.metric(
-        "Churn Probability",
-        f"{churn_probability}%"
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    border:1px solid #E2E8F0;
+    text-align:center;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.05);
+    ">
+
+    <p style="
+    color:#64748B;
+    ">
+    Churn Probability
+    </p>
+
+    <h1 style="
+    color:#EF4444;
+    font-size:48px;
+    font-weight:800;
+    ">
+    {churn_probability:.1f}%
+    </h1>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+with c2:
+
+    risk_color = (
+        "#EF4444"
+        if predicted_risk == "High Risk"
+        else "#F59E0B"
+        if predicted_risk == "Medium Risk"
+        else "#22C55E"
     )
 
-    if predicted_risk == "High Risk":
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    border:1px solid #E2E8F0;
+    text-align:center;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.05);
+    ">
 
-        st.error(
-            "Customer is likely to CHURN"
-        )
+    <p style="
+    color:#64748B;
+    ">
+    Risk Level
+    </p>
 
-    elif predicted_risk == "Medium Risk":
+    <h1 style="
+    color:{risk_color};
+    font-size:42px;
+    font-weight:800;
+    ">
+    {predicted_risk}
+    </h1>
 
-        st.warning(
-            "Customer requires attention"
-        )
+    </div>
+    """, unsafe_allow_html=True)
 
-    else:
+with c3:
 
-        st.success(
-            "Customer appears stable"
-        )
+    st.markdown(f"""
+    <div style="
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    border:1px solid #E2E8F0;
+    text-align:center;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.05);
+    ">
 
-with right:
+    <p style="
+    color:#64748B;
+    ">
+    Revenue At Risk
+    </p>
 
-    st.metric(
-        "Risk Level",
-        predicted_risk
-    )
+    <h1 style="
+    color:#0F172A;
+    font-size:42px;
+    font-weight:800;
+    ">
+    ${revenue_at_risk:,.0f}
+    </h1>
 
-    st.metric(
-        "Revenue At Risk",
-        f"${revenue_at_risk:,.0f}"
-    )
+    </div>
+    """, unsafe_allow_html=True)
 
 # -------------------------------------------------
 # CUSTOMER SUMMARY
