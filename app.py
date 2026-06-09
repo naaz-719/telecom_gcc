@@ -135,6 +135,18 @@ with st.sidebar:
     )
 
 
+if selected == "Prediction":
+    st.success("Prediction Page")
+
+elif selected == "Customer Insights":
+    st.success("Customer Insights Page")
+
+elif selected == "Risk Segmentation":
+    st.success("Risk Segmentation Page")
+
+elif selected == "Revenue Protection":
+    st.success("Revenue Protection Page")
+
 
 # -------------------------------------------------
 # HEADER
