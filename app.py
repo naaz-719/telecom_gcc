@@ -232,12 +232,15 @@ div[data-testid="metric-container"] label{
 """,
 unsafe_allow_html=True)
 
+
+
 # -------------------------------------------------
 # CUSTOMER SELECTOR
 # -------------------------------------------------
 
 st.markdown("---")
-
+if selected == "Prediction":
+    
 customer_id = st.selectbox(
     "Select Customer ID",
     sorted(df["customer_id"].unique())
