@@ -792,7 +792,13 @@ if selected == "Prediction":
         unsafe_allow_html=True)
 
 
+if selected == "Customer Insights":
 
+    st.title("👥 Customer Insights")
+
+    st.info(
+        "Customer Insights page coming next."
+    )
 # -------------------------------------------------
 # BUSINESS INSIGHT
 # -------------------------------------------------
