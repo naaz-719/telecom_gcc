@@ -170,13 +170,10 @@ with col1:
 with col2:
 
     st.image(
-        "assets/business.png",
+        "assets/business.png","assets/radio-tower.png",
         width=180
     )
-    st.image(
-        "assets/radio-tower.png",
-        width=150
-    )
+    
 
 st.markdown("</div>", unsafe_allow_html=True)
 
