@@ -1656,17 +1656,17 @@ Keep the response business-focused and concise.
             ]
         )
 
-    st.markdown("### 🤖 AI Analysis")
+            st.markdown("### 🤖 AI Analysis")
 
-    st.markdown(
-        response.choices[0].message.content
-    )
+            st.markdown(
+                response.choices[0].message.content
+            )
 
-except Exception as e:
+    except Exception as e:
 
-    st.error(
-        f"AI service unavailable: {str(e)}"
-    )
+        st.error(
+            f"AI service unavailable: {str(e)}"
+        )
 
         st.markdown("### 🤖 AI Analysis")
 
