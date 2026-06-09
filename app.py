@@ -1646,16 +1646,15 @@ Keep the response business-focused and concise.
         with st.spinner("🤖 AI is analyzing customer data..."):
 
            try:
-
-    response = client.chat.completions.create(
-        model="gpt-4.1-mini",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    )
+            response = client.chat.completions.create(
+            model="gpt-4.1-mini",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
 
     st.markdown("### 🤖 AI Analysis")
 
