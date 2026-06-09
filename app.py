@@ -859,6 +859,30 @@ if selected == "Revenue Protection":
         "Revenue Protection page coming next."
     )
 
+if selected == "AI Recommendations":
+
+    st.title("🤖 AI Recommendations")
+
+    st.info(
+        "AI Recommendations Page"
+    )
+
+if selected == "Model Performance":
+
+    st.title("📈 Model Performance")
+
+    st.info(
+        "Model Performance Page"
+    )
+
+if selected == "About":
+
+    st.title("ℹ About")
+
+    st.info(
+        "About Page"
+    )
+    
 
 # -------------------------------------------------
 # EXECUTIVE ANALYTICS DASHBOARD
