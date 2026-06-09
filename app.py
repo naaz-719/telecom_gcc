@@ -272,19 +272,67 @@ p1,p2,p3,p4 = st.columns(4)
 
 with p1:
     st.write("Country")
-    st.info(customer["country"])
+    st.markdown(f"""
+<div style="
+background:white;
+padding:18px;
+border-radius:15px;
+box-shadow:0px 4px 10px rgba(0,0,0,0.05);
+text-align:center;
+">
+<h4>Country</h4>
+<h3>{customer['country']}</h3>
+</div>
+""",
+unsafe_allow_html=True)
 
 with p2:
     st.write("City")
-    st.info(customer["city"])
+    st.markdown(f"""
+<div style="
+background:white;
+padding:18px;
+border-radius:15px;
+box-shadow:0px 4px 10px rgba(0,0,0,0.05);
+text-align:center;
+">
+<h4>City</h4>
+<h3>{city['city']}</h3>
+</div>
+""",
+unsafe_allow_html=True)
 
 with p3:
     st.write("Customer Type")
-    st.info(customer["customer_type"])
+    st.markdown(f"""
+<div style="
+background:white;
+padding:18px;
+border-radius:15px;
+box-shadow:0px 4px 10px rgba(0,0,0,0.05);
+text-align:center;
+">
+<h4>Customer Type</h4>
+<h3>{customer type['customer type']}</h3>
+</div>
+""",
+unsafe_allow_html=True)
 
 with p4:
     st.write("Contract")
-    st.info(customer["contract"])
+    st.markdown(f"""
+<div style="
+background:white;
+padding:18px;
+border-radius:15px;
+box-shadow:0px 4px 10px rgba(0,0,0,0.05);
+text-align:center;
+">
+<h4>Contract</h4>
+<h3>{contract['contract']}</h3>
+</div>
+""",
+unsafe_allow_html=True)
 
 # -------------------------------------------------
 # CHURN PREDICTION
