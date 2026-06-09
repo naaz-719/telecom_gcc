@@ -761,35 +761,3 @@ else:
     )
     
 
-# -------------------------------------------------
-# BUSINESS INSIGHT
-# -------------------------------------------------
-
-if predicted_risk == "High Risk":
-
-    st.error(
-        f"""
-        This customer represents approximately
-        ${revenue_at_risk:,.0f}
-        of revenue exposure and should be prioritized
-        for retention efforts.
-        """
-    )
-
-elif predicted_risk == "Medium Risk":
-
-    st.warning(
-        """
-        Customer should be monitored closely
-        and targeted with engagement campaigns.
-        """
-    )
-
-else:
-
-    st.success(
-        """
-        Customer currently appears stable
-        and suitable for upsell opportunities.
-        """
-    )
