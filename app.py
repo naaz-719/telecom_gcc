@@ -478,26 +478,86 @@ with c3:
 
 
 # -------------------------------------------------
-# AI RECOMMENDATIONS
+# DECISION INTELLIGENCE
 # -------------------------------------------------
 
-st.markdown("## 🤖 Decision Intelligence")
+st.markdown("---")
 
-col1,col2 = st.columns(2)
+recommendations = []
+
+if customer["complaint_count"] >= 3:
+    recommendations.append(
+        "Assign dedicated relationship manager"
+    )
+
+if customer["payment_delay_days"] >= 10:
+    recommendations.append(
+        "Offer flexible billing plan"
+    )
+
+if customer["customer_health_score"] < 85:
+    recommendations.append(
+        "Launch customer retention campaign"
+    )
+
+if customer["app_logins"] < 10:
+    recommendations.append(
+        "Increase digital engagement"
+    )
+
+if customer["tenure_months"] < 12:
+    recommendations.append(
+        "Offer loyalty welcome package"
+    )
+
+if customer["network_quality_score"] < 7:
+    recommendations.append(
+        "Provide network quality support"
+    )
+
+if len(recommendations) == 0:
+    recommendations.append(
+        "Customer currently appears stable"
+    )
+
+# -------------------------------------------------
+# RISK DRIVERS
+# -------------------------------------------------
+
+drivers = []
+
+if customer["complaint_count"] >= 3:
+    drivers.append(
+        "High Complaint Count"
+    )
+
+if customer["payment_delay_days"] >= 10:
+    drivers.append(
+        "Payment Delays"
+    )
+
+if customer["contract"] == "Month-to-month":
+    drivers.append(
+        "Month-to-month Contract"
+    )
+
+if customer["customer_health_score"] < 85:
+    drivers.append(
+        "Low Health Score"
+    )
+
+if customer["tenure_months"] < 12:
+    drivers.append(
+        "Short Customer Tenure"
+    )
+
+col1, col2 = st.columns(2)
+
+# -------------------------------------------------
+# AI RECOMMENDATIONS CARD
+# -------------------------------------------------
 
 with col1:
-
-    recommendations_html = ""
-
-    for item in recommendations:
-
-        recommendations_html += f"""
-        <li style="
-        margin-bottom:10px;
-        ">
-        {item}
-        </li>
-        """
 
     st.markdown(f"""
     <div style="
@@ -506,10 +566,12 @@ with col1:
     border-radius:20px;
     border:1px solid #E2E8F0;
     box-shadow:0px 4px 12px rgba(0,0,0,0.05);
-    min-height:350px;
+    min-height:380px;
     ">
-
-    <h3>
+    
+    <h3 style="
+    color:#0F172A;
+    ">
     🤖 AI Recommendation Engine
     </h3>
 
@@ -519,47 +581,24 @@ with col1:
     Recommended retention actions
     </p>
 
-    <ul>
-    {recommendations_html}
-    </ul>
-
     </div>
     """,
     unsafe_allow_html=True)
 
+    st.image(
+        "assets/recommendation.png",
+        width=60
+    )
+
+    for item in recommendations:
+
+        st.success(item)
+
+# -------------------------------------------------
+# RISK DRIVERS CARD
+# -------------------------------------------------
 
 with col2:
-
-    drivers = []
-
-    if customer["complaint_count"] >= 3:
-        drivers.append("High Complaint Count")
-
-    if customer["payment_delay_days"] >= 10:
-        drivers.append("Payment Delays")
-
-    if customer["contract"] == "Month-to-month":
-        drivers.append("Month-to-month Contract")
-
-    if customer["customer_health_score"] < 85:
-        drivers.append("Low Health Score")
-
-    if customer["tenure_months"] < 12:
-        drivers.append("Short Customer Tenure")
-
-    driver_html = ""
-
-    for item in drivers:
-
-        driver_html += f"""
-        <li style="
-        margin-bottom:10px;
-        color:#EF4444;
-        ">
-        {item}
-        </li>
-        """
-
 
     st.markdown(f"""
     <div style="
@@ -568,10 +607,12 @@ with col2:
     border-radius:20px;
     border:1px solid #E2E8F0;
     box-shadow:0px 4px 12px rgba(0,0,0,0.05);
-    min-height:350px;
+    min-height:380px;
     ">
-
-    <h3>
+    
+    <h3 style="
+    color:#0F172A;
+    ">
     ⚠ Key Risk Drivers
     </h3>
 
@@ -581,55 +622,20 @@ with col2:
     Factors contributing to churn risk
     </p>
 
-    <ul>
-    {driver_html}
-    </ul>
-
     </div>
     """,
     unsafe_allow_html=True)
 
-
-
-# -------------------------------------------------
-# RISK DRIVERS
-# -------------------------------------------------
-
-with col2:
-
-    st.subheader(
-        "⚠ Key Factors Driving Churn"
+    st.image(
+        "assets/warning.png",
+        width=60
     )
 
-    if customer["complaint_count"] >= 3:
+    for item in drivers:
 
-        st.error(
-            "High Complaint Count"
-        )
+        st.warning(item)
 
-    if customer["payment_delay_days"] >= 10:
 
-        st.error(
-            "Payment Delays"
-        )
-
-    if customer["contract"] == "Month-to-month":
-
-        st.warning(
-            "Month-to-month Contract"
-        )
-
-    if customer["customer_health_score"] < 85:
-
-        st.warning(
-            "Low Health Score"
-        )
-
-    if customer["tenure_months"] < 12:
-
-        st.info(
-            "Short Customer Tenure"
-        )
 
 # -------------------------------------------------
 # CUSTOMER VALUE INTELLIGENCE
