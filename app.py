@@ -837,69 +837,187 @@ if selected == "Prediction":
         )
 
 if selected == "Customer Insights":
-    st.info(
-        "Customer Insights Page"
+
+    st.title("👤 Customer Insights")
+
+    st.markdown(
+        f"### Customer ID: {customer['customer_id']}"
     )
-    st.title("👥 Customer Insights")
-    
-    left,right = st.columns(2)
-    
-    with left:
-    
-        st.subheader(
-            "Customers by Country"
-        )
-    
-        country_counts = (
-            df["country"]
-            .value_counts()
-            .reset_index()
-        )
-    
-        country_counts.columns = [
+
+    st.markdown("---")
+
+    # =====================================
+    # CUSTOMER PROFILE
+    # =====================================
+
+    c1,c2,c3,c4 = st.columns(4)
+
+    with c1:
+        st.metric(
             "Country",
-            "Customers"
-        ]
-    
-        fig_customer_country = px.bar(
-            country_counts,
-            x="Country",
-            y="Customers",
-            color="Country"
+            customer["country"]
         )
-    
-        st.plotly_chart(
-            fig_customer_country,
-            use_container_width=True
+
+    with c2:
+        st.metric(
+            "City",
+            customer["city"]
         )
-    
-    with right:
-    
-        st.subheader(
-            "Customer Type Distribution"
-        )
-    
-        customer_type = (
-            df["customer_type"]
-            .value_counts()
-            .reset_index()
-        )
-    
-        customer_type.columns = [
+
+    with c3:
+        st.metric(
             "Customer Type",
-            "Customers"
-        ]
-    
-        fig_customer_type = px.pie(
-            customer_type,
-            names="Customer Type",
-            values="Customers",
-            hole=0.60
+            customer["customer_type"]
         )
-    
-        st.plotly_chart(
-            fig_customer_type,
-            use_container_width=True
+
+    with c4:
+        st.metric(
+            "Contract",
+            customer["contract"]
+        )
+
+    st.markdown("---")
+
+    # =====================================
+    # CUSTOMER ATTRIBUTES
+    # =====================================
+
+    st.subheader(
+        "Customer Attributes"
+    )
+
+    a1,a2,a3,a4 = st.columns(4)
+
+    with a1:
+        st.metric(
+            "Gender",
+            customer["gender"]
+        )
+
+    with a2:
+        st.metric(
+            "Partner",
+            customer["partner"]
+        )
+
+    with a3:
+        st.metric(
+            "Dependents",
+            customer["dependents"]
+        )
+
+    with a4:
+        st.metric(
+            "Senior Citizen",
+            customer["senior_citizen"]
+        )
+
+    st.markdown("---")
+
+    # =====================================
+    # CUSTOMER HEALTH
+    # =====================================
+
+    st.subheader(
+        "Customer Health"
+    )
+
+    h1,h2,h3,h4 = st.columns(4)
+
+    with h1:
+        st.metric(
+            "Health Score",
+            customer["customer_health_score"]
+        )
+
+    with h2:
+        st.metric(
+            "Network Score",
+            customer["network_quality_score"]
+        )
+
+    with h3:
+        st.metric(
+            "App Logins",
+            customer["app_logins"]
+        )
+
+    with h4:
+        st.metric(
+            "Roaming Usage",
+            customer["roaming_usage"]
+        )
+
+    st.markdown("---")
+
+    # =====================================
+    # CUSTOMER VALUE
+    # =====================================
+
+    st.subheader(
+        "Customer Value Intelligence"
+    )
+
+    v1,v2,v3,v4 = st.columns(4)
+
+    with v1:
+        st.metric(
+            "CLTV",
+            f"${float(customer['cltv']):,.0f}"
+        )
+
+    with v2:
+        st.metric(
+            "Value Segment",
+            customer["customer_value_segment"]
+        )
+
+    with v3:
+        st.metric(
+            "CLTV Segment",
+            customer["cltv_segment"]
+        )
+
+    with v4:
+        st.metric(
+            "Risk Segment",
+            customer["risk_segment"]
+        )
+
+    st.markdown("---")
+
+    # =====================================
+    # TENURE & BILLING
+    # =====================================
+
+    st.subheader(
+        "Tenure & Billing"
+    )
+
+    t1,t2,t3,t4 = st.columns(4)
+
+    with t1:
+        st.metric(
+            "Tenure (Months)",
+            customer["tenure_months"]
+        )
+
+    with t2:
+        st.metric(
+            "Monthly Charge",
+            f"${customer['monthly_charge']}"
+        )
+
+    with t3:
+        st.metric(
+            "Total Charges",
+            f"${customer['total_charges']}"
+        )
+
+    with t4:
+        st.metric(
+            "Payment Delay",
+            customer["payment_delay_days"]
         )
 
 st.title("⚠ Risk Segmentation")
