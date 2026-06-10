@@ -746,9 +746,10 @@ if selected == "Customer Insights":
         </div>
         """,
         unsafe_allow_html=True)
-    
+
     with p3:
-        st.markdown(f"""
+    st.markdown(
+        f"""
         <div style="
         background:white;
         padding:20px;
@@ -756,10 +757,11 @@ if selected == "Customer Insights":
         border:1px solid #E5E7EB;
         ">
         <div style="color:#64748B;">Customer Type</div>
-        <h4>{customer['customer_type']}</h4>
+        <h4>{customer['contract']}</h4>
         </div>
         """,
-        unsafe_allow_html=True)
+        unsafe_allow_html=True
+    )
     
     with p4:
         st.markdown(f"""
