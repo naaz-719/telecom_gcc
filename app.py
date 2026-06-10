@@ -365,7 +365,7 @@ if selected == "Home":
         with col2:
             st.subheader("High Risk Rate by Country (%)")
 
-              country_risk_rate = (
+            country_risk_rate = (
                 df.groupby("country")
                 .apply(
                     lambda x:
