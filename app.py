@@ -123,6 +123,7 @@ with st.sidebar:
     selected = option_menu(
         menu_title="Navigation",
         options=[
+            "Home",
             "Customer Insights",
             "Risk Segmentation",
             "Revenue Protection",
@@ -130,6 +131,7 @@ with st.sidebar:
             "About"
         ],
         icons=[
+            "house-fill",
             "people-fill",
             "shield-fill-check",
             "cash-stack",
@@ -140,7 +142,10 @@ with st.sidebar:
     )
 
 
-if selected == "Customer Insights":
+if selected == "Home":
+    st.success("Home Page")
+
+elif selected == "Customer Insights":
     st.success("Customer Insights Page")
 
 elif selected == "Risk Segmentation":
@@ -186,75 +191,76 @@ with col2:
 
 
 
-# -------------------------------------------------
-# KPI VALUES
-# -------------------------------------------------
+if selected == "Home":
 
-total_customers = len(df)
+    # -------------------------------------------------
+    # KPI VALUES
+    # -------------------------------------------------
+    
+    total_customers = len(df)
+    
+    avg_cltv = df["cltv"].astype(float).mean()
+    
+    avg_health = df["customer_health_score"].astype(float).mean()
+    
+    high_risk = (df["risk_segment"]=="High Risk").sum()
+    
+    
+    # -------------------------------------------------
+    # KPI CARDS
+    # -------------------------------------------------
+    
+    c1, c2, c3, c4 = st.columns(4)
+    
+    with c1:
+        st.metric(
+            "Total Customers",
+            f"{total_customers:,}"
+        )
+    
+    with c2:
+        st.metric(
+            "Average CLTV",
+            f"${avg_cltv:,.0f}"
+        )
+    
+    with c3:
+        st.metric(
+            "Health Score",
+            f"{avg_health:.1f}"
+        )
+    
+    with c4:
+        st.metric(
+            "High Risk Customers",
+            f"{high_risk:,}"
+        )
+    
+    st.markdown("""
+    <style>
+    
+    div[data-testid="metric-container"]{
+        background:white;
+        border-radius:18px;
+        padding:20px;
+        border:1px solid #E2E8F0;
+        box-shadow:0px 4px 12px rgba(0,0,0,0.06);
+    }
+    
+    div[data-testid="metric-container"] label{
+        color:#64748B;
+    }
+    
+    </style>
+    """,
+    unsafe_allow_html=True)
 
-avg_cltv = df["cltv"].astype(float).mean()
-
-avg_health = df["customer_health_score"].astype(float).mean()
-
-high_risk = (df["risk_segment"]=="High Risk").sum()
 
 
-# -------------------------------------------------
-# KPI CARDS
-# -------------------------------------------------
+    # ============================================
+    # EXECUTIVE DASHBOARD
+    # ============================================
 
-c1, c2, c3, c4 = st.columns(4)
-
-with c1:
-    st.metric(
-        "Total Customers",
-        f"{total_customers:,}"
-    )
-
-with c2:
-    st.metric(
-        "Average CLTV",
-        f"${avg_cltv:,.0f}"
-    )
-
-with c3:
-    st.metric(
-        "Health Score",
-        f"{avg_health:.1f}"
-    )
-
-with c4:
-    st.metric(
-        "High Risk Customers",
-        f"{high_risk:,}"
-    )
-
-st.markdown("""
-<style>
-
-div[data-testid="metric-container"]{
-    background:white;
-    border-radius:18px;
-    padding:20px;
-    border:1px solid #E2E8F0;
-    box-shadow:0px 4px 12px rgba(0,0,0,0.06);
-}
-
-div[data-testid="metric-container"] label{
-    color:#64748B;
-}
-
-</style>
-""",
-unsafe_allow_html=True)
-
-
-
-# ============================================
-# EXECUTIVE DASHBOARD
-# ============================================
-
-if selected == "Executive Dashboard":
 
     st.title("📊 Executive Analytics Dashboard")
     st.caption(
