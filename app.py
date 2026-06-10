@@ -375,7 +375,7 @@ if selected == "Home":
                 .reset_index()
             )
 
-                country_risk_rate.columns = [
+            country_risk_rate.columns = [
                     "country",
                     "risk_rate"
                 ]
@@ -409,7 +409,7 @@ if selected == "Home":
                     .reset_index()
                 )
                 
-                type_risk_rate.columns = [
+            type_risk_rate.columns = [
                     "customer_type",
                     "risk_rate"
                 ]
