@@ -720,15 +720,15 @@ if selected == "Customer Insights":
     
     with p1:
         st.markdown(f"""
-        <div style="
-        background:white;
-        padding:20px;
-        border-radius:16px;
-        border:1px solid #E5E7EB;
-        ">
-        <div style="color:#64748B;">Country</div>
-        <h4>{customer['country']}</h4>
-        </div>
+            <div style="
+                background:white;
+                padding:20px;
+                border-radius:16px;
+                border:1px solid #E5E7EB;
+                ">
+            <div style="color:#64748B;">Country</div>
+            <h4>{customer['country']}</h4>
+            </div>
         """,
         unsafe_allow_html=True)
     
