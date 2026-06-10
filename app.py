@@ -1110,132 +1110,7 @@ if selected == "Customer Insights":
     col1, col2 = st.columns(2)
 
 
-    # ============================================
-    # AI RECOMMENDATIONS
-    # ============================================
-    
-    if selected == "AI Recommendations":
-    
-        st.title("🤖 GCC Telecom AI Copilot")
-    
-        st.caption(
-            "AI-powered churn analysis, retention strategy and revenue protection assistant"
-        )
-    
-        st.markdown("---")
-    
-        st.subheader("Selected Customer")
-    
-        st.json({
-            "Customer ID": customer["customer_id"],
-            "Country": customer["country"],
-            "Customer Type": customer["customer_type"],
-            "Risk Segment": customer["risk_segment"],
-            "Health Score": customer["customer_health_score"],
-            "CLTV": customer["cltv"],
-            "Churn Probability": f"{churn_probability:.1f}%"
-        })
-    
-        st.markdown("---")
-    
-        question = st.selectbox(
-            "Ask AI Copilot",
-            [
-                "Why is this customer high risk?",
-                "Generate retention strategy",
-                "How can we reduce churn?",
-                "How much revenue is at risk?",
-                "Summarize this customer",
-                "What is the next best action?",
-                "How should the retention team handle this customer?"
-            ]
-        )
-    
-        if st.button("🚀 Generate AI Analysis"):
-    
-            try:
-    
-                prompt = f"""
-    You are a Senior Telecom Retention Consultant.
-    
-    Analyze the customer and provide a business-focused response.
-    
-    CUSTOMER INFORMATION
-    
-    Customer ID: {customer['customer_id']}
-    Country: {customer['country']}
-    Customer Type: {customer['customer_type']}
-    Contract: {customer['contract']}
-    Tenure: {customer['tenure_months']} months
-    
-    CLTV: {customer['cltv']}
-    Risk Segment: {customer['risk_segment']}
-    Health Score: {customer['customer_health_score']}
-    Network Quality Score: {customer['network_quality_score']}
-    
-    Complaint Count: {customer['complaint_count']}
-    Payment Delay Days: {customer['payment_delay_days']}
-    App Logins: {customer['app_logins']}
-    Roaming Usage: {customer['roaming_usage']}
-    Monthly Charge: {customer['monthly_charge']}
-    Data Usage: {customer['avg_monthly_data_usage_gb']}
-    
-    Predicted Churn Probability:
-    {churn_probability:.1f}%
-    
-    USER QUESTION:
-    {question}
-    
-    Provide:
-    
-    1. Executive Summary
-    2. Key Risk Drivers
-    3. Retention Strategy
-    4. Revenue Protection Actions
-    5. Next Best Action
-    
-    Keep the answer concise and suitable for telecom executives.
-    """
-    
-                with st.spinner(
-                    "🤖 AI Copilot is analyzing customer..."
-                ):
-    
-                    response = client.chat.completions.create(
-                        model="llama-3.3-70b-versatile",
-                        messages=[
-                            {
-                                "role": "system",
-                                "content":
-                                "You are an expert telecom churn and revenue retention consultant."
-                            },
-                            {
-                                "role": "user",
-                                "content": prompt
-                            }
-                        ],
-                        temperature=0.3,
-                        max_tokens=1000
-                    )
-    
-                st.markdown("---")
-    
-                st.markdown(
-                    "## 🤖 AI Copilot Analysis"
-                )
-    
-                st.markdown(
-                    response.choices[0].message.content
-                )
-    
-            except Exception as e:
-    
-                st.error(
-                    f"AI Service Error: {str(e)}"
-                )
         
-    
-
 
     
     # -------------------------------------------------
@@ -1272,24 +1147,6 @@ if selected == "Customer Insights":
         )
 
     
-
-
-
-
-
-# -------------------------------------------------
-# CUSTOMER INSIGHTS PAGE
-# -------------------------------------------------
-
-if selected == "Customer Insights":
-
-    st.title("👤 Customer 360 Insights")
-
-    st.caption(
-        "Comprehensive customer profile, value, health and risk intelligence"
-    )
-
-    st.markdown("---")
 
     # =====================================
     # CUSTOMER PROFILE
@@ -1507,6 +1364,129 @@ if selected == "Customer Insights":
             "Roaming Usage",
             customer["roaming_usage"]
         )
+
+    # ============================================
+    # AI RECOMMENDATIONS
+    # ============================================
+    
+    
+        st.title("🤖 GCC Telecom AI Copilot")
+    
+        st.caption(
+            "AI-powered churn analysis, retention strategy and revenue protection assistant"
+        )
+    
+        st.markdown("---")
+    
+        st.subheader("Selected Customer")
+    
+        st.json({
+            "Customer ID": customer["customer_id"],
+            "Country": customer["country"],
+            "Customer Type": customer["customer_type"],
+            "Risk Segment": customer["risk_segment"],
+            "Health Score": customer["customer_health_score"],
+            "CLTV": customer["cltv"],
+            "Churn Probability": f"{churn_probability:.1f}%"
+        })
+    
+        st.markdown("---")
+    
+        question = st.selectbox(
+            "Ask AI Copilot",
+            [
+                "Why is this customer high risk?",
+                "Generate retention strategy",
+                "How can we reduce churn?",
+                "How much revenue is at risk?",
+                "Summarize this customer",
+                "What is the next best action?",
+                "How should the retention team handle this customer?"
+            ]
+        )
+    
+        if st.button("🚀 Generate AI Analysis"):
+    
+            try:
+    
+                prompt = f"""
+    You are a Senior Telecom Retention Consultant.
+    
+    Analyze the customer and provide a business-focused response.
+    
+    CUSTOMER INFORMATION
+    
+    Customer ID: {customer['customer_id']}
+    Country: {customer['country']}
+    Customer Type: {customer['customer_type']}
+    Contract: {customer['contract']}
+    Tenure: {customer['tenure_months']} months
+    
+    CLTV: {customer['cltv']}
+    Risk Segment: {customer['risk_segment']}
+    Health Score: {customer['customer_health_score']}
+    Network Quality Score: {customer['network_quality_score']}
+    
+    Complaint Count: {customer['complaint_count']}
+    Payment Delay Days: {customer['payment_delay_days']}
+    App Logins: {customer['app_logins']}
+    Roaming Usage: {customer['roaming_usage']}
+    Monthly Charge: {customer['monthly_charge']}
+    Data Usage: {customer['avg_monthly_data_usage_gb']}
+    
+    Predicted Churn Probability:
+    {churn_probability:.1f}%
+    
+    USER QUESTION:
+    {question}
+    
+    Provide:
+    
+    1. Executive Summary
+    2. Key Risk Drivers
+    3. Retention Strategy
+    4. Revenue Protection Actions
+    5. Next Best Action
+    
+    Keep the answer concise and suitable for telecom executives.
+    """
+    
+                with st.spinner(
+                    "🤖 AI Copilot is analyzing customer..."
+                ):
+    
+                    response = client.chat.completions.create(
+                        model="llama-3.3-70b-versatile",
+                        messages=[
+                            {
+                                "role": "system",
+                                "content":
+                                "You are an expert telecom churn and revenue retention consultant."
+                            },
+                            {
+                                "role": "user",
+                                "content": prompt
+                            }
+                        ],
+                        temperature=0.3,
+                        max_tokens=1000
+                    )
+    
+                st.markdown("---")
+    
+                st.markdown(
+                    "## 🤖 AI Copilot Analysis"
+                )
+    
+                st.markdown(
+                    response.choices[0].message.content
+                )
+    
+            except Exception as e:
+    
+                st.error(
+                    f"AI Service Error: {str(e)}"
+                )
 
 
 
