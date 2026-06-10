@@ -299,7 +299,7 @@ churn_probability = round(
 )
 
 
-if selected == "Excecutive Dashboard":
+if selected == "Executive Dashboard":
     
     #CUSTOMER SELECTOR
     st.success(
