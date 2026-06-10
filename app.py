@@ -643,51 +643,46 @@ The strongest monetization opportunity is in customers with High Risk and low he
 
 if selected == "Customer Insights":
 
-# -------------------------------------------------
-# CUSTOMER SELECTOR
-# -------------------------------------------------
-
-selected_customer_id = st.selectbox(
-    "Select Customer",
-    sorted(df["customer_id"].unique())
-)
-
-customer = df[
-    df["customer_id"] == selected_customer_id
-].iloc[0]
-
-# ============================================
-# GLOBAL CHURN PREDICTION
-# ============================================
-
-prediction_input = pd.DataFrame([{
-    "tenure_months": customer["tenure_months"],
-    "monthly_charge": customer["monthly_charge"],
-    "total_charges": customer["total_charges"],
-    "roaming_usage": customer["roaming_usage"],
-    "app_logins": customer["app_logins"],
-    "avg_monthly_data_usage_gb":
-        customer["avg_monthly_data_usage_gb"]
-}])
-
-prediction_input = prediction_input.fillna(0)
-
-probability = model.predict_proba(
-    prediction_input
-)
-
-churn_probability = round(
-    probability[0][1] * 100,
-    2
-)
-
-
-if selected == "Prediction":
+    # -------------------------------------------------
+    # CUSTOMER SELECTOR
+    # -------------------------------------------------
     
-    #CUSTOMER SELECTOR
-    st.success(
-    f"Selected Customer: {selected_customer_id}"
+    selected_customer_id = st.selectbox(
+        "Select Customer",
+        sorted(df["customer_id"].unique())
     )
+    
+    customer = df[
+        df["customer_id"] == selected_customer_id
+    ].iloc[0]
+
+    # ============================================
+    # GLOBAL CHURN PREDICTION
+    # ============================================
+    
+    prediction_input = pd.DataFrame([{
+        "tenure_months": customer["tenure_months"],
+        "monthly_charge": customer["monthly_charge"],
+        "total_charges": customer["total_charges"],
+        "roaming_usage": customer["roaming_usage"],
+        "app_logins": customer["app_logins"],
+        "avg_monthly_data_usage_gb":
+            customer["avg_monthly_data_usage_gb"]
+    }])
+    
+    prediction_input = prediction_input.fillna(0)
+    
+    probability = model.predict_proba(
+        prediction_input
+    )
+    
+    churn_probability = round(
+        probability[0][1] * 100,
+        2
+    )
+    
+    
+    
 
   
     # -------------------------------------------------
