@@ -881,7 +881,7 @@ if selected == "Customer Insights":
     # PREDICTION INTELLIGENCE
     # -------------------------------------------------
     
-    st.markdown("## 🎯 Prediction Intelligence")
+    st.markdown("## 🎯 Prediction Intelligence"
     
     pred1, pred2, pred3 = st.columns(3)
     
@@ -1108,146 +1108,133 @@ if selected == "Customer Insights":
         )
     
     col1, col2 = st.columns(2)
+
+
+    # ============================================
+    # AI RECOMMENDATIONS
+    # ============================================
     
-    # -------------------------------------------------
-    # AI RECOMMENDATIONS CARD
-    # -------------------------------------------------
+    if selected == "AI Recommendations":
     
-    with col1:
+        st.title("🤖 GCC Telecom AI Copilot")
     
-        st.markdown("""
-        <div style="
-        background:white;
-        padding:25px;
-        border-radius:18px;
-        border:1px solid #E5E7EB;
-        ">
-        <h3>🤖 AI Recommendation Engine</h3>
-        <p style="color:#64748B;">
-        Recommended retention actions
-        </p>
-        """,
-        unsafe_allow_html=True)
-    
-        for item in recommendations:
-            st.success(item)
-    
-        st.markdown("</div>", unsafe_allow_html=True)
-    
-    
-    
-    
-    # -------------------------------------------------
-    # RISK DRIVERS CARD
-    # -------------------------------------------------
-    
-    with col2:
-    
-        st.markdown("""
-        <div style="
-        background:white;
-        padding:25px;
-        border-radius:18px;
-        border:1px solid #E5E7EB;
-        ">
-        <h3>⚠ Key Risk Drivers</h3>
-        <p style="color:#64748B;">
-        Factors contributing to churn risk
-        </p>
-        """,
-        unsafe_allow_html=True)
-    
-        for item in drivers:
-            st.warning(item)
-    
-        st.markdown("</div>", unsafe_allow_html=True)
-    
-    
-    # -------------------------------------------------
-    # REVENUE PROTECTION
-    # -------------------------------------------------
-    
-    st.markdown("---")
-    
-    st.subheader(
-        "Revenue Protection"
-    )
-    
-    r1, r2, r3 = st.columns(3)
-    
-    with r1:
-    
-        st.markdown(f"""
-        <div style="
-        background:white;
-        padding:25px;
-        border-radius:18px;
-        border-left:6px solid #2563EB;
-        box-shadow:0px 4px 12px rgba(0,0,0,0.05);
-        ">
-        
-        <p style="color:#64748B;">
-        Customer CLTV
-        </p>
-    
-        <h2>
-        ${cltv:,.0f}
-        </h2>
-    
-        </div>
-        """,
-        unsafe_allow_html=True)
-    
-    with r2:
-    
-        st.markdown(f"""
-        <div style="
-        background:white;
-        padding:25px;
-        border-radius:18px;
-        border-left:6px solid #EF4444;
-        box-shadow:0px 4px 12px rgba(0,0,0,0.05);
-        ">
-        
-        <p style="color:#64748B;">
-        Revenue At Risk
-        </p>
-    
-        <h2>
-        ${revenue_at_risk:,.0f}
-        </h2>
-    
-        </div>
-        """,
-        unsafe_allow_html=True)
-    
-    with r3:
-    
-        retention_gain = round(
-            revenue_at_risk * 0.60,
-            2
+        st.caption(
+            "AI-powered churn analysis, retention strategy and revenue protection assistant"
         )
     
-        st.markdown(f"""
-        <div style="
-        background:white;
-        padding:25px;
-        border-radius:18px;
-        border-left:6px solid #22C55E;
-        box-shadow:0px 4px 12px rgba(0,0,0,0.05);
-        ">
+        st.markdown("---")
+    
+        st.subheader("Selected Customer")
+    
+        st.json({
+            "Customer ID": customer["customer_id"],
+            "Country": customer["country"],
+            "Customer Type": customer["customer_type"],
+            "Risk Segment": customer["risk_segment"],
+            "Health Score": customer["customer_health_score"],
+            "CLTV": customer["cltv"],
+            "Churn Probability": f"{churn_probability:.1f}%"
+        })
+    
+        st.markdown("---")
+    
+        question = st.selectbox(
+            "Ask AI Copilot",
+            [
+                "Why is this customer high risk?",
+                "Generate retention strategy",
+                "How can we reduce churn?",
+                "How much revenue is at risk?",
+                "Summarize this customer",
+                "What is the next best action?",
+                "How should the retention team handle this customer?"
+            ]
+        )
+    
+        if st.button("🚀 Generate AI Analysis"):
+    
+            try:
+    
+                prompt = f"""
+    You are a Senior Telecom Retention Consultant.
+    
+    Analyze the customer and provide a business-focused response.
+    
+    CUSTOMER INFORMATION
+    
+    Customer ID: {customer['customer_id']}
+    Country: {customer['country']}
+    Customer Type: {customer['customer_type']}
+    Contract: {customer['contract']}
+    Tenure: {customer['tenure_months']} months
+    
+    CLTV: {customer['cltv']}
+    Risk Segment: {customer['risk_segment']}
+    Health Score: {customer['customer_health_score']}
+    Network Quality Score: {customer['network_quality_score']}
+    
+    Complaint Count: {customer['complaint_count']}
+    Payment Delay Days: {customer['payment_delay_days']}
+    App Logins: {customer['app_logins']}
+    Roaming Usage: {customer['roaming_usage']}
+    Monthly Charge: {customer['monthly_charge']}
+    Data Usage: {customer['avg_monthly_data_usage_gb']}
+    
+    Predicted Churn Probability:
+    {churn_probability:.1f}%
+    
+    USER QUESTION:
+    {question}
+    
+    Provide:
+    
+    1. Executive Summary
+    2. Key Risk Drivers
+    3. Retention Strategy
+    4. Revenue Protection Actions
+    5. Next Best Action
+    
+    Keep the answer concise and suitable for telecom executives.
+    """
+    
+                with st.spinner(
+                    "🤖 AI Copilot is analyzing customer..."
+                ):
+    
+                    response = client.chat.completions.create(
+                        model="llama-3.3-70b-versatile",
+                        messages=[
+                            {
+                                "role": "system",
+                                "content":
+                                "You are an expert telecom churn and revenue retention consultant."
+                            },
+                            {
+                                "role": "user",
+                                "content": prompt
+                            }
+                        ],
+                        temperature=0.3,
+                        max_tokens=1000
+                    )
+    
+                st.markdown("---")
+    
+                st.markdown(
+                    "## 🤖 AI Copilot Analysis"
+                )
+    
+                st.markdown(
+                    response.choices[0].message.content
+                )
+    
+            except Exception as e:
+    
+                st.error(
+                    f"AI Service Error: {str(e)}"
+                )
         
-        <p style="color:#64748B;">
-        Potential Revenue Saved
-        </p>
     
-        <h2>
-        ${retention_gain:,.0f}
-        </h2>
-    
-        </div>
-        """,
-        unsafe_allow_html=True)
 
 
     
@@ -1733,36 +1720,128 @@ if selected == "Risk Segmentation":
     st.markdown("---")
 
     # ============================================
-    # AI RISK INTELLIGENCE
+    # AI RECOMMENDATIONS
     # ============================================
-
-    st.subheader(
-        "🤖 AI Risk Intelligence"
-    )
-
-    top_country = (
-        df[df["risk_segment"] == "High Risk"]
-        ["country"]
-        .mode()[0]
-    )
-
-    top_customer_type = (
-        df[df["risk_segment"] == "High Risk"]
-        ["customer_type"]
-        .mode()[0]
-    )
-
-    st.info(
-        f"""
-        High Risk customers account for {high_risk_pct}% of the customer base.
-
-        The largest concentration of High Risk customers is in {top_country}.
-
-        {top_customer_type} customers contribute the highest volume of churn exposure.
-
-        Retention campaigns should prioritize High Risk customers with low health scores and payment delays.
-        """
-    )
+    
+    if selected == "AI Recommendations":
+    
+        st.title("🤖 GCC Telecom AI Copilot")
+    
+        st.caption(
+            "AI-powered churn analysis, retention strategy and revenue protection assistant"
+        )
+    
+        st.markdown("---")
+    
+        st.subheader("Selected Customer")
+    
+        st.json({
+            "Customer ID": customer["customer_id"],
+            "Country": customer["country"],
+            "Customer Type": customer["customer_type"],
+            "Risk Segment": customer["risk_segment"],
+            "Health Score": customer["customer_health_score"],
+            "CLTV": customer["cltv"],
+            "Churn Probability": f"{churn_probability:.1f}%"
+        })
+    
+        st.markdown("---")
+    
+        question = st.selectbox(
+            "Ask AI Copilot",
+            [
+                "Why is this customer high risk?",
+                "Generate retention strategy",
+                "How can we reduce churn?",
+                "How much revenue is at risk?",
+                "Summarize this customer",
+                "What is the next best action?",
+                "How should the retention team handle this customer?"
+            ]
+        )
+    
+        if st.button("🚀 Generate AI Analysis"):
+    
+            try:
+    
+                prompt = f"""
+    You are a Senior Telecom Retention Consultant.
+    
+    Analyze the customer and provide a business-focused response.
+    
+    CUSTOMER INFORMATION
+    
+    Customer ID: {customer['customer_id']}
+    Country: {customer['country']}
+    Customer Type: {customer['customer_type']}
+    Contract: {customer['contract']}
+    Tenure: {customer['tenure_months']} months
+    
+    CLTV: {customer['cltv']}
+    Risk Segment: {customer['risk_segment']}
+    Health Score: {customer['customer_health_score']}
+    Network Quality Score: {customer['network_quality_score']}
+    
+    Complaint Count: {customer['complaint_count']}
+    Payment Delay Days: {customer['payment_delay_days']}
+    App Logins: {customer['app_logins']}
+    Roaming Usage: {customer['roaming_usage']}
+    Monthly Charge: {customer['monthly_charge']}
+    Data Usage: {customer['avg_monthly_data_usage_gb']}
+    
+    Predicted Churn Probability:
+    {churn_probability:.1f}%
+    
+    USER QUESTION:
+    {question}
+    
+    Provide:
+    
+    1. Executive Summary
+    2. Key Risk Drivers
+    3. Retention Strategy
+    4. Revenue Protection Actions
+    5. Next Best Action
+    
+    Keep the answer concise and suitable for telecom executives.
+    """
+    
+                with st.spinner(
+                    "🤖 AI Copilot is analyzing customer..."
+                ):
+    
+                    response = client.chat.completions.create(
+                        model="llama-3.3-70b-versatile",
+                        messages=[
+                            {
+                                "role": "system",
+                                "content":
+                                "You are an expert telecom churn and revenue retention consultant."
+                            },
+                            {
+                                "role": "user",
+                                "content": prompt
+                            }
+                        ],
+                        temperature=0.3,
+                        max_tokens=1000
+                    )
+    
+                st.markdown("---")
+    
+                st.markdown(
+                    "## 🤖 AI Copilot Analysis"
+                )
+    
+                st.markdown(
+                    response.choices[0].message.content
+                )
+    
+            except Exception as e:
+    
+                st.error(
+                    f"AI Service Error: {str(e)}"
+                )
 
 
 # -------------------------------------------------
