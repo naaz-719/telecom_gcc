@@ -554,12 +554,9 @@ if selected == "Home":
             top_type_customer = df["customer_type"].value_counts().index[0]
 
             st.success(
-                f"""
-                    The portfolio is concentrated in **{top_country_customer}**.
-                    
-                    **{top_type_customer}** customers represent the largest customer group.
-                    
-                    Average customer health score is **{avg_health:,.1f}**."""
+                f"The portfolio is concentrated in **{top_country_customer}**.\n\n"
+                f"**{top_type_customer}** customers represent the largest customer group.\n\n"
+                f"Average customer health score is **{avg_health:,.1f}**."
             )
 
     # =================================================
