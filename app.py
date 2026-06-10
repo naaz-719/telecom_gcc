@@ -842,7 +842,7 @@ if selected == "Prediction":
     # EXECUTIVE DASHBOARD
     # ============================================
 
-if selected == "Executive Dashboard":
+   
 
     st.title("📊 Executive Analytics Dashboard")
     st.caption(
