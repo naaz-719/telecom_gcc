@@ -559,7 +559,7 @@ The portfolio is concentrated in **{top_country_customer}**.
 
 **{top_type_customer}** customers represent the largest customer group.
 
-Average customer health score is **{avg_health:.1f}**.
+Average customer health score is **{avg_health:,.1f}**.
 """
             )
 
