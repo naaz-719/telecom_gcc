@@ -705,83 +705,79 @@ if selected == "Customer Insights":
         probability[0][1] * 100,
         2
     )
-    
-    
-    
 
-  
     # -------------------------------------------------
     # CUSTOMER PROFILE
     # -------------------------------------------------
     
     st.markdown("## 👤 Customer Profile")
     
-    p1,p2,p3,p4 = st.columns(4)
+    p1, p2, p3, p4 = st.columns(4)
     
     with p1:
-        # Defining the HTML clearly without mixed indentation issues
-        card_html = f"""
-        <div style="
-            background: white;
-            padding: 20px;
-            border-radius: 16px;
-            border: 1px solid #E5E7EB;
+        st.markdown(
+            f"""
+            <div style="
+                background:white;
+                padding:20px;
+                border-radius:16px;
+                border:1px solid #E5E7EB;
             ">
-            <div style="color: #64748B;">Country</div>
-            <h4>{customer['country']}</h4>
-        </div>
-        """
-        st.markdown(card_html, unsafe_allow_html=True)
+                <div style="color:#64748B;">Country</div>
+                <h4>{customer['country']}</h4>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
     
     with p2:
-        st.markdown(f"""
-        <div style="
-        background:white;
-        padding:20px;
-        border-radius:16px;
-        border:1px solid #E5E7EB;
-        ">
-        <div style="color:#64748B;">City</div>
-        <h4>{customer['city']}</h4>
-        </div>
-        """,
-        unsafe_allow_html=True)
-
+        st.markdown(
+            f"""
+            <div style="
+                background:white;
+                padding:20px;
+                border-radius:16px;
+                border:1px solid #E5E7EB;
+            ">
+                <div style="color:#64748B;">City</div>
+                <h4>{customer['city']}</h4>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    
     with p3:
         st.markdown(
-        f"""
-        <div style="
-            background:white;
-            padding:20px;
-            border-radius:16px;
-            border:1px solid #E5E7EB;
-        ">
-            <div style="color:#64748B;">Customer Type</div>
-            <h4>{customer['customer_type']}</h4>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
+            f"""
+            <div style="
+                background:white;
+                padding:20px;
+                border-radius:16px;
+                border:1px solid #E5E7EB;
+            ">
+                <div style="color:#64748B;">Customer Type</div>
+                <h4>{customer['customer_type']}</h4>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    
     with p4:
         st.markdown(
-        f"""
-        <div style="
-            background:white;
-            padding:20px;
-            border-radius:16px;
-            border:1px solid #E5E7EB;
-        ">
-            <div style="color:#64748B;">Contract</div>
-            <h4>{customer['contract']}</h4>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+            f"""
+            <div style="
+                background:white;
+                padding:20px;
+                border-radius:16px;
+                border:1px solid #E5E7EB;
+            ">
+                <div style="color:#64748B;">Contract</div>
+                <h4>{customer['contract']}</h4>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
     
-
-
-
     
     # -------------------------------------------------
     # CHURN PREDICTION
