@@ -123,7 +123,7 @@ with st.sidebar:
     selected = option_menu(
         menu_title="Navigation",
         options=[
-            "Prediction",
+            "Executive Dashboard",
             "Customer Insights",
             "Risk Segmentation",
             "Revenue Protection",
@@ -144,8 +144,8 @@ with st.sidebar:
     )
 
 
-if selected == "Prediction":
-    st.success("Prediction Page")
+if selected == "Executive Dashboard":
+    st.success("Executive Dashboard")
 
 elif selected == "Customer Insights":
     st.success("Customer Insights Page")
@@ -843,8 +843,8 @@ if selected == "Prediction":
 
 
     # ============================================
-# EXECUTIVE DASHBOARD
-# ============================================
+    # EXECUTIVE DASHBOARD
+    # ============================================
 
 if selected == "Executive Dashboard":
 
