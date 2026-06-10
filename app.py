@@ -464,7 +464,7 @@ if selected == "Home":
         
         3. Improve customer health scores.
         
-        4. Increase engagement among risky
+        4. Increase engagement among risky""")
 
 
         
