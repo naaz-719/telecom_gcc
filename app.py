@@ -719,7 +719,8 @@ if selected == "Customer Insights":
     p1,p2,p3,p4 = st.columns(4)
     
     with p1:
-        st.markdown(f"""
+        st.markdown(
+            f"""
             <div style="
                 background:white;
                 padding:20px;
@@ -729,7 +730,7 @@ if selected == "Customer Insights":
             <div style="color:#64748B;">Country</div>
             <h4>{customer['country']}</h4>
             </div>
-        """,
+            """,
         unsafe_allow_html=True)
     
     with p2:
