@@ -416,7 +416,7 @@ if selected == "Home":
                     color="Risk Rate (%)"
                 )
                 
-                st.plotly_chart(
+            st.plotly_chart(
                     fig_type_risk,
                     use_container_width=True
                 )
