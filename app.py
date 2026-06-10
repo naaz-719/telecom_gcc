@@ -140,7 +140,7 @@ with st.sidebar:
     )
 
 
-elif selected == "Customer Insights":
+if selected == "Customer Insights":
     st.success("Customer Insights Page")
 
 elif selected == "Risk Segmentation":
