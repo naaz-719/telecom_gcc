@@ -363,7 +363,9 @@ if selected == "Home":
             st.plotly_chart(fig_risk, use_container_width=True)
 
         with col2:
+
             st.subheader("High Risk Rate by Country (%)")
+        
             country_risk_rate = (
                 df.groupby("country")
                 .apply(
@@ -374,103 +376,135 @@ if selected == "Home":
                 )
                 .reset_index()
             )
-
+        
             country_risk_rate.columns = [
-                    "country",
-                    "risk_rate"
-                ]
-
+                "country",
+                "risk_rate"
+            ]
+        
             fig_country_risk = px.bar(
-                    country_risk_rate,
-                    x="country",
-                    y="Risk Rate (%)",
-                    color="Risk Rate (%)"
+                country_risk_rate,
+                x="country",
+                y="risk_rate",
+                color="risk_rate",
+                title="High Risk Rate by Country (%)",
+                color_continuous_scale="Reds"
+            )
+        
+            fig_country_risk.update_layout(
+                height=420,
+                showlegend=False,
+                margin=dict(
+                    l=0,
+                    r=0,
+                    t=50,
+                    b=0
                 )
-
+            )
+        
             st.plotly_chart(
                 fig_country_risk,
                 use_container_width=True
             )
-
-            st.markdown("---")
-
+        
+        st.markdown("---")
+        
         col3, col4 = st.columns(2)
 
-        with col3:
-            st.subheader("Risk by Customer Type")
-            type_risk_rate = (
-                    df.groupby("customer_type")
-                    .apply(
-                        lambda x:
-                        (
-                            x["risk_segment"] == "High Risk"
-                        ).mean() * 100
-                    )
-                    .reset_index()
-                )
-                
-            type_risk_rate.columns = [
-                    "customer_type",
-                    "risk_rate"
-                ]
-                                
-            fig_type_risk = px.bar(
-                    type_risk_rate,
-                    x="customer_type",
-                    y="Risk Rate (%)",
-                    color="Risk Rate (%)"
-                )
-                
-            st.plotly_chart(
-                    fig_type_risk,
-                    use_container_width=True
-                )
-            
-
-        with col4:
-
-            st.subheader("🤖 AI Risk Intelligence")
-        
-            highest_risk_country = (
-                country_risk_rate
-                .sort_values(
-                    by="risk_rate",
-                    ascending=False
-                )
-                .iloc[0]
+    with col3:
+    
+        st.subheader("High Risk Rate by Customer Type (%)")
+    
+        type_risk_rate = (
+            df.groupby("customer_type")
+            .apply(
+                lambda x:
+                (
+                    x["risk_segment"] == "High Risk"
+                ).mean() * 100
             )
-        
-            highest_risk_type = (
-                type_risk_rate
-                .sort_values(
-                    by="risk_rate",
-                    ascending=False
-                )
-                .iloc[0]
+            .reset_index()
+        )
+    
+        type_risk_rate.columns = [
+            "customer_type",
+            "risk_rate"
+        ]
+    
+        fig_type_risk = px.bar(
+            type_risk_rate,
+            x="customer_type",
+            y="risk_rate",
+            color="risk_rate",
+            title="High Risk Rate by Customer Type (%)",
+            color_continuous_scale="OrRd"
+        )
+    
+        fig_type_risk.update_layout(
+            height=380,
+            showlegend=False,
+            margin=dict(
+                l=0,
+                r=0,
+                t=50,
+                b=0
             )
-        
-            st.info(f"""
-        ### Risk Summary
-        
-        • {high_risk_pct}% of customers are currently High Risk.
-        
-        • Highest Risk Country:
-        {highest_risk_country['country']}
-        ({highest_risk_country['risk_rate']:.1f}%)
-        
-        • Highest Risk Customer Type:
-        {highest_risk_type['customer_type']}
-        ({highest_risk_type['risk_rate']:.1f}%)
-        
-        ### Recommended Actions
-        
-        1. Prioritize High Risk customers.
-        
-        2. Reduce payment delays.
-        
-        3. Improve customer health scores.
-        
-        4. Increase engagement among risky""")
+        )
+    
+        st.plotly_chart(
+            fig_type_risk,
+            use_container_width=True
+        )
+
+    with col4:
+    
+        st.subheader("🤖 AI Risk Intelligence")
+    
+        highest_risk_country = (
+            country_risk_rate
+            .sort_values(
+                by="risk_rate",
+                ascending=False
+            )
+            .iloc[0]
+        )
+    
+        highest_risk_type = (
+            type_risk_rate
+            .sort_values(
+                by="risk_rate",
+                ascending=False
+            )
+            .iloc[0]
+        )
+    
+        st.info(
+            f"""
+    ### Risk Summary
+    
+    • High Risk customers account for **{high_risk_pct}%** of the portfolio.
+    
+    • Highest Risk Country:
+    **{highest_risk_country['country']}**
+    (**{highest_risk_country['risk_rate']:.1f}% Risk Rate**)
+    
+    • Highest Risk Customer Type:
+    **{highest_risk_type['customer_type']}**
+    (**{highest_risk_type['risk_rate']:.1f}% Risk Rate**)
+    
+    ### Recommended Actions
+    
+    1. Prioritize customers in high-risk regions.
+    
+    2. Improve customer health scores.
+    
+    3. Reduce payment delays.
+    
+    4. Increase engagement for at-risk customers.
+    
+    5. Launch targeted retention campaigns.
+    """
+        )
 
 
         
