@@ -299,7 +299,7 @@ churn_probability = round(
 )
 
 
-if selected == "Prediction":
+if selected == "Excecutive Dashboard":
     
     #CUSTOMER SELECTOR
     st.success(
@@ -715,9 +715,6 @@ if selected == "Prediction":
             st.warning(item)
     
         st.markdown("</div>", unsafe_allow_html=True)
-    
-    
-    
     
     
     # -------------------------------------------------
