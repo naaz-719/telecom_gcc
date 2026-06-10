@@ -396,7 +396,7 @@ if selected == "Home":
 
         with col3:
             st.subheader("Risk by Customer Type")
-                type_risk_rate = (
+            type_risk_rate = (
                     df.groupby("customer_type")
                     .apply(
                         lambda x:
@@ -409,7 +409,7 @@ if selected == "Home":
                     )
                 )
                 
-                fig_type_risk = px.bar(
+            fig_type_risk = px.bar(
                     type_risk_rate,
                     x="customer_type",
                     y="Risk Rate (%)",
