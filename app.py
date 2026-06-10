@@ -881,7 +881,7 @@ if selected == "Customer Insights":
     # PREDICTION INTELLIGENCE
     # -------------------------------------------------
     
-    st.markdown("## 🎯 Prediction Intelligence"
+    st.markdown("## 🎯 Prediction Intelligence")
     
     pred1, pred2, pred3 = st.columns(3)
     
