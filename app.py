@@ -655,15 +655,10 @@ if selected == "Home":
             top_rev_country_value = revenue_country.iloc[0]["cltv"]
 
             st.info(
-                f"""
-                Total portfolio CLTV is **${avg_cltv * total_customers:,.0f}**.\n\n"
-                
-                Estimated revenue at risk is **${est_revenue_at_risk:,.0f}**.\n\n"
-                
-                **{top_rev_country}** contributes the highest revenue exposure at **${top_rev_country_value:,.0f}**.\n\n"
-                
-                The strongest monetization opportunity is in customers with High Risk and low health scores.
-                """
+                f"Total portfolio CLTV is **${avg_cltv * total_customers:,.0f}**.\n\n"
+                f"Estimated revenue at risk is **${est_revenue_at_risk:,.0f}**.\n\n"
+                f"**{top_rev_country}** contributes the highest revenue exposure at **${top_rev_country_value:,.0f}**.\n\n"
+                "The strongest monetization opportunity is in customers with High Risk and low health scores."
             )
 
 
