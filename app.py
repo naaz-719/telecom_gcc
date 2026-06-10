@@ -249,11 +249,12 @@ div[data-testid="metric-container"] label{
 unsafe_allow_html=True)
 
 
+
 # ============================================
 # EXECUTIVE DASHBOARD
 # ============================================
 
-   
+if selected == "Executive Dashboard":
 
     st.title("📊 Executive Analytics Dashboard")
     st.caption(
@@ -634,10 +635,6 @@ Estimated revenue at risk is **${est_revenue_at_risk:,.0f}**.
 The strongest monetization opportunity is in customers with High Risk and low health scores.
 """
             )
-
-
-
-
 
 
 
