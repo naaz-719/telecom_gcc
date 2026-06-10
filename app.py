@@ -703,121 +703,121 @@ if selected == "Home":
 
     st.markdown("---")
 
-st.subheader("🤖 Executive AI Advisor")
-
-if st.button("🚀 Generate Executive Insights"):
-
-    try:
-
-        # Highest Risk Country by RATE
-        highest_risk_country = (
-            country_risk_rate
-            .sort_values(
-                by="risk_rate",
-                ascending=False
+    st.subheader("🤖 Executive AI Advisor")
+    
+    if st.button("🚀 Generate Executive Insights"):
+    
+        try:
+    
+            # Highest Risk Country by RATE
+            highest_risk_country = (
+                country_risk_rate
+                .sort_values(
+                    by="risk_rate",
+                    ascending=False
+                )
+                .iloc[0]
             )
-            .iloc[0]
-        )
-
-        # Highest Risk Customer Type by RATE
-        highest_risk_type = (
-            type_risk_rate
-            .sort_values(
-                by="risk_rate",
-                ascending=False
+    
+            # Highest Risk Customer Type by RATE
+            highest_risk_type = (
+                type_risk_rate
+                .sort_values(
+                    by="risk_rate",
+                    ascending=False
+                )
+                .iloc[0]
             )
-            .iloc[0]
-        )
-
-        prompt = f"""
-You are a Telecom Executive Strategy Consultant.
-
-Analyze the telecom portfolio and provide strategic recommendations.
-
-PORTFOLIO OVERVIEW
-
-Total Customers:
-{total_customers}
-
-High Risk Customers:
-{high_risk_count}
-
-High Risk Percentage:
-{high_risk_pct}%
-
-Average CLTV:
-${avg_cltv:,.0f}
-
-Estimated Revenue At Risk:
-${est_revenue_at_risk:,.0f}
-
-HIGHEST RISK COUNTRY
-
-Country:
-{highest_risk_country['country']}
-
-Risk Rate:
-{highest_risk_country['risk_rate']:.1f}%
-
-HIGHEST RISK CUSTOMER TYPE
-
-Customer Type:
-{highest_risk_type['customer_type']}
-
-Risk Rate:
-{highest_risk_type['risk_rate']:.1f}%
-
-IMPORTANT:
-
-Do not assume a country is risky simply because it has more customers.
-
-Focus on risk percentages and business impact.
-
-Provide:
-
-1. Executive Summary
-2. Portfolio Risk Analysis
-3. Revenue Risk Assessment
-4. Strategic Recommendations
-5. Immediate Actions
-
-Use telecom executive language.
-"""
-
-        with st.spinner(
-            "🤖 AI Executive Advisor is analyzing portfolio..."
-        ):
-
-            response = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=[
-                    {
-                        "role": "system",
-                        "content":
-                        "You are a telecom executive advisor specializing in churn prevention and revenue protection."
-                    },
-                    {
-                        "role": "user",
-                        "content": prompt
-                    }
-                ],
-                temperature=0.2,
-                max_tokens=1200
+    
+            prompt = f"""
+    You are a Telecom Executive Strategy Consultant.
+    
+    Analyze the telecom portfolio and provide strategic recommendations.
+    
+    PORTFOLIO OVERVIEW
+    
+    Total Customers:
+    {total_customers}
+    
+    High Risk Customers:
+    {high_risk_count}
+    
+    High Risk Percentage:
+    {high_risk_pct}%
+    
+    Average CLTV:
+    ${avg_cltv:,.0f}
+    
+    Estimated Revenue At Risk:
+    ${est_revenue_at_risk:,.0f}
+    
+    HIGHEST RISK COUNTRY
+    
+    Country:
+    {highest_risk_country['country']}
+    
+    Risk Rate:
+    {highest_risk_country['risk_rate']:.1f}%
+    
+    HIGHEST RISK CUSTOMER TYPE
+    
+    Customer Type:
+    {highest_risk_type['customer_type']}
+    
+    Risk Rate:
+    {highest_risk_type['risk_rate']:.1f}%
+    
+    IMPORTANT:
+    
+    Do not assume a country is risky simply because it has more customers.
+    
+    Focus on risk percentages and business impact.
+    
+    Provide:
+    
+    1. Executive Summary
+    2. Portfolio Risk Analysis
+    3. Revenue Risk Assessment
+    4. Strategic Recommendations
+    5. Immediate Actions
+    
+    Use telecom executive language.
+    """
+    
+            with st.spinner(
+                "🤖 AI Executive Advisor is analyzing portfolio..."
+            ):
+    
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[
+                        {
+                            "role": "system",
+                            "content":
+                            "You are a telecom executive advisor specializing in churn prevention and revenue protection."
+                        },
+                        {
+                            "role": "user",
+                            "content": prompt
+                        }
+                    ],
+                    temperature=0.2,
+                    max_tokens=1200
+                )
+    
+            st.markdown("### 📊 Executive Intelligence Report")
+    
+            st.markdown(
+                response.choices[0].message.content
             )
-
-        st.markdown("### 📊 Executive Intelligence Report")
-
-        st.markdown(
-            response.choices[0].message.content
-        )
-
-    except Exception as e:
-
-        st.error(
-            f"AI Service Error: {str(e)}"
-        )
-
-
+    
+        except Exception as e:
+    
+            st.error(
+                f"AI Service Error: {str(e)}"
+            )
+    
+    
 
 
 
