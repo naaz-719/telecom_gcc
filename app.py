@@ -364,19 +364,21 @@ if selected == "Home":
 
         with col2:
             st.subheader("High Risk Rate by Country (%)")
-
-            country_risk_rate = (
+                country_risk_rate = (
                 df.groupby("country")
                 .apply(
                     lambda x:
-                        (
+                    (
                         x["risk_segment"] == "High Risk"
-                        ).mean() * 100
-                        )
-                .reset_index(
-                    name="Risk Rate (%)"
-                    )
+                    ).mean() * 100
                 )
+                .reset_index()
+            )
+
+                country_risk_rate.columns = [
+                    "country",
+                    "risk_rate"
+                ]
 
             fig_country_risk = px.bar(
                     country_risk_rate,
@@ -396,7 +398,7 @@ if selected == "Home":
 
         with col3:
             st.subheader("Risk by Customer Type")
-            type_risk_rate = (
+                type_risk_rate = (
                     df.groupby("customer_type")
                     .apply(
                         lambda x:
@@ -404,11 +406,14 @@ if selected == "Home":
                             x["risk_segment"] == "High Risk"
                         ).mean() * 100
                     )
-                    .reset_index(
-                        name="Risk Rate (%)"
-                    )
+                    .reset_index()
                 )
                 
+                type_risk_rate.columns = [
+                    "customer_type",
+                    "risk_rate"
+                ]
+                                
             fig_type_risk = px.bar(
                     type_risk_rate,
                     x="customer_type",
@@ -420,6 +425,7 @@ if selected == "Home":
                     fig_type_risk,
                     use_container_width=True
                 )
+            
 
         with col4:
 
