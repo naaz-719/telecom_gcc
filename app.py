@@ -719,17 +719,18 @@ if selected == "Customer Insights":
     p1,p2,p3,p4 = st.columns(4)
     
     with p1:
-        card.html=f"""
-            <div style="
-                background:white;
-                padding:20px;
-                border-radius:16px;
-                border:1px solid #E5E7EB;
-                ">
-            <div style="color:#64748B;">Country</div>
+        # Defining the HTML clearly without mixed indentation issues
+        card_html = f"""
+        <div style="
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid #E5E7EB;
+            ">
+            <div style="color: #64748B;">Country</div>
             <h4>{customer['country']}</h4>
-            </div>
-            """,
+        </div>
+        """
         st.markdown(card_html, unsafe_allow_html=True)
     
     with p2:
