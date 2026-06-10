@@ -123,7 +123,7 @@ with st.sidebar:
     selected = option_menu(
         menu_title="Navigation",
         options=[
-            "Executive Dashboard",
+            "Prediction",
             "Customer Insights",
             "Risk Segmentation",
             "Revenue Protection",
@@ -144,8 +144,8 @@ with st.sidebar:
     )
 
 
-if selected == "Executive Dashboard":
-    st.success("Executive Dashboard")
+if selected == "Prediction":
+    st.success("Prediction")
 
 elif selected == "Customer Insights":
     st.success("Customer Insights Page")
@@ -837,7 +837,391 @@ if selected == "Executive Dashboard":
             and suitable for upsell opportunities.
             """
         )
+     # ============================================
+    # EXECUTIVE DASHBOARD
+    # ============================================
 
+if selected == "Executive Dashboard":
+
+    st.title("📊 Executive Analytics Dashboard")
+    st.caption(
+        "Portfolio-level telecom intelligence across customer, risk and revenue analytics"
+    )
+
+    st.markdown("---")
+
+    # -------------------------------------------------
+    # EXECUTIVE KPI CALCULATIONS
+    # -------------------------------------------------
+    total_customers = len(df)
+
+    high_risk_count = (df["risk_segment"] == "High Risk").sum()
+    medium_risk_count = (df["risk_segment"] == "Medium Risk").sum()
+    low_risk_count = (df["risk_segment"] == "Low Risk").sum()
+
+    high_risk_pct = round((high_risk_count / total_customers) * 100, 1)
+
+    avg_cltv = pd.to_numeric(df["cltv"], errors="coerce").mean()
+    avg_health = pd.to_numeric(df["customer_health_score"], errors="coerce").mean()
+
+    risk_weight_map = {
+        "High Risk": 0.60,
+        "Medium Risk": 0.30,
+        "Low Risk": 0.10
+    }
+
+    est_revenue_at_risk = (
+        pd.to_numeric(df["cltv"], errors="coerce")
+        * df["risk_segment"].map(risk_weight_map).fillna(0.10)
+    ).sum()
+
+    # -------------------------------------------------
+    # KPI CARDS
+    # -------------------------------------------------
+    k1, k2, k3, k4, k5 = st.columns(5)
+
+    with k1:
+        st.metric("Total Customers", f"{total_customers:,}")
+
+    with k2:
+        st.metric("High Risk Customers", f"{high_risk_count:,}")
+
+    with k3:
+        st.metric("High Risk %", f"{high_risk_pct}%")
+
+    with k4:
+        st.metric("Average CLTV", f"${avg_cltv:,.0f}")
+
+    with k5:
+        st.metric("Estimated Revenue at Risk", f"${est_revenue_at_risk:,.0f}")
+
+    st.markdown("---")
+
+    # -------------------------------------------------
+    # TABS
+    # -------------------------------------------------
+    tab_risk, tab_customer, tab_revenue = st.tabs([
+        "Risk Analytics",
+        "Customer Analytics",
+        "Revenue Analytics"
+    ])
+
+    # =================================================
+    # RISK ANALYTICS TAB
+    # =================================================
+    with tab_risk:
+
+        st.subheader("Risk Distribution")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            risk_counts = (
+                df["risk_segment"]
+                .value_counts()
+                .reset_index()
+            )
+            risk_counts.columns = ["Risk Segment", "Customers"]
+
+            fig_risk = px.pie(
+                risk_counts,
+                names="Risk Segment",
+                values="Customers",
+                hole=0.60,
+                color="Risk Segment",
+                color_discrete_map={
+                    "High Risk": "#EF4444",
+                    "Medium Risk": "#F59E0B",
+                    "Low Risk": "#22C55E"
+                }
+            )
+            fig_risk.update_traces(textinfo="percent+label")
+            fig_risk.update_layout(
+                height=420,
+                margin=dict(l=0, r=0, t=30, b=0)
+            )
+
+            st.plotly_chart(fig_risk, use_container_width=True)
+
+        with col2:
+            st.subheader("High Risk Customers by Country")
+
+            high_country = (
+                df[df["risk_segment"] == "High Risk"]["country"]
+                .value_counts()
+                .reset_index()
+            )
+            high_country.columns = ["Country", "Customers"]
+
+            fig_high_country = px.bar(
+                high_country,
+                x="Country",
+                y="Customers",
+                color="Customers",
+                color_continuous_scale="Reds"
+            )
+            fig_high_country.update_layout(
+                height=420,
+                showlegend=False,
+                margin=dict(l=0, r=0, t=30, b=0)
+            )
+
+            st.plotly_chart(fig_high_country, use_container_width=True)
+
+        st.markdown("---")
+
+        col3, col4 = st.columns(2)
+
+        with col3:
+            st.subheader("Risk by Customer Type")
+
+            risk_type = (
+                df[df["risk_segment"] == "High Risk"]["customer_type"]
+                .value_counts()
+                .reset_index()
+            )
+            risk_type.columns = ["Customer Type", "Customers"]
+
+            fig_risk_type = px.bar(
+                risk_type,
+                x="Customer Type",
+                y="Customers",
+                color="Customers",
+                color_continuous_scale="OrRd"
+            )
+            fig_risk_type.update_layout(
+                height=380,
+                showlegend=False,
+                margin=dict(l=0, r=0, t=30, b=0)
+            )
+
+            st.plotly_chart(fig_risk_type, use_container_width=True)
+
+        with col4:
+            st.subheader("Risk Intelligence Summary")
+
+            top_country = (
+                df[df["risk_segment"] == "High Risk"]["country"]
+                .mode()[0]
+            )
+            top_type = (
+                df[df["risk_segment"] == "High Risk"]["customer_type"]
+                .mode()[0]
+            )
+
+            st.info(
+                f"""
+High Risk customers account for **{high_risk_pct}%** of the portfolio.
+
+**{top_country}** has the highest concentration of High Risk customers.
+
+**{top_type}** is the customer type most exposed to churn risk.
+
+Retention action should prioritize payment delays, low health scores and weak engagement.
+"""
+            )
+
+    # =================================================
+    # CUSTOMER ANALYTICS TAB
+    # =================================================
+    with tab_customer:
+
+        st.subheader("Customer Analytics")
+
+        c1, c2 = st.columns(2)
+
+        with c1:
+            st.subheader("Customers by Country")
+
+            country_df = (
+                df["country"].value_counts().reset_index()
+            )
+            country_df.columns = ["Country", "Customers"]
+
+            fig_country = px.bar(
+                country_df,
+                x="Country",
+                y="Customers",
+                color="Country"
+            )
+            fig_country.update_layout(
+                height=420,
+                margin=dict(l=0, r=0, t=30, b=0)
+            )
+
+            st.plotly_chart(fig_country, use_container_width=True)
+
+        with c2:
+            st.subheader("Customer Type Distribution")
+
+            type_df = (
+                df["customer_type"].value_counts().reset_index()
+            )
+            type_df.columns = ["Customer Type", "Customers"]
+
+            fig_type = px.pie(
+                type_df,
+                names="Customer Type",
+                values="Customers",
+                hole=0.55
+            )
+            fig_type.update_layout(
+                height=420,
+                margin=dict(l=0, r=0, t=30, b=0)
+            )
+
+            st.plotly_chart(fig_type, use_container_width=True)
+
+        st.markdown("---")
+
+        c3, c4 = st.columns(2)
+
+        with c3:
+            st.subheader("Average Health Score by Customer Type")
+
+            health_type = (
+                df.groupby("customer_type")["customer_health_score"]
+                .mean()
+                .reset_index()
+            )
+
+            fig_health = px.bar(
+                health_type,
+                x="customer_type",
+                y="customer_health_score",
+                color="customer_health_score",
+                color_continuous_scale="Blues"
+            )
+            fig_health.update_layout(
+                height=380,
+                showlegend=False,
+                margin=dict(l=0, r=0, t=30, b=0)
+            )
+
+            st.plotly_chart(fig_health, use_container_width=True)
+
+        with c4:
+            st.subheader("Customer Intelligence Summary")
+
+            top_country_customer = df["country"].value_counts().index[0]
+            top_type_customer = df["customer_type"].value_counts().index[0]
+
+            st.success(
+                f"""
+The portfolio is concentrated in **{top_country_customer}**.
+
+**{top_type_customer}** customers represent the largest customer group.
+
+Average customer health score is **{avg_health:.1f}**.
+"""
+            )
+
+    # =================================================
+    # REVENUE ANALYTICS TAB
+    # =================================================
+    with tab_revenue:
+
+        st.subheader("Revenue Analytics")
+
+        r1, r2 = st.columns(2)
+
+        with r1:
+            st.subheader("Revenue Exposure by Risk Segment")
+
+            revenue_df = (
+                df.groupby("risk_segment")["cltv"]
+                .sum()
+                .reset_index()
+            )
+
+            fig_revenue = px.bar(
+                revenue_df,
+                x="risk_segment",
+                y="cltv",
+                color="risk_segment",
+                color_discrete_map={
+                    "High Risk": "#EF4444",
+                    "Medium Risk": "#F59E0B",
+                    "Low Risk": "#22C55E"
+                }
+            )
+            fig_revenue.update_layout(
+                height=420,
+                showlegend=False,
+                margin=dict(l=0, r=0, t=30, b=0)
+            )
+
+            st.plotly_chart(fig_revenue, use_container_width=True)
+
+        with r2:
+            st.subheader("Revenue Exposure by Country")
+
+            revenue_country = (
+                df.groupby("country")["cltv"]
+                .sum()
+                .reset_index()
+                .sort_values("cltv", ascending=False)
+            )
+
+            fig_rev_country = px.bar(
+                revenue_country,
+                x="country",
+                y="cltv",
+                color="cltv",
+                color_continuous_scale="Blues"
+            )
+            fig_rev_country.update_layout(
+                height=420,
+                showlegend=False,
+                margin=dict(l=0, r=0, t=30, b=0)
+            )
+
+            st.plotly_chart(fig_rev_country, use_container_width=True)
+
+        st.markdown("---")
+
+        r3, r4 = st.columns(2)
+
+        with r3:
+            st.subheader("Top 10 High Risk Customers by CLTV")
+
+            top_risk_customers = (
+                df[df["risk_segment"] == "High Risk"]
+                .sort_values(by="cltv", ascending=False)
+                [
+                    [
+                        "customer_id",
+                        "country",
+                        "customer_type",
+                        "cltv",
+                        "customer_health_score"
+                    ]
+                ]
+                .head(10)
+            )
+
+            st.dataframe(
+                top_risk_customers,
+                use_container_width=True
+            )
+
+        with r4:
+            st.subheader("Revenue Intelligence Summary")
+
+            top_rev_country = revenue_country.iloc[0]["country"]
+            top_rev_country_value = revenue_country.iloc[0]["cltv"]
+
+            st.info(
+                f"""
+Total portfolio CLTV is **${avg_cltv * total_customers:,.0f}**.
+
+Estimated revenue at risk is **${est_revenue_at_risk:,.0f}**.
+
+**{top_rev_country}** contributes the highest revenue exposure at **${top_rev_country_value:,.0f}**.
+
+The strongest monetization opportunity is in customers with High Risk and low health scores.
+"""
+            )
 
 
 
