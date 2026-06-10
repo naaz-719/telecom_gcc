@@ -378,7 +378,7 @@ if selected == "Home":
                     )
                 )
 
-                fig_country_risk = px.bar(
+            fig_country_risk = px.bar(
                     country_risk_rate,
                     x="country",
                     y="Risk Rate (%)",
