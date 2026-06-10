@@ -757,7 +757,7 @@ if selected == "Customer Insights":
         border:1px solid #E5E7EB;
         ">
         <div style="color:#64748B;">Customer Type</div>
-        <h4>{customer['contract']}</h4>
+        <h4>{customer['customer_type']}</h4>
         </div>
         """,
         unsafe_allow_html=True
