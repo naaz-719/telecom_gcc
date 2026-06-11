@@ -193,6 +193,21 @@ with col2:
 
 if selected == "Home":
 
+    # ============================================
+    # EXECUTIVE DASHBOARD
+    # ============================================
+
+
+    st.title("📊 Executive Analytics Dashboard")
+    st.caption(
+        "Portfolio-level telecom intelligence across customer, risk and revenue analytics"
+    )
+
+    st.markdown("---")
+
+    # -------------------------------------------------
+    # EXECUTIVE KPI CALCULATIONS
+    # -------------------------------------------------
     # -------------------------------------------------
     # KPI VALUES
     # -------------------------------------------------
@@ -310,65 +325,7 @@ if selected == "Home":
         """,
         unsafe_allow_html=True
     )
-
-    # ============================================
-    # EXECUTIVE DASHBOARD
-    # ============================================
-
-
-    st.title("📊 Executive Analytics Dashboard")
-    st.caption(
-        "Portfolio-level telecom intelligence across customer, risk and revenue analytics"
-    )
-
-    st.markdown("---")
-
-    # -------------------------------------------------
-    # EXECUTIVE KPI CALCULATIONS
-    # -------------------------------------------------
-    total_customers = len(df)
-
-    high_risk_count = (df["risk_segment"] == "High Risk").sum()
-    medium_risk_count = (df["risk_segment"] == "Medium Risk").sum()
-    low_risk_count = (df["risk_segment"] == "Low Risk").sum()
-
-    high_risk_pct = round((high_risk_count / total_customers) * 100, 1)
-
-    avg_cltv = pd.to_numeric(df["cltv"], errors="coerce").mean()
-    avg_health = pd.to_numeric(df["customer_health_score"], errors="coerce").mean()
-
-    risk_weight_map = {
-        "High Risk": 0.60,
-        "Medium Risk": 0.30,
-        "Low Risk": 0.10
-    }
-
-    est_revenue_at_risk = (
-        pd.to_numeric(df["cltv"], errors="coerce")
-        * df["risk_segment"].map(risk_weight_map).fillna(0.10)
-    ).sum()
-
-    # -------------------------------------------------
-    # KPI CARDS
-    # -------------------------------------------------
-    k1, k2, k3, k4, k5 = st.columns(5)
-
-    with k1:
-        st.metric("Total Customers", f"{total_customers:,}")
-
-    with k2:
-        st.metric("High Risk Customers", f"{high_risk_count:,}")
-
-    with k3:
-        st.metric("High Risk %", f"{high_risk_pct}%")
-
-    with k4:
-        st.metric("Average CLTV", f"${avg_cltv:,.0f}")
-
-    with k5:
-        st.metric("Estimated Revenue at Risk", f"${est_revenue_at_risk:,.0f}")
-
-    st.markdown("---")
+        st.markdown("---")
 
     # -------------------------------------------------
     # TABS
