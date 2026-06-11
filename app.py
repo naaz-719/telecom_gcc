@@ -413,7 +413,7 @@ if selected == "Home":
         
         st.markdown("---")
         
-        col3, col4 = st.columns(2)
+        col3 = st.columns(1)
 
     with col3:
     
@@ -460,55 +460,7 @@ if selected == "Home":
             use_container_width=True
         )
 
-    with col4:
-    
-        st.subheader("Risk Summary")
-    
-        highest_risk_country = (
-            country_risk_rate
-            .sort_values(
-                by="risk_rate",
-                ascending=False
-            )
-            .iloc[0]
-        )
-    
-        highest_risk_type = (
-            type_risk_rate
-            .sort_values(
-                by="risk_rate",
-                ascending=False
-            )
-            .iloc[0]
-        )
-    
-        st.info(
-            f"""
-    ### Risk Summary
-    
-    • High Risk customers account for **{high_risk_pct}%** of the portfolio.
-    
-    • Highest Risk Country:
-    **{highest_risk_country['country']}**
-    (**{highest_risk_country['risk_rate']:.1f}% Risk Rate**)
-    
-    • Highest Risk Customer Type:
-    **{highest_risk_type['customer_type']}**
-    (**{highest_risk_type['risk_rate']:.1f}% Risk Rate**)
-    
-    ### Recommended Actions
-    
-    1. Prioritize customers in high-risk regions.
-    
-    2. Improve customer health scores.
-    
-    3. Reduce payment delays.
-    
-    4. Increase engagement for at-risk customers.
-    
-    5. Launch targeted retention campaigns.
-    """
-        )
+
 
 
         
