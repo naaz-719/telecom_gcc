@@ -412,10 +412,7 @@ if selected == "Home":
             )
         
         st.markdown("---")
-        
-        col1 = st.columns(1)
-
-    with col1:
+   
     
         st.subheader("High Risk Rate by Customer Type (%)")
     
