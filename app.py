@@ -325,7 +325,7 @@ if selected == "Home":
         """,
         unsafe_allow_html=True
     )
-        st.markdown("---")
+        
 
     # -------------------------------------------------
     # TABS
