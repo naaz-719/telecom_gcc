@@ -597,6 +597,8 @@ if selected == "Home":
                 f"Average customer health score is **{avg_health:,.1f}**."
             )
 
+
+
     # =================================================
     # REVENUE ANALYTICS TAB
     # =================================================
@@ -723,6 +725,29 @@ if selected == "Home":
                     ascending=False
                 )
                 .iloc[0]
+            )
+
+            top_country_customer = df["country"].value_counts().index[0]
+
+            top_type_customer = df["customer_type"].value_counts().index[0]
+            
+            avg_health = (
+                pd.to_numeric(
+                    df["customer_health_score"],
+                    errors="coerce"
+                ).mean()
+            )
+            
+            top_rev_country = (
+                revenue_country.iloc[0]["country"]
+            )
+            
+            top_rev_country_value = (
+                revenue_country.iloc[0]["cltv"]
+            )
+            
+            total_portfolio_cltv = (
+                df["cltv"].sum()
             )
     
             prompt = f"""
@@ -1221,12 +1246,6 @@ if selected == "Customer Insights":
     col1, col2 = st.columns(2)
 
 
-        
-
-    
-
-    
-
     # =====================================
     # CUSTOMER PROFILE
     # =====================================
@@ -1449,17 +1468,17 @@ if selected == "Customer Insights":
     # ============================================
     
     
-        st.title("🤖 GCC Telecom AI Copilot")
+    st.title("🤖 GCC Telecom AI Copilot")
     
-        st.caption(
-            "AI-powered churn analysis, retention strategy and revenue protection assistant"
+    st.caption(
+         "AI-powered churn analysis, retention strategy and revenue protection assistant"
         )
     
-        st.markdown("---")
+    st.markdown("---")
     
-        st.subheader("Selected Customer")
+    st.subheader("Selected Customer")
     
-        st.json({
+    st.json({
             "Customer ID": customer["customer_id"],
             "Country": customer["country"],
             "Customer Type": customer["customer_type"],
@@ -1469,9 +1488,9 @@ if selected == "Customer Insights":
             "Churn Probability": f"{churn_probability:.1f}%"
         })
     
-        st.markdown("---")
+    st.markdown("---")
     
-        question = st.selectbox(
+    question = st.selectbox(
             "Ask AI Copilot",
             [
                 "Why is this customer high risk?",
@@ -1484,11 +1503,11 @@ if selected == "Customer Insights":
             ]
         )
     
-        if st.button("🚀 Generate AI Analysis"):
+    if st.button("🚀 Generate AI Analysis"):
     
-            try:
+        try:
     
-                prompt = f"""
+            prompt = f"""
     You are a Senior Telecom Retention Consultant.
     
     Analyze the customer and provide a business-focused response.
@@ -1530,18 +1549,18 @@ if selected == "Customer Insights":
     Keep the answer concise and suitable for telecom executives.
     """
     
-                with st.spinner(
-                    "🤖 AI Copilot is analyzing customer..."
+            with st.spinner(
+                "🤖 AI Copilot is analyzing customer..."
                 ):
     
-                    response = client.chat.completions.create(
-                        model="llama-3.3-70b-versatile",
-                        messages=[
-                            {
-                                "role": "system",
-                                "content":
-                                "You are an expert telecom churn and revenue retention consultant."
-                            },
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[
+                                    {
+                                        "role": "system",
+                                        "content":
+                                        "You are an expert telecom churn and revenue retention consultant."
+                                },
                             {
                                 "role": "user",
                                 "content": prompt
@@ -1551,21 +1570,21 @@ if selected == "Customer Insights":
                         max_tokens=1000
                     )
     
-                st.markdown("---")
+            st.markdown("---")
     
-                st.markdown(
+            st.markdown(
                     "## 🤖 AI Copilot Analysis"
                 )
     
-                st.markdown(
-                    response.choices[0].message.content
+            st.markdown(
+                response.choices[0].message.content
                 )
     
-            except Exception as e:
+        except Exception as e:
     
-                st.error(
-                    f"AI Service Error: {str(e)}"
-                )
+            st.error(
+                 f"AI Service Error: {str(e)}"
+             )
 
 
 
