@@ -513,8 +513,6 @@ if selected == "Home":
     # =================================================
     with tab_customer:
 
-        st.subheader("Customer Analytics")
-
         c1, c2 = st.columns(2)
 
         with c1:
@@ -603,8 +601,6 @@ if selected == "Home":
     # REVENUE ANALYTICS TAB
     # =================================================
     with tab_revenue:
-
-        st.subheader("Revenue Analytics")
 
         r1, r2 = st.columns(2)
 
