@@ -254,15 +254,13 @@ if selected == "Home":
         .fillna(0.10)
     ).sum()
     
-    potential_recovery = (
-        est_revenue_at_risk * 0.40
-    )
+   
     
     # -------------------------------------------------
     # KPI CARDS
     # -------------------------------------------------
     
-    c1, c2, c3, c4, c5, c6 = st.columns(6)
+    c1, c2, c3, c4, c5 = st.columns(6)
     
     with c1:
         st.metric(
@@ -282,19 +280,14 @@ if selected == "Home":
             f"${est_revenue_at_risk:,.0f}"
         )
     
-    with c4:
-        st.metric(
-            "Potential Recovery",
-            f"${potential_recovery:,.0f}"
-        )
     
-    with c5:
+    with c4:
         st.metric(
             "Average CLTV",
             f"${avg_cltv:,.0f}"
         )
     
-    with c6:
+    with c5:
         st.metric(
             "Health Score",
             f"{avg_health:.1f}"
