@@ -849,8 +849,7 @@ if selected == "Home":
     Use executive-level telecom business language.
     """
     
-    ```
-        with st.spinner(
+    with st.spinner(
             "🤖 AI Executive Advisor is analyzing portfolio..."
         ):
     
@@ -884,7 +883,8 @@ if selected == "Home":
         st.error(
             f"AI Service Error: {str(e)}"
         )
-    ```
+
+
 
     
     
