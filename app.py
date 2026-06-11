@@ -199,63 +199,117 @@ if selected == "Home":
     
     total_customers = len(df)
     
-    avg_cltv = df["cltv"].astype(float).mean()
+    avg_cltv = (
+        pd.to_numeric(
+            df["cltv"],
+            errors="coerce"
+        ).mean()
+    )
     
-    avg_health = df["customer_health_score"].astype(float).mean()
+    avg_health = (
+        pd.to_numeric(
+            df["customer_health_score"],
+            errors="coerce"
+        ).mean()
+    )
     
-    high_risk = (df["risk_segment"]=="High Risk").sum()
+    high_risk_count = (
+        df["risk_segment"] == "High Risk"
+    ).sum()
     
+    high_risk_pct = round(
+        (high_risk_count / total_customers) * 100,
+        1
+    )
+    
+    risk_weight_map = {
+        "High Risk": 0.60,
+        "Medium Risk": 0.30,
+        "Low Risk": 0.10
+    }
+    
+    est_revenue_at_risk = (
+        pd.to_numeric(
+            df["cltv"],
+            errors="coerce"
+        )
+        *
+        df["risk_segment"]
+        .map(risk_weight_map)
+        .fillna(0.10)
+    ).sum()
+    
+    potential_recovery = (
+        est_revenue_at_risk * 0.40
+    )
     
     # -------------------------------------------------
     # KPI CARDS
     # -------------------------------------------------
     
-    c1, c2, c3, c4 = st.columns(4)
+    c1, c2, c3, c4, c5, c6 = st.columns(6)
     
     with c1:
         st.metric(
-            "Total Customers",
+            "Customers",
             f"{total_customers:,}"
         )
     
     with c2:
         st.metric(
+            "High Risk %",
+            f"{high_risk_pct}%"
+        )
+    
+    with c3:
+        st.metric(
+            "Revenue At Risk",
+            f"${est_revenue_at_risk:,.0f}"
+        )
+    
+    with c4:
+        st.metric(
+            "Potential Recovery",
+            f"${potential_recovery:,.0f}"
+        )
+    
+    with c5:
+        st.metric(
             "Average CLTV",
             f"${avg_cltv:,.0f}"
         )
     
-    with c3:
+    with c6:
         st.metric(
             "Health Score",
             f"{avg_health:.1f}"
         )
     
-    with c4:
-        st.metric(
-            "High Risk Customers",
-            f"{high_risk:,}"
-        )
+    # -------------------------------------------------
+    # KPI STYLING
+    # -------------------------------------------------
     
-    st.markdown("""
-    <style>
+    st.markdown(
+        """
+        <style>
     
-    div[data-testid="metric-container"]{
-        background:white;
-        border-radius:18px;
-        padding:20px;
-        border:1px solid #E2E8F0;
-        box-shadow:0px 4px 12px rgba(0,0,0,0.06);
-    }
+        div[data-testid="metric-container"]{
+            background:white;
+            border-radius:18px;
+            padding:20px;
+            border:1px solid #E2E8F0;
+            box-shadow:0px 4px 12px rgba(0,0,0,0.06);
+        }
     
-    div[data-testid="metric-container"] label{
-        color:#64748B;
-    }
+        div[data-testid="metric-container"] label{
+            color:#64748B;
+            font-weight:600;
+        }
     
-    </style>
-    """,
-    unsafe_allow_html=True)
-
-
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
     # ============================================
     # EXECUTIVE DASHBOARD
