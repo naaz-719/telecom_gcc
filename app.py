@@ -698,16 +698,15 @@ if selected == "Home":
                 f"**{top_rev_country}** contributes the highest revenue exposure at **${top_rev_country_value:,.0f}**.\n\n"
                 "The strongest monetization opportunity is in customers with High Risk and low health scores."
             )
-
     st.markdown("---")
 
     st.subheader("🤖 Executive AI Advisor")
-    
+
     if st.button("🚀 Generate Executive Insights"):
-    
+
     ```
     try:
-    
+
         highest_risk_country = (
             country_risk_rate
             .sort_values(
@@ -849,7 +848,8 @@ if selected == "Home":
     Use executive-level telecom business language.
     """
     
-    with st.spinner(
+    ```
+        with st.spinner(
             "🤖 AI Executive Advisor is analyzing portfolio..."
         ):
     
@@ -883,6 +883,7 @@ if selected == "Home":
         st.error(
             f"AI Service Error: {str(e)}"
         )
+    ```
 
 
 
