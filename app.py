@@ -705,180 +705,180 @@ if selected == "Home":
     
     if st.button("🚀 Generate Executive Insights"):
     
-    try:
-    
-        highest_risk_country = (
-            country_risk_rate
-            .sort_values(
-                by="risk_rate",
-                ascending=False
+        try:
+        
+            highest_risk_country = (
+                country_risk_rate
+                .sort_values(
+                    by="risk_rate",
+                    ascending=False
+                )
+                .iloc[0]
             )
-            .iloc[0]
-        )
-    
-        highest_risk_type = (
-            type_risk_rate
-            .sort_values(
-                by="risk_rate",
-                ascending=False
+        
+            highest_risk_type = (
+                type_risk_rate
+                .sort_values(
+                    by="risk_rate",
+                    ascending=False
+                )
+                .iloc[0]
             )
-            .iloc[0]
-        )
-    
-        top_country_customer = (
-            df["country"]
-            .value_counts()
-            .index[0]
-        )
-    
-        top_type_customer = (
-            df["customer_type"]
-            .value_counts()
-            .index[0]
-        )
-    
-        avg_health = (
-            pd.to_numeric(
-                df["customer_health_score"],
-                errors="coerce"
+        
+            top_country_customer = (
+                df["country"]
+                .value_counts()
+                .index[0]
             )
-            .mean()
-        )
-    
-        top_rev_country = (
-            revenue_country
-            .iloc[0]["country"]
-        )
-    
-        top_rev_country_value = (
-            revenue_country
-            .iloc[0]["cltv"]
-        )
-    
-        total_portfolio_cltv = (
-            pd.to_numeric(
-                df["cltv"],
-                errors="coerce"
+        
+            top_type_customer = (
+                df["customer_type"]
+                .value_counts()
+                .index[0]
             )
-            .sum()
-        )
-    
-        prompt = f"""
-    
-    You are a Telecom Executive Strategy Consultant.
-    
-    Analyze the telecom customer portfolio and generate a business-focused executive report.
-    
-    PORTFOLIO OVERVIEW
-    
-    Total Customers:
-    {total_customers:,}
-    
-    High Risk Customers:
-    {high_risk_count:,}
-    
-    High Risk Percentage:
-    {high_risk_pct:.1f}%
-    
-    Average CLTV:
-    ${avg_cltv:,.0f}
-    
-    Average Health Score:
-    {avg_health:.1f}
-    
-    Estimated Revenue At Risk:
-    ${est_revenue_at_risk:,.0f}
-    
-    Total Portfolio CLTV:
-    ${total_portfolio_cltv:,.0f}
-    
-    RISK INTELLIGENCE
-    
-    Highest Risk Country:
-    {highest_risk_country['country']}
-    
-    Risk Rate:
-    {highest_risk_country['risk_rate']:.1f}%
-    
-    Highest Risk Customer Type:
-    {highest_risk_type['customer_type']}
-    
-    Risk Rate:
-    {highest_risk_type['risk_rate']:.1f}%
-    
-    CUSTOMER INTELLIGENCE
-    
-    Country With Highest Customer Concentration:
-    {top_country_customer}
-    
-    Largest Customer Segment:
-    {top_type_customer}
-    
-    REVENUE INTELLIGENCE
-    
-    Highest Revenue Country:
-    {top_rev_country}
-    
-    Revenue Contribution:
-    ${top_rev_country_value:,.0f}
-    
-    IMPORTANT:
-    
-    Do not assume a country is risky simply because it has more customers.
-    
-    Customer concentration and churn risk are different concepts.
-    
-    Focus on risk rates, revenue exposure, customer concentration, customer health, and business impact.
-    
-    Provide:
-    
-    Executive Summary
-    Risk Intelligence Summary
-    Customer Intelligence Summary
-    Revenue Intelligence Summary
-    Strategic Recommendations
-    Immediate Actions
-    
-    Use executive-level telecom business language.
-    """
-    
-        with st.spinner(
-            "🤖 AI Executive Advisor is analyzing portfolio..."
-        ):
-    
-            response = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=[
-                    {
-                        "role": "system",
-                        "content":
-                        "You are a telecom executive advisor specializing in churn prevention, customer analytics, portfolio intelligence and revenue protection."
-                    },
-                    {
-                        "role": "user",
-                        "content": prompt
-                    }
-                ],
-                temperature=0.2,
-                max_tokens=1400
+        
+            avg_health = (
+                pd.to_numeric(
+                    df["customer_health_score"],
+                    errors="coerce"
+                )
+                .mean()
+            )
+        
+            top_rev_country = (
+                revenue_country
+                .iloc[0]["country"]
+            )
+        
+            top_rev_country_value = (
+                revenue_country
+                .iloc[0]["cltv"]
+            )
+        
+            total_portfolio_cltv = (
+                pd.to_numeric(
+                    df["cltv"],
+                    errors="coerce"
+                )
+                .sum()
+            )
+        
+            prompt = f"""
+        
+        You are a Telecom Executive Strategy Consultant.
+        
+        Analyze the telecom customer portfolio and generate a business-focused executive report.
+        
+        PORTFOLIO OVERVIEW
+        
+        Total Customers:
+        {total_customers:,}
+        
+        High Risk Customers:
+        {high_risk_count:,}
+        
+        High Risk Percentage:
+        {high_risk_pct:.1f}%
+        
+        Average CLTV:
+        ${avg_cltv:,.0f}
+        
+        Average Health Score:
+        {avg_health:.1f}
+        
+        Estimated Revenue At Risk:
+        ${est_revenue_at_risk:,.0f}
+        
+        Total Portfolio CLTV:
+        ${total_portfolio_cltv:,.0f}
+        
+        RISK INTELLIGENCE
+        
+        Highest Risk Country:
+        {highest_risk_country['country']}
+        
+        Risk Rate:
+        {highest_risk_country['risk_rate']:.1f}%
+        
+        Highest Risk Customer Type:
+        {highest_risk_type['customer_type']}
+        
+        Risk Rate:
+        {highest_risk_type['risk_rate']:.1f}%
+        
+        CUSTOMER INTELLIGENCE
+        
+        Country With Highest Customer Concentration:
+        {top_country_customer}
+        
+        Largest Customer Segment:
+        {top_type_customer}
+        
+        REVENUE INTELLIGENCE
+        
+        Highest Revenue Country:
+        {top_rev_country}
+        
+        Revenue Contribution:
+        ${top_rev_country_value:,.0f}
+        
+        IMPORTANT:
+        
+        Do not assume a country is risky simply because it has more customers.
+        
+        Customer concentration and churn risk are different concepts.
+        
+        Focus on risk rates, revenue exposure, customer concentration, customer health, and business impact.
+        
+        Provide:
+        
+        Executive Summary
+        Risk Intelligence Summary
+        Customer Intelligence Summary
+        Revenue Intelligence Summary
+        Strategic Recommendations
+        Immediate Actions
+        
+        Use executive-level telecom business language.
+        """
+        
+            with st.spinner(
+                "🤖 AI Executive Advisor is analyzing portfolio..."
+            ):
+        
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[
+                        {
+                            "role": "system",
+                            "content":
+                            "You are a telecom executive advisor specializing in churn prevention, customer analytics, portfolio intelligence and revenue protection."
+                        },
+                        {
+                            "role": "user",
+                            "content": prompt
+                        }
+                    ],
+                    temperature=0.2,
+                    max_tokens=1400
+                )
+        
+            st.markdown(
+                "### 📊 Executive Intelligence Report"
+            )
+        
+            st.markdown(
+                response.choices[0].message.content
+            )
+        
+        except Exception as e:
+        
+            st.error(
+                f"AI Service Error: {str(e)}"
             )
     
-        st.markdown(
-            "### 📊 Executive Intelligence Report"
-        )
-    
-        st.markdown(
-            response.choices[0].message.content
-        )
-    
-    except Exception as e:
-    
-        st.error(
-            f"AI Service Error: {str(e)}"
-        )
-
-    
-    
+        
+        
 
 
 
