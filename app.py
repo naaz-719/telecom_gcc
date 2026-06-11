@@ -260,7 +260,7 @@ if selected == "Home":
     # KPI CARDS
     # -------------------------------------------------
     
-    c1, c2, c3, c4, c5 = st.columns(6)
+    c1, c2, c3, c4, c5 = st.columns(5)
     
     with c1:
         st.metric(
