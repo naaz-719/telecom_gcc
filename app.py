@@ -458,7 +458,7 @@ if selected == "Home":
 
     with col4:
     
-        st.subheader("🤖 AI Risk Intelligence")
+        st.subheader("Risk Summary")
     
         highest_risk_country = (
             country_risk_rate
@@ -2159,6 +2159,137 @@ if selected == "Revenue Protection":
         A focused retention campaign targeting High Risk customers could potentially recover approximately ${potential_revenue_saved:,.0f} in future revenue.
         """
     )
+
+    st.markdown("---")
+
+    st.subheader("🤖 Revenue Protection AI Advisor")
+    
+    if st.button("💰 Generate Revenue Intelligence"):
+    
+        try:
+    
+            total_revenue = (
+                df["cltv"]
+                .sum()
+            )
+    
+            high_risk_revenue = (
+                df.loc[
+                    df["risk_segment"] == "High Risk",
+                    "cltv"
+                ]
+                .sum()
+            )
+    
+            revenue_exposure_pct = (
+                high_risk_revenue /
+                total_revenue
+            ) * 100
+    
+            top_country = (
+                df.groupby("country")["cltv"]
+                .sum()
+                .sort_values(
+                    ascending=False
+                )
+                .index[0]
+            )
+    
+            top_segment = (
+                df.groupby("customer_type")["cltv"]
+                .sum()
+                .sort_values(
+                    ascending=False
+                )
+                .index[0]
+            )
+    
+            top_10_value = (
+                df[
+                    df["risk_segment"] == "High Risk"
+                ]
+                .sort_values(
+                    by="cltv",
+                    ascending=False
+                )
+                .head(10)["cltv"]
+                .sum()
+            )
+    
+            prompt = f"""
+    You are a Telecom Revenue Protection Consultant.
+    
+    Analyze the portfolio and provide revenue protection recommendations.
+    
+    PORTFOLIO OVERVIEW
+    
+    Total Portfolio Revenue:
+    ${total_revenue:,.0f}
+    
+    Revenue At Risk:
+    ${high_risk_revenue:,.0f}
+    
+    Revenue Exposure:
+    {revenue_exposure_pct:.1f}%
+    
+    Highest Revenue Country:
+    {top_country}
+    
+    Highest Revenue Customer Type:
+    {top_segment}
+    
+    Top 10 High Risk Customers Revenue:
+    ${top_10_value:,.0f}
+    
+    Provide:
+    
+    1. Revenue Exposure Summary
+    
+    2. Revenue Risk Assessment
+    
+    3. Revenue Recovery Opportunities
+    
+    4. Revenue Protection Strategy
+    
+    5. Immediate Business Actions
+    
+    Use executive-level business language.
+    """
+    
+            with st.spinner(
+                "🤖 AI Revenue Advisor is analyzing portfolio..."
+            ):
+    
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[
+                        {
+                            "role": "system",
+                            "content":
+                            "You are a telecom revenue protection specialist."
+                        },
+                        {
+                            "role": "user",
+                            "content": prompt
+                        }
+                    ],
+                    temperature=0.2,
+                    max_tokens=1200
+                )
+    
+            st.markdown(
+                "### 💰 Revenue Intelligence Report"
+            )
+    
+            st.markdown(
+                response.choices[0].message.content
+            )
+    
+        except Exception as e:
+    
+            st.error(
+                f"AI Service Error: {str(e)}"
+            )
 
 
 
